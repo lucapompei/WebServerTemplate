@@ -1,0 +1,7 @@
+/target/
+.classpath
+.settings/org.eclipse.wst.common.project.facet.core.xml
+/bin/
+.settings/
+.project
+.DS_Store
