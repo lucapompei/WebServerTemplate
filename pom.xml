@@ -10,7 +10,7 @@
 	<url>http://maven.apache.org</url>
 
 	<build>
-		<finalName>template</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -21,6 +21,24 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<!-- include version.properties -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>version.properties</include>
+				</includes>
+			</resource>
+			<!-- exclude everything else from filtering -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>version.properties</exclude>
+				</excludes>
+			</resource>
+		</resources>
 	</build>
 
 	<properties>
@@ -29,13 +47,18 @@
 		<spring.version>4.2.4.RELEASE</spring.version>
 		<reactiverest.version>1.6</reactiverest.version>
 		<commons.version>1.4</commons.version>
-		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+		<junit.version>4.12</junit.version>
+		<javax_servlet_api.version>3.1.0</javax_servlet_api.version>
+		<javax_servlet_jstl.version>1.2</javax_servlet_jstl.version>
+		<javax_servlet_jsp_api.version>6.0.32</javax_servlet_jsp_api.version>
+		<guava.version>22.0</guava.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	
+
 	<repositories>
 		<repository>
-		    <id>jcenter</id>
-		    <url>http://dl.bintray.com/lucapompei/maven</url>
+			<id>jcenter</id>
+			<url>http://dl.bintray.com/lucapompei/maven</url>
 		</repository>
 	</repositories>
 
@@ -75,25 +98,25 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- HttpServlet dependencies -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
+			<version>${javax_servlet_api.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+			<version>${javax_servlet_jstl.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>jsp-api</artifactId>
-			<version>6.0.32</version>
+			<version>${javax_servlet_jsp_api.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- Apache dependencies -->
@@ -133,12 +156,6 @@
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.9.1</version>
 		</dependency>
-		<!-- JCraft dependencies -->
-		<dependency>
-			<groupId>com.jcraft</groupId>
-			<artifactId>jsch</artifactId>
-			<version>0.1.50</version>
-		</dependency>
 		<!-- Jackson dependencies -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -155,7 +172,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava-gwt</artifactId>
-			<version>18.0</version>
+			<version>${guava.version}</version>
 		</dependency>
 		<!-- Java EL dependencies -->
 		<dependency>

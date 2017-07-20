@@ -35,8 +35,6 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ResponseEntity<String> getLogin(HttpServletRequest request) {
 		LOGGER.debug("Requesting for login");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
 		return RestUtils.getResponseEntity("TODO");
 	}
 	
