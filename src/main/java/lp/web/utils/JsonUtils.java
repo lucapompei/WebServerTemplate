@@ -6,11 +6,12 @@ import org.apache.logging.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import retrofit2.converter.jackson.JacksonConverterFactory;
+
 /**
  * This class exposes utils to handle json string
- * 
+ *
  * @author lucapompei
- * 
  */
 public class JsonUtils {
 
@@ -22,31 +23,49 @@ public class JsonUtils {
 	/**
 	 * Jackson instance
 	 */
-	private static ObjectMapper INSTANCE;
+	private static ObjectMapper instance;
 
 	/**
-	 * Static method used to inizialize and retrive the {@code ObjectMapper}
+	 * Private constructor for an utility class, construct a new {@code JsonUtils}
+	 */
+	private JsonUtils() {
+		// Empty implementation
+	}
+
+	/**
+	 * Static method used to inizialize and retrieve the {@link ObjectMapper}
 	 * instance
-	 * 
-	 * @return a valid {@code ObjectMapper} instance
+	 *
+	 * @return a valid {@link ObjectMapper} instance
 	 */
 	private static ObjectMapper getInstance() {
-		if (INSTANCE != null) {
-			return INSTANCE;
+		if (instance != null) {
+			return instance;
 		} else {
-			INSTANCE = new ObjectMapper();
-			INSTANCE.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-			return INSTANCE;
+			// lazy initialization
+			instance = new ObjectMapper();
+			instance.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+			return instance;
 		}
 	}
 
 	/**
-	 * Convert the given {@link object} to a json string
-	 * 
+	 * Create a Jackson converter instance using an instance of {@link ObjectMapper}
+	 * for json conversion
+	 *
+	 * @return an instance of {@link JacksonConverterFactory}
+	 */
+	public static JacksonConverterFactory getConverterInstance() {
+		return JacksonConverterFactory.create(getInstance());
+	}
+
+	/**
+	 * Convert the given object to a json string
+	 *
 	 * @param object,
 	 *            the object to be converted into a json string
-	 * @return a json string representation of the given {@link object} or
-	 *         {@code null} if some exception occurs during conversion
+	 * @return a json string representation of the given object or {@code null} if
+	 *         some exception occurs during conversion
 	 */
 	public static String toJson(Object object) {
 		try {
@@ -58,8 +77,10 @@ public class JsonUtils {
 	}
 
 	/**
-	 * Convert the given {@link json} string to its represented object
-	 * 
+	 * Convert the given json string to its represented object
+	 *
+	 * @param <T>,
+	 *            generic type
 	 * @param json,
 	 *            the json string from which re-create the represented object
 	 * @param cls,
