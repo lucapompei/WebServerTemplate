@@ -3,7 +3,8 @@ package lp.web.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class exposes utils to handle date operation
@@ -16,7 +17,7 @@ public class DateUtils {
 	/**
 	 * Logger
 	 */
-	private static final Logger LOGGER = Logger.getLogger(DateUtils.class);
+	private static final Logger LOGGER = LogManager.getFormatterLogger(DateUtils.class);
 
 	/**
 	 * Date formatter
