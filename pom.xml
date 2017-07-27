@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>lp.web</groupId>
-	<artifactId>template</artifactId>
+	<artifactId>WebTemplate</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-	<name>{project.artifactId}</name>
+	<name>${project.artifactId}</name>
 	<url>http://maven.apache.org</url>
 
 	<build>
@@ -53,7 +53,7 @@
 		<javax_servlet_jsp_api.version>6.0.32</javax_servlet_jsp_api.version>
 		<guava.version>22.0</guava.version>
 		<log4j.version>2.8.2</log4j.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<repositories>
@@ -164,11 +164,11 @@
 			<version>${jackson.version}</version>
 		</dependency>
 		<!-- Log4j dependencies -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
 		<!-- Guava dependencies -->
 		<dependency>
 			<groupId>com.google.guava</groupId>

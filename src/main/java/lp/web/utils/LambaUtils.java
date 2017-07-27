@@ -1,5 +1,6 @@
 package lp.web.utils;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,13 @@ public class LambaUtils {
 	 * Logger
 	 */
 	private static final Logger LOGGER = LogManager.getFormatterLogger(LambaUtils.class);
+
+	/**
+	 * Private constructor for a new {@code LambaUtils}
+	 */
+	private LambaUtils() {
+		// Empty implementation
+	}
 
 	/**
 	 * This method sort the given {@link map}
@@ -53,7 +61,7 @@ public class LambaUtils {
 	public static <T> List<T> filterObjects(List<T> objects, Predicate<? super T> predicate) {
 		if (objects == null) {
 			LOGGER.debug("The list of objects is null");
-			return null;
+			return new ArrayList<>();
 		}
 		return objects.parallelStream().filter(predicate).collect(Collectors.toList());
 	}

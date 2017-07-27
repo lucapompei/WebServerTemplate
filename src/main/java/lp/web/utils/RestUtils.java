@@ -25,6 +25,13 @@ public class RestUtils {
 	private static HttpHeaders cachedHeaders;
 
 	/**
+	 * Private constructor for a new {@code RestUtils}
+	 */
+	private RestUtils() {
+		// Empty implementation
+	}
+
+	/**
 	 * Get a generic http headers
 	 * 
 	 * @return a generic http headers
@@ -42,8 +49,7 @@ public class RestUtils {
 	}
 
 	/**
-	 * Get a response entity with the given {@link httpStatus} using
-	 * {@link object}
+	 * Get a response entity with the given {@link httpStatus} using {@link object}
 	 * 
 	 * @param object,
 	 *            an optional param to indicate the entity to return
@@ -53,7 +59,7 @@ public class RestUtils {
 	 *         {@link object}
 	 */
 	public static ResponseEntity<String> getResponseEntity(Object object, HttpStatus httpStatus) {
-		return new ResponseEntity<String>(object == null ? null : JsonUtils.toJson(object), getHeaders(), httpStatus);
+		return new ResponseEntity<>(object == null ? null : JsonUtils.toJson(object), getHeaders(), httpStatus);
 	}
 
 	/**
