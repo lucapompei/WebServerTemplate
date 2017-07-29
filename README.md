@@ -1,4 +1,7 @@
 # Web Template v.1.2
+
+[![Build Status](https://travis-ci.org/lucapompei/WebTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebTemplate)
+
 =============================
 
 This maven project represents a generic web template based on Spring Framework.
