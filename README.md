@@ -1,7 +1,17 @@
 # Web Template
 =============================
 
-This project represents a genetic web template based on Spring Framework.
+This maven project represents a generic web template based on Spring Framework.
+
+
+Summary features
+-------
+
+- Maven project;
+- Based on Spring Framework;
+- Spring MVC configuration;
+- Spring Security configuration.
+
 
 License
 -------
@@ -19,5 +29,3 @@ License
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-
- [binary]: https://dl.bintray.com/lucapompei/maven/lp/reactive/ReactiveRest/

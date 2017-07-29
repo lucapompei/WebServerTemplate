@@ -43,10 +43,10 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<jackson.version>2.8.7</jackson.version>
+		<jackson.version>2.8.9</jackson.version>
 		<spring.version>4.2.4.RELEASE</spring.version>
-		<reactiverest.version>1.8</reactiverest.version>
-		<commons.version>1.4</commons.version>
+		<spring_security.version>4.2.3.RELEASE</spring_security.version>
+		<reactiverest.version>1.9</reactiverest.version>
 		<junit.version>4.12</junit.version>
 		<javax_servlet_api.version>3.1.0</javax_servlet_api.version>
 		<javax_servlet_jstl.version>1.2</javax_servlet_jstl.version>
@@ -67,6 +67,11 @@
 		<!-- Spring dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
@@ -81,19 +86,14 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>xml-apis</groupId>
-					<artifactId>xml-apis</artifactId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring_security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring_security.version}</version>
 		</dependency>
 		<!-- JUnit dependencies -->
 		<dependency>
@@ -120,43 +120,6 @@
 			<version>${javax_servlet_jsp_api.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- Apache dependencies -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-vfs2</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.axis</groupId>
-			<artifactId>axis</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<!-- Commons dependencies -->
-		<dependency>
-			<groupId>commons-net</groupId>
-			<artifactId>commons-net</artifactId>
-			<version>3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.10</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-discovery</groupId>
-			<artifactId>commons-discovery</artifactId>
-			<version>0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.9.1</version>
-		</dependency>
 		<!-- Jackson dependencies -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -174,13 +137,6 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava-gwt</artifactId>
 			<version>${guava.version}</version>
-		</dependency>
-		<!-- Java EL dependencies -->
-		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>el-api</artifactId>
-			<version>2.2</version>
-			<scope>provided</scope>
 		</dependency>
 		<!-- Reactive Rest dependencies -->
 		<dependency>

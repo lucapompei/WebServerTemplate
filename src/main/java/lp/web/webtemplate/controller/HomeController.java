@@ -1,4 +1,4 @@
-package lp.web.template.controller;
+package lp.web.webtemplate.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
