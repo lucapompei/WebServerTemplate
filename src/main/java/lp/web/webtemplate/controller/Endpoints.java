@@ -1,5 +1,7 @@
 package lp.web.webtemplate.controller;
 
+import lp.web.webtemplate.controller.api.InfoAPI;
+
 /**
  * This class contains the list of endpoints used by the application
  * 
@@ -25,5 +27,12 @@ public class Endpoints {
 	 */
 	public static final String IS_ALIVE = "/isAlive";
 	public static final String ABOUT = "/about";
+
+	/**
+	 * Private constructor for {@code Endpoints}
+	 */
+	private Endpoints() {
+		// Empty implementation
+	}
 
 }
