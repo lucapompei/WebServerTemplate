@@ -21,7 +21,7 @@
 	<mvc:annotation-driven />
 	<context:component-scan base-package="lp.web" />
 	<context:property-placeholder
-		location="classpath:environment.properties, classpath:log4j2.properties" />
+		location="classpath:application.properties, classpath:environment.properties, classpath:log4j2.properties" />
 
 	<!-- RestTemplate configuration -->
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />

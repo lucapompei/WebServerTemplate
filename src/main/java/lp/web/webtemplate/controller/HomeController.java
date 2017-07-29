@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @RestController
-@RequestMapping("/")
 public class HomeController {
 
 	/**
@@ -24,10 +23,30 @@ public class HomeController {
 	 */
 	private static final Logger LOGGER = LogManager.getFormatterLogger(HomeController.class);
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	/**
+	 * Endpoint for HomePage
+	 * 
+	 * @param request,
+	 *            the http servlet request
+	 * @return the home page
+	 */
+	@RequestMapping(value = Endpoints.HOME, method = RequestMethod.GET)
 	public ModelAndView getHome(HttpServletRequest request) {
 		LOGGER.debug("Requesting for homepage");
 		return new ModelAndView("index");
+	}
+
+	/**
+	 * Endpoint for LoginPage
+	 * 
+	 * @param request,
+	 *            the http servlet request
+	 * @return the login page
+	 */
+	@RequestMapping(value = Endpoints.LOGIN, method = RequestMethod.GET)
+	public ModelAndView getLogin(HttpServletRequest request) {
+		LOGGER.debug("Requesting for login page");
+		return new ModelAndView("login");
 	}
 
 }

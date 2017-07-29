@@ -1,4 +1,4 @@
-# Web Template
+# Web Template v.1.2
 =============================
 
 This maven project represents a generic web template based on Spring Framework.
@@ -7,10 +7,10 @@ This maven project represents a generic web template based on Spring Framework.
 Summary features
 -------
 
-- Maven project;
-- Based on Spring Framework;
+- Maven project based on Spring Framework;
 - Spring MVC configuration;
-- Spring Security configuration.
+- Spring Security configuration;
+- Fully customizable through the environment properties.
 
 
 License
