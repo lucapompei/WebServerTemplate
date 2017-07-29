@@ -13,6 +13,12 @@ Summary features
 - Fully customizable through the environment properties.
 
 
+Usage
+-------
+
+Clone or download the maven project and start the customization.
+
+
 License
 -------
 
