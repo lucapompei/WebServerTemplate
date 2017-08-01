@@ -1,9 +1,6 @@
 package lp.web.utils;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -31,7 +28,7 @@ public class LambaUtils {
 	}
 
 	/**
-	 * This method sort the given {@link map}
+	 * This method sort the given map
 	 * 
 	 * @param map,
 	 *            the map to sort
@@ -40,7 +37,7 @@ public class LambaUtils {
 	public static Map<String, Long> sortMap(Map<String, Long> map) {
 		if (map == null) {
 			LOGGER.debug("The map to sort is null");
-			return map;
+			return new HashMap<>();
 		}
 		// prepare the sorted map
 		Map<String, Long> sortedMap = new LinkedHashMap<>();
@@ -50,7 +47,7 @@ public class LambaUtils {
 	}
 
 	/**
-	 * Filter a list of generic object using the given {@link predicate}
+	 * Filter a list of generic object using the given predicate
 	 * 
 	 * @param objects,
 	 *            the list of objects to filter

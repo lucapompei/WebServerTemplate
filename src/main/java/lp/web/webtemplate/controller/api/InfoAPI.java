@@ -2,8 +2,6 @@ package lp.web.webtemplate.controller.api;
 
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +45,7 @@ public class InfoAPI {
 	 */
 	@RequestMapping(value = Endpoints.ABOUT, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.OK)
-	public ResponseEntity<String> getAbout(HttpServletRequest request) {
+	public ResponseEntity<String> getAbout() {
 		LOGGER.info("Requesting for " + Endpoints.ABOUT);
 		Date beginTime = new Date();
 		String response = infoService.getAppInfo();
@@ -64,14 +62,13 @@ public class InfoAPI {
 	 */
 	@RequestMapping(value = Endpoints.IS_ALIVE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.OK)
-	public ResponseEntity<String> isAlive(HttpServletRequest request) {
+	public ResponseEntity<String> isAlive() {
 		LOGGER.info("Requesting for " + Endpoints.IS_ALIVE);
 		Date beginTime = new Date();
-		boolean response = true;
 		Date endTime = new Date();
-		LOGGER.info("Returned response for " + Endpoints.IS_ALIVE + " request in "
+		LOGGER.info("Returned true response for " + Endpoints.IS_ALIVE + " request in "
 				+ String.format("%s ms", endTime.getTime() - beginTime.getTime()));
-		return RestUtils.getResponseEntity(response);
+		return RestUtils.getResponseEntity(true);
 	}
 
 }

@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private boolean securityEnabled;
 
 	/**
-	 * This variable allows to enable/disable the security controls to apis endpoint
+	 * This variable allows to enable/disable the security controls to api endpoints
 	 */
 	@Value("${security_api_enabled:false}")
 	private boolean securityApiEnabled;
