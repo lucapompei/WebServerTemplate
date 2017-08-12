@@ -1,4 +1,4 @@
-# Web Template v.1.2
+# Web Template v.1.2.1
 
 [![Build Status](https://travis-ci.org/lucapompei/WebTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
