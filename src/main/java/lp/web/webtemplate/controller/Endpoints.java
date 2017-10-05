@@ -18,6 +18,11 @@ public class Endpoints {
 	public static final String LOGOUT = "/logout";
 
 	/**
+	 * Endpoints handled by {@link ExampleController}
+	 */
+	public static final String LINK_A = "/linkA";
+
+	/**
 	 * Basepath for APIs endpoint
 	 */
 	public static final String API_BASE = "/api";
