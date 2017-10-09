@@ -1,16 +1,16 @@
-# Web Template v.1.3
+# Web Template v.1.4
 
 [![Build Status](https://travis-ci.org/lucapompei/WebTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 =============================
 
-This maven project represents a generic web template based on Spring Framework.
+This maven project represents a generic web template based on Spring 5 Framework.
 
 
 Summary features
 -------
 
-- Maven project based on Spring Framework;
+- Maven project based on Spring 5 Framework;
 - Spring MVC configuration;
 - Spring Security configuration;
 - Fully customizable through the environment properties.
