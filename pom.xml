@@ -14,7 +14,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.2</version>
+				<version>3.7.0</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -43,7 +43,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<jackson.version>2.9.1</jackson.version>
+		<jackson.version>2.9.2</jackson.version>
 		<spring.version>5.0.0.RELEASE</spring.version>
 		<spring_security.version>4.2.3.RELEASE</spring_security.version>
 		<reactiverest.version>1.11</reactiverest.version>

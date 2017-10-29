@@ -56,15 +56,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		if (this.securityEnabled) {
+			// disable CSRF
 			http.csrf().disable();
 			if (!this.securityApiEnabled) {
+				// permit all api endpoints
 				http.authorizeRequests().antMatchers(Endpoints.API_BASE + "/**").permitAll();
 			}
+			// permit login and logout, require authentication for each other endpoint
 			http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage(Endpoints.LOGIN)
 					.permitAll().and().logout().logoutUrl(Endpoints.LOGOUT).logoutSuccessUrl(Endpoints.LOGIN)
 					.permitAll();
 		} else {
+			// permit all
 			http.authorizeRequests().anyRequest().permitAll();
 		}
 	}
+
 }
