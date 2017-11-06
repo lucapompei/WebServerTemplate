@@ -1,11 +1,14 @@
 package lp.web.utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 
 /**
  * This class exposes utils to handle Lambda expressions
@@ -18,7 +21,7 @@ public class LambaUtils {
 	/**
 	 * Logger
 	 */
-	private static final Logger LOGGER = LogManager.getFormatterLogger(LambaUtils.class);
+	private static final Logger LOGGER = Logger.getLogger(LambaUtils.class);
 
 	/**
 	 * Private constructor for a new {@code LambaUtils}
