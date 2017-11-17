@@ -13,6 +13,7 @@ Summary features
 - Maven project based on Spring 5 Framework;
 - Spring MVC configuration;
 - Spring Security configuration;
+- Spring JDBC + H2 embedded configuration;
 - Fully customizable through the environment properties.
 
 
