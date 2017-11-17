@@ -5,7 +5,7 @@
 	<groupId>lp.web</groupId>
 	<artifactId>WebTemplate</artifactId>
 	<packaging>war</packaging>
-	<version>1.4</version>
+	<version>1.5</version>
 	<name>${project.artifactId}</name>
 	<url>http://maven.apache.org</url>
 
@@ -52,7 +52,7 @@
 		<javax_servlet_jstl.version>1.2</javax_servlet_jstl.version>
 		<tomcat_jsp_api.version>9.0.1</tomcat_jsp_api.version>
 		<guava.version>23.0</guava.version>
-		<log4j.version>2.9.1</log4j.version>
+		<log4j.version>1.2.17</log4j.version>
 		<h2.version>1.4.196</h2.version>
 		<buildNumber>${maven.build.timestamp}</buildNumber>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -141,8 +141,8 @@
 		</dependency>
 		<!-- Log4j dependencies -->
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
 		<!-- Guava dependencies -->

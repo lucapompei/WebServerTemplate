@@ -1,7 +1,6 @@
 package lp.web.utils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -18,7 +17,7 @@ public class JsonUtils {
 	/**
 	 * Logger
 	 */
-	private static final Logger LOGGER = LogManager.getFormatterLogger(JsonUtils.class);
+	private static final Logger LOGGER = Logger.getLogger(JsonUtils.class);
 
 	/**
 	 * Jackson instance

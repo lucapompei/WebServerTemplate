@@ -1,4 +1,4 @@
-package lp.web.webtemplate.config.security;
+package lp.web.webtemplate.config;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;

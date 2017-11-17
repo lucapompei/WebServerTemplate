@@ -1,4 +1,4 @@
-package lp.web.webtemplate.config.security;
+package lp.web.webtemplate.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -2,8 +2,7 @@ package lp.web.webtemplate.controller;
 
 import java.awt.image.SampleModel;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +28,7 @@ public class ExampleController {
 	/**
 	 * Logger
 	 */
-	private static final Logger LOGGER = LogManager.getFormatterLogger(ExampleController.class);
+	private static final Logger LOGGER = Logger.getLogger(ExampleController.class);
 
 	/**
 	 * Endpoint for link A
