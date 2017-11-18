@@ -33,10 +33,10 @@ public class TestDataSource {
 	@Test
 	public void testFindByUsername() {
 		String username = "user";
-		String sql = "SELECT username, email FROM users WHERE username = ?";
+		String sql = "SELECT id, username, enabled FROM users WHERE username = ?";
 		Object[] args = { username };
 		User result = jdbcTemplate.queryForObject(sql, args, new BeanPropertyRowMapper<>(User.class));
-		System.out.println("Query result: " + JsonUtils.toJson(result));
+		System.out.println("Query result: " + JsonUtils.toJson(result.toString()));
 	}
 
 }

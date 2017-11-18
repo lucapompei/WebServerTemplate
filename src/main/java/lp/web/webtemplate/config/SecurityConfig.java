@@ -1,5 +1,7 @@
 package lp.web.webtemplate.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Value("${security_api_enabled:false}")
 	private boolean securityApiEnabled;
 
+	@Autowired
+	private DataSource dataSource;
+
 	/**
 	 * It configures the authentication manager used to authenticate the http
 	 * requests
@@ -46,7 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
+		auth.jdbcAuthentication().dataSource(dataSource)
+				.usersByUsernameQuery("select username, password, enabled from users where username=?")
+				.authoritiesByUsernameQuery(
+						"select r.id_user, r.role from user_roles r join users u on r.id_user=u.id where u.username=?");
 	}
 
 	/**

@@ -9,20 +9,44 @@ package lp.web.webtemplate.model;
 public class User {
 
 	/**
+	 * The id
+	 */
+	private int id;
+
+	/**
 	 * The username
 	 */
 	private String username;
 
 	/**
-	 * The email
+	 * The enabled status
 	 */
-	private String email;
+	private boolean enabled;
 
 	/**
 	 * Construct a new {@link User}
 	 */
 	public User() {
 		// Empty implementation
+	}
+
+	/**
+	 * Getter method for retrieve the id
+	 *
+	 * @return the id
+	 */
+	public int getId() {
+		return this.id;
+	}
+
+	/**
+	 * Setter method for the id
+	 *
+	 * @param id,
+	 *            the id
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**
@@ -45,22 +69,22 @@ public class User {
 	}
 
 	/**
-	 * Getter method for retrieve the email
+	 * Getter method for retrieve the enabled status
 	 *
-	 * @return the email
+	 * @return the enabled status
 	 */
-	public String getEmail() {
-		return this.email;
+	public boolean isEnabled() {
+		return this.enabled;
 	}
 
 	/**
-	 * Setter method for the email
+	 * Setter method for the enabled status
 	 *
 	 * @param email,
-	 *            the email
+	 *            the enabled status
 	 */
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 }
