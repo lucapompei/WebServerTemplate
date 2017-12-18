@@ -32,6 +32,7 @@ public class TestDataSource {
 	 */
 	@Test
 	public void testFindByUsername() {
+		System.out.println("Starting test for datasource");
 		String username = "user";
 		String sql = "SELECT id, username, enabled FROM users WHERE username = ?";
 		Object[] args = { username };

@@ -5,7 +5,7 @@
 	<groupId>lp.web</groupId>
 	<artifactId>WebTemplate</artifactId>
 	<packaging>war</packaging>
-	<version>1.6</version>
+	<version>1.7</version>
 	<name>${project.artifactId}</name>
 	<url>http://maven.apache.org</url>
 
@@ -54,6 +54,7 @@
 		<guava.version>23.0</guava.version>
 		<log4j.version>1.2.17</log4j.version>
 		<h2.version>1.4.196</h2.version>
+		<sentry.version>1.6.3</sentry.version>
 		<buildNumber>${maven.build.timestamp}</buildNumber>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -162,6 +163,12 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>${h2.version}</version>
+		</dependency>
+		<!-- Sentry dependencies -->
+		<dependency>
+			<groupId>io.sentry</groupId>
+			<artifactId>sentry-spring</artifactId>
+			<version>${sentry.version}</version>
 		</dependency>
 	</dependencies>
 

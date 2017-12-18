@@ -14,6 +14,7 @@ Summary features
 - Spring MVC configuration;
 - Spring Security configuration;
 - Spring JDBC + H2 embedded configuration;
+- Sentry configuration for crashes/errors reporting;
 - Fully customizable through the environment properties.
 
 
