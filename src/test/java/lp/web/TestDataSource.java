@@ -1,5 +1,6 @@
 package lp.web;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,10 @@ public class TestDataSource {
 		String username = "user";
 		String sql = "SELECT id, username, enabled FROM users WHERE username = ?";
 		Object[] args = { username };
-		User result = jdbcTemplate.queryForObject(sql, args, new BeanPropertyRowMapper<>(User.class));
-		System.out.println("Query result: " + JsonUtils.toJson(result.toString()));
+		User user = jdbcTemplate.queryForObject(sql, args, new BeanPropertyRowMapper<>(User.class));
+		System.out.println("Query result: " + JsonUtils.toJson(user));
+		Assert.assertNotNull(user);
+		System.out.println("Test for datasource is completed");
 	}
 
 }
