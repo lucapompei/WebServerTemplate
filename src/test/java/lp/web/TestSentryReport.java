@@ -2,10 +2,11 @@ package lp.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import io.sentry.Sentry;
+import lp.web.webtemplate.service.SentryService;
 
 /**
  * This class is used to test sentry
@@ -16,6 +17,12 @@ import io.sentry.Sentry;
 @ContextConfiguration(locations = { "classpath:META-INF/spring/applicationContext.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TestSentryReport {
+
+	/**
+	 * The Sentry service
+	 */
+	@Autowired
+	private SentryService sentryService;
 
 	/**
 	 * A simple method used to force errors and report them to Sentry
@@ -36,7 +43,7 @@ public class TestSentryReport {
 		} catch (RuntimeException ex) {
 			System.out.println("New error: " + ex.getMessage());
 			// capture exception through Sentry
-			Sentry.capture(ex);
+			sentryService.capture(ex);
 		}
 	}
 
