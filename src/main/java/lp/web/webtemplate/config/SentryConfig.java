@@ -30,7 +30,7 @@ public class SentryConfig {
 	/**
 	 * A boolean indicating if Sentry is enabled or not
 	 */
-	@Value("${sentry_enabled}")
+	@Value("${sentry_enabled:false}")
 	private boolean isSentryEnabled;
 
 	/**
@@ -54,7 +54,7 @@ public class SentryConfig {
 
 	@PostConstruct
 	private void initClient() {
-		if (this.isSentryEnabled) {
+		if (isSentryEnabled) {
 			LOGGER.info("Enabling Sentry for errors/crashes reporting");
 			// initialize sentry
 			Sentry.init();
@@ -75,7 +75,12 @@ public class SentryConfig {
 	 */
 	@Bean
 	public HandlerExceptionResolver sentryExceptionResolver() {
-		return new io.sentry.spring.SentryExceptionResolver();
+		if (this.isSentryEnabled) {
+			return new io.sentry.spring.SentryExceptionResolver();
+		} else {
+			// allow definitions of other handler
+			return null;
+		}
 	}
 
 }
