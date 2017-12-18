@@ -44,8 +44,8 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<jackson.version>2.9.3</jackson.version>
-		<spring.version>5.0.1.RELEASE</spring.version>
-		<spring_security.version>4.2.3.RELEASE</spring_security.version>
+		<spring.version>5.0.2.RELEASE</spring.version>
+		<spring_security.version>5.0.0.RELEASE</spring_security.version>
 		<reactiverest.version>1.12</reactiverest.version>
 		<junit.version>4.12</junit.version>
 		<javax_servlet_api.version>4.0.0</javax_servlet_api.version>

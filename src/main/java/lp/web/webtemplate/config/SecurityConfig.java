@@ -4,12 +4,15 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lp.web.webtemplate.controller.Endpoints;
 
@@ -55,6 +58,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usersByUsernameQuery("select username, password, enabled from users where username=?")
 				.authoritiesByUsernameQuery(
 						"select r.id_user, r.role from user_roles r join users u on r.id_user=u.id where u.username=?");
+	}
+
+	/**
+	 * Configure the password encoder
+	 * 
+	 * @return the configured password encoder
+	 */
+	@Bean
+	public static PasswordEncoder configurePasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	/**
