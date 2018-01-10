@@ -5,7 +5,7 @@
 	<groupId>lp.web</groupId>
 	<artifactId>WebTemplate</artifactId>
 	<packaging>war</packaging>
-	<version>1.7</version>
+	<version>1.8</version>
 	<name>${project.artifactId}</name>
 	<url>http://maven.apache.org</url>
 
