@@ -43,7 +43,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<jackson.version>2.9.4</jackson.version>
+		<jackson.version>2.9.5</jackson.version>
 		<spring.version>5.0.4.RELEASE</spring.version>
 		<spring_security.version>5.0.3.RELEASE</spring_security.version>
 		<reactiverest.version>1.14</reactiverest.version>
