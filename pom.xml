@@ -5,7 +5,7 @@
 	<groupId>lp.web</groupId>
 	<artifactId>WebTemplate</artifactId>
 	<packaging>war</packaging>
-	<version>1.9</version>
+	<version>1.10</version>
 	<name>${project.artifactId}</name>
 	<url>http://maven.apache.org</url>
 
@@ -43,18 +43,18 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<jackson.version>2.9.4</jackson.version>
-		<spring.version>5.0.4.RELEASE</spring.version>
-		<spring_security.version>5.0.3.RELEASE</spring_security.version>
+		<jackson.version>2.9.5</jackson.version>
+		<spring.version>5.0.5.RELEASE</spring.version>
+		<spring_security.version>5.0.4.RELEASE</spring_security.version>
 		<reactiverest.version>1.14</reactiverest.version>
 		<junit.version>4.12</junit.version>
 		<javax_servlet_api.version>4.0.0</javax_servlet_api.version>
 		<javax_servlet_jstl.version>1.2</javax_servlet_jstl.version>
-		<tomcat_jsp_api.version>9.0.6</tomcat_jsp_api.version>
-		<guava.version>23.0</guava.version>
+		<tomcat_jsp_api.version>9.0.7</tomcat_jsp_api.version>
+		<guava.version>24.1-jre</guava.version>
 		<log4j.version>1.2.17</log4j.version>
 		<h2.version>1.4.197</h2.version>
-		<sentry.version>1.7.2</sentry.version>
+		<sentry.version>1.7.3</sentry.version>
 		<buildNumber>${maven.build.timestamp}</buildNumber>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
