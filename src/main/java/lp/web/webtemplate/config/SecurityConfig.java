@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -93,9 +94,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 				http.authorizeRequests().antMatchers(Endpoints.API_BASE + "/**").permitAll();
 			}
 			// permit login and logout, require authentication for each other endpoint
-			http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage(Endpoints.LOGIN)
-					.permitAll().and().logout().logoutUrl(Endpoints.LOGOUT).logoutSuccessUrl(Endpoints.LOGIN)
-					.permitAll();
+			http.authorizeRequests().anyRequest().authenticated().and().httpBasic().and().httpBasic().and().formLogin()
+					.loginPage(Endpoints.LOGIN).permitAll().and().logout().logoutUrl(Endpoints.LOGOUT)
+					.logoutSuccessUrl(Endpoints.LOGIN).permitAll();
 		} else {
 			// permit all
 			http.authorizeRequests().anyRequest().permitAll();
@@ -119,9 +120,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 		HttpServletResponse response = (HttpServletResponse) res;
 		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 		response.setHeader("Access-Control-Allow-Credentials", "true");
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+		response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
 		response.setHeader("Access-Control-Max-Age", "3600");
-		response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");
+		response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, X-Requested-With");
 		chain.doFilter(req, res);
 	}
 
