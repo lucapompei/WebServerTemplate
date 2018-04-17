@@ -1,5 +1,14 @@
 package lp.web.webtemplate.config;
 
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +35,7 @@ import lp.web.webtemplate.controller.Endpoints;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filter {
 
 	/**
 	 * This variable allows to enable/disable the spring security module
@@ -78,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		if (this.securityEnabled) {
 			// disable CSRF
-			http.csrf().disable();
+			// http.csrf().disable();
 			if (!this.securityApiEnabled) {
 				// permit all api endpoints
 				http.authorizeRequests().antMatchers(Endpoints.API_BASE + "/**").permitAll();
@@ -91,6 +100,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			// permit all
 			http.authorizeRequests().anyRequest().permitAll();
 		}
+	}
+
+	/**
+	 * Configure filters to allow/deny incoming requests
+	 * 
+	 * @param req,
+	 *            the incoming request
+	 * @param res,
+	 *            the response to serve
+	 * @param chain,
+	 *            the filter chain
+	 */
+	@Override
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) res;
+		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+		response.setHeader("Access-Control-Max-Age", "3600");
+		response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");
+		chain.doFilter(req, res);
 	}
 
 }
