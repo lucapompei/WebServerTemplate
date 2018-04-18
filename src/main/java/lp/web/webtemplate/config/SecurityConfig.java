@@ -36,10 +36,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filter {
 
 	/**
-	 * This variable allows to enable/disable the spring security module
+	 * This variable allows the security configuration based on the basic
+	 * authentication
 	 */
-	@Value("${security_enabled:true}")
-	private boolean securityEnabled;
+	@Value("${security_basicauth_enabled:true}")
+	private boolean securityBasicAuthEnabled;
+
+	/**
+	 * This variable allows the security configuration based on the jwt
+	 * authentication
+	 */
+	@Value("${security_jwtauth_enabled:true}")
+	private boolean securityJwtAuthEnabled;
 
 	/**
 	 * The data source
@@ -80,13 +88,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		if (this.securityEnabled) {
-			// disable CSRF
-			// http.csrf().disable();
-			// permit login and logout, require authentication for each other endpoint
+		if (this.securityBasicAuthEnabled) {
+			// permit form login and require the basic authentication for each other request
 			http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
+		} else if (this.securityJwtAuthEnabled) {
+			// permit form login and require the jwt authentication for each other request
+			http.csrf().disable();
+			// TODO
 		} else {
-			// permit all
+			// permit each request
 			http.authorizeRequests().anyRequest().permitAll();
 		}
 	}

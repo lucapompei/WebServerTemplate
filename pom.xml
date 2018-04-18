@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -46,6 +47,7 @@
 		<jackson.version>2.9.5</jackson.version>
 		<spring.version>5.0.5.RELEASE</spring.version>
 		<spring_security.version>5.0.4.RELEASE</spring_security.version>
+		<jwt_version>0.9.0</jwt_version>
 		<reactiverest.version>1.14</reactiverest.version>
 		<junit.version>4.12</junit.version>
 		<javax_servlet_api.version>4.0.0</javax_servlet_api.version>
@@ -108,6 +110,12 @@
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<!-- Jwt dependencies -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jwt_version}</version>
 		</dependency>
 		<!-- JUnit dependencies -->
 		<dependency>

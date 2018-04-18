@@ -1,7 +1,10 @@
 package lp.web.utils;
 
+import java.io.InputStream;
+
 import org.apache.log4j.Logger;
 
+import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -88,6 +91,27 @@ public class JsonUtils {
 	public static <T> T fromJson(String json, Class<T> cls) {
 		try {
 			return getInstance().readValue(json, cls);
+		} catch (Exception e) {
+			LOGGER.error("Error during reading json", e);
+			return null;
+		}
+	}
+
+	/**
+	 * Convert the given input stream string to its represented object
+	 *
+	 * @param <T>,
+	 *            generic type
+	 * @param inputStream,
+	 *            the input stream from which re-create the represented object
+	 * @param cls,
+	 *            the class of the represented object used to re-create it
+	 * @return the object represented by the json string or {@code null} if some
+	 *         exception occurs during conversion
+	 */
+	public static <T> T fromInputStream(InputStream inputStream, Class<T> cls) {
+		try {
+			return getInstance().readValue(inputStream, cls);
 		} catch (Exception e) {
 			LOGGER.error("Error during reading json", e);
 			return null;
