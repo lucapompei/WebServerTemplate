@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,8 +22,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import lp.web.webtemplate.controller.Endpoints;
 
 /**
  * This config class globally configures the spring security module, so it
@@ -45,11 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 	private boolean securityEnabled;
 
 	/**
-	 * This variable allows to enable/disable the security controls to api endpoints
+	 * The data source
 	 */
-	@Value("${security_api_enabled:false}")
-	private boolean securityApiEnabled;
-
 	@Autowired
 	private DataSource dataSource;
 
@@ -89,14 +83,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 		if (this.securityEnabled) {
 			// disable CSRF
 			// http.csrf().disable();
-			if (!this.securityApiEnabled) {
-				// permit all api endpoints
-				http.authorizeRequests().antMatchers(Endpoints.API_BASE + "/**").permitAll();
-			}
 			// permit login and logout, require authentication for each other endpoint
-			http.authorizeRequests().anyRequest().authenticated().and().httpBasic().and().httpBasic().and().formLogin()
-					.loginPage(Endpoints.LOGIN).permitAll().and().logout().logoutUrl(Endpoints.LOGOUT)
-					.logoutSuccessUrl(Endpoints.LOGIN).permitAll();
+			http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
 		} else {
 			// permit all
 			http.authorizeRequests().anyRequest().permitAll();
