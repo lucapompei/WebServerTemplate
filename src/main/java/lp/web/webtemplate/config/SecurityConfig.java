@@ -1,27 +1,24 @@
 package lp.web.webtemplate.config;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+
+import lp.web.webtemplate.controller.Endpoints;
+import lp.web.webtemplate.service.ApplicationUserDetailsService;
 
 /**
  * This config class globally configures the spring security module, so it
@@ -33,7 +30,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	/**
 	 * This variable allows the security configuration based on the basic
@@ -46,31 +43,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 	 * This variable allows the security configuration based on the jwt
 	 * authentication
 	 */
-	@Value("${security_jwtauth_enabled:true}")
+	@Value("${security_jwtauth_enabled:false}")
 	private boolean securityJwtAuthEnabled;
 
 	/**
-	 * The data source
+	 * The secret key used for the jwt auth
 	 */
-	@Autowired
-	private DataSource dataSource;
+	@Value("${security_jwtauth_secretkey:WebTemplateSecretKey!}")
+	private String jwtSecretKey;
 
 	/**
-	 * It configures the authentication manager used to authenticate the http
-	 * requests
-	 * 
-	 * @param auth,
-	 *            the authentication manager builder
-	 * @throws Exception,
-	 *             if something goes wrong
+	 * The expiration time used for the jwt auth
+	 */
+	@Value("${security_jwtauth_minexpirationtime:5}")
+	private long jwtMinExpirationTime;
+
+	/**
+	 * The application user details service
 	 */
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery("select username, password, enabled from users where username=?")
-				.authoritiesByUsernameQuery(
-						"select r.id_user, r.role from user_roles r join users u on r.id_user=u.id where u.username=?");
-	}
+	private ApplicationUserDetailsService userDetailsService;
 
 	/**
 	 * Configure the password encoder
@@ -83,18 +75,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 	}
 
 	/**
+	 * It configures the authentication manager used to authenticate the http
+	 * requests
+	 * 
+	 * @param auth,
+	 *            the authentication manager builder
+	 * @throws Exception,
+	 *             if something goes wrong
+	 */
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(this.userDetailsService).passwordEncoder(configurePasswordEncoder());
+	}
+
+	/**
 	 * This method configures the security, enabling or disabling it and permitting
 	 * or denying the http requests
 	 */
-	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		if (this.securityBasicAuthEnabled) {
 			// permit form login and require the basic authentication for each other request
 			http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
 		} else if (this.securityJwtAuthEnabled) {
 			// permit form login and require the jwt authentication for each other request
-			http.csrf().disable();
-			// TODO
+			http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, Endpoints.LOGIN).permitAll()
+					.anyRequest().authenticated().and().sessionManagement()
+					.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+					.addFilter(new JwtAuthenticationFilter(authenticationManager(), this.jwtSecretKey,
+							this.jwtMinExpirationTime * 1000))
+					.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.jwtSecretKey))
+					.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
 		} else {
 			// permit each request
 			http.authorizeRequests().anyRequest().permitAll();
@@ -102,26 +112,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Filt
 	}
 
 	/**
-	 * Configure filters to allow/deny incoming requests
+	 * The authentication entry point used to return 401 when jwt is enabled and the
+	 * authorization is denied
 	 * 
-	 * @param req,
-	 *            the incoming request
-	 * @param res,
-	 *            the response to serve
-	 * @param chain,
-	 *            the filter chain
+	 * @return the authentication entry point
 	 */
-	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) res;
-		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-		response.setHeader("Access-Control-Allow-Credentials", "true");
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
-		response.setHeader("Access-Control-Max-Age", "3600");
-		response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, X-Requested-With");
-		chain.doFilter(req, res);
+	private AuthenticationEntryPoint unauthorizedEntryPoint() {
+		return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+				authException.getMessage());
 	}
 
 }

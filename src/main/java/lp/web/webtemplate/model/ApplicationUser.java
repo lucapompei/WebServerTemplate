@@ -6,7 +6,7 @@ package lp.web.webtemplate.model;
  * @author lucapompei
  *
  */
-public class User {
+public class ApplicationUser {
 
 	/**
 	 * The id
@@ -24,14 +24,9 @@ public class User {
 	private String password;
 
 	/**
-	 * The enabled status
+	 * Construct a new {@link ApplicationUser}
 	 */
-	private boolean enabled;
-
-	/**
-	 * Construct a new {@link User}
-	 */
-	public User() {
+	public ApplicationUser() {
 		// Empty implementation
 	}
 
@@ -79,7 +74,7 @@ public class User {
 	 * @return the password
 	 */
 	public String getPassword() {
-		return this.username;
+		return this.password;
 	}
 
 	/**
@@ -90,25 +85,6 @@ public class User {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	/**
-	 * Getter method for retrieve the enabled status
-	 *
-	 * @return the enabled status
-	 */
-	public boolean isEnabled() {
-		return this.enabled;
-	}
-
-	/**
-	 * Setter method for the enabled status
-	 *
-	 * @param email,
-	 *            the enabled status
-	 */
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
 	}
 
 }

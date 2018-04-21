@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lp.web.utils.JsonUtils;
-import lp.web.webtemplate.model.User;
+import lp.web.webtemplate.model.ApplicationUser;
 
 /**
  * This class is used to test the data source
@@ -37,7 +37,7 @@ public class TestDataSource {
 		String username = "user";
 		String sql = "SELECT id, username, enabled FROM users WHERE username = ?";
 		Object[] args = { username };
-		User user = jdbcTemplate.queryForObject(sql, args, new BeanPropertyRowMapper<>(User.class));
+		ApplicationUser user = jdbcTemplate.queryForObject(sql, args, new BeanPropertyRowMapper<>(ApplicationUser.class));
 		System.out.println("Query result: " + JsonUtils.toJson(user));
 		Assert.assertNotNull(user);
 		System.out.println("Test for datasource is completed");
