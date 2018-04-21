@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,11 +29,6 @@ import lp.web.webtemplate.model.ApplicationUser;
  *
  */
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-
-	/**
-	 * The logger
-	 */
-	private static final Logger LOGGER = Logger.getLogger(JwtAuthenticationFilter.class);
 
 	/**
 	 * The authentication manager
@@ -76,8 +70,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
 					creds.getPassword(), new ArrayList<>()));
 		} catch (IOException e) {
-			LOGGER.error("Unable to authenticate the request", e);
-			throw new RuntimeException();
+			return null;
 		}
 	}
 

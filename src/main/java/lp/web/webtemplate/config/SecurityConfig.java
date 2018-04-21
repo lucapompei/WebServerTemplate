@@ -92,6 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * This method configures the security, enabling or disabling it and permitting
 	 * or denying the http requests
 	 */
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		if (this.securityBasicAuthEnabled) {
 			// permit form login and require the basic authentication for each other request
