@@ -35,7 +35,7 @@ public class TestDataSource {
 	public void testFindByUsername() {
 		System.out.println("Starting test for datasource");
 		String username = "user";
-		String sql = "SELECT id, username, enabled FROM users WHERE username = ?";
+		String sql = "SELECT id, username FROM users WHERE username = ?";
 		Object[] args = { username };
 		ApplicationUser user = jdbcTemplate.queryForObject(sql, args, new BeanPropertyRowMapper<>(ApplicationUser.class));
 		System.out.println("Query result: " + JsonUtils.toJson(user));
