@@ -32,8 +32,9 @@ public class UserRepository {
 	 * @return the user identified by the given username
 	 */
 	public ApplicationUser findByUsername(String username) {
-		String sqlForResults = "SELECT * FROM users WHERE username = '" + username + "'";
-		List<ApplicationUser> users = jdbcTemplate.query(sqlForResults,
+		String sqlForResults = "SELECT * FROM users WHERE username = ?";
+		Object[] parameters = new Object[] { username };
+		List<ApplicationUser> users = this.jdbcTemplate.query(sqlForResults, parameters,
 				new BeanPropertyRowMapper<>(ApplicationUser.class));
 		return users != null && !users.isEmpty() ? users.get(0) : null;
 	}
