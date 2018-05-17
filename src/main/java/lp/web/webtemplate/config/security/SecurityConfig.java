@@ -1,4 +1,4 @@
-package lp.web.webtemplate.config;
+package lp.web.webtemplate.config.security;
 
 import javax.servlet.http.HttpServletResponse;
 

@@ -28,10 +28,6 @@
 	<context:property-placeholder
 		location="classpath:application.properties, classpath:log4j.properties" />
 
-	<!-- RestTemplate configuration -->
-	<bean id="restTemplate"
-		class="org.springframework.web.client.RestTemplate" />
-
 	<!-- Jackson configurations -->
 	<bean id="jacksonObjectMapper"
 		class="com.fasterxml.jackson.databind.ObjectMapper" />
