@@ -1,4 +1,4 @@
-# Web Template v.2.1
+# Web Template v.2.2
 
 [![Build Status](https://travis-ci.org/lucapompei/WebTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CodeFactor](https://www.codefactor.io/repository/github/lucapompei/webtemplate/badge)](https://www.codefactor.io/repository/github/lucapompei/webtemplate)
 
@@ -14,6 +14,7 @@ Summary features
 - Spring MVC configuration;
 - Spring Security configuration (BasicAuth or JwtAuth or none);
 - Spring JDBC + H2 embedded configuration;
+- RestTemplate + HttpInterceptor configuration;
 - Sentry configuration for crashes/errors reporting;
 - Fully customizable through the environment properties.
 
