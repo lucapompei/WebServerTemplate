@@ -64,7 +64,7 @@ public class SentryConfig {
 			// add additional information to sentry
 			Sentry.getContext().addTag("tagName", appVersion);
 		} else {
-			LOGGER.info("Sentry is not enabled by properties, so crashes/errors are not reporting on it");
+			LOGGER.info("Sentry is not enabled by properties, so crashes/errors are not reported on it");
 		}
 	}
 

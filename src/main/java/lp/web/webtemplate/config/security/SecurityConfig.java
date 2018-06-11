@@ -109,7 +109,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.jwtSecretKey))
 					.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
 		} else {
-			// permit each request
+			// permit each request (no auth)
+			http.csrf().disable();
 			http.authorizeRequests().anyRequest().permitAll();
 		}
 	}
