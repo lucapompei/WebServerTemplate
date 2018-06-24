@@ -55,9 +55,9 @@ public class InfoAPI {
 	}
 
 	/**
-	 * This method exposes API to show the main application info
+	 * This method exposes API to check if the server is alive
 	 * 
-	 * @return the main application info
+	 * @return the server status
 	 */
 	@RequestMapping(value = Endpoints.IS_ALIVE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.OK)
