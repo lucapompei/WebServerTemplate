@@ -1,6 +1,7 @@
 package lp.web.utils;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class RestUtils {
 	/**
 	 * Logger
 	 */
-	private static final Logger LOGGER = Logger.getLogger(JsonUtils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
 
 	/**
 	 * Cached object

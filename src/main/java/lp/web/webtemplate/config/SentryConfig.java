@@ -2,7 +2,8 @@ package lp.web.webtemplate.config;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,7 @@ public class SentryConfig {
 	/**
 	 * The logger
 	 */
-	private static final Logger LOGGER = Logger.getLogger(SentryConfig.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SentryConfig.class);
 
 	/**
 	 * A boolean indicating if Sentry is enabled or not

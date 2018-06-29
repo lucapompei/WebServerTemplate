@@ -8,7 +8,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class exposes utils to handle Lambda expressions
@@ -21,7 +22,7 @@ public class LambaUtils {
 	/**
 	 * Logger
 	 */
-	private static final Logger LOGGER = Logger.getLogger(LambaUtils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(LambaUtils.class);
 
 	/**
 	 * Private constructor for a new {@code LambaUtils}

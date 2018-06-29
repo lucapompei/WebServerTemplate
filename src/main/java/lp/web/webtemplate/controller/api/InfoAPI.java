@@ -2,7 +2,8 @@ package lp.web.webtemplate.controller.api;
 
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,7 +30,7 @@ public class InfoAPI {
 	/**
 	 * Logger
 	 */
-	private static final Logger LOGGER = Logger.getLogger(InfoAPI.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(InfoAPI.class);
 
 	/**
 	 * The info service

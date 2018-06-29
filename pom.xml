@@ -6,7 +6,7 @@
 	<groupId>lp.web</groupId>
 	<artifactId>WebTemplate</artifactId>
 	<packaging>war</packaging>
-	<version>2.3</version>
+	<version>2.4</version>
 	<name>${project.artifactId}</name>
 	<url>http://maven.apache.org</url>
 
@@ -44,17 +44,17 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<jackson.version>2.9.5</jackson.version>
-		<spring.version>5.0.6.RELEASE</spring.version>
-		<spring_security.version>5.0.5.RELEASE</spring_security.version>
+		<jackson.version>2.9.6</jackson.version>
+		<spring.version>5.0.7.RELEASE</spring.version>
+		<spring_security.version>5.0.6.RELEASE</spring_security.version>
 		<jwt_version>0.9.0</jwt_version>
 		<reactiverest.version>1.14</reactiverest.version>
 		<junit.version>4.12</junit.version>
 		<javax_servlet_api.version>4.0.1</javax_servlet_api.version>
 		<javax_servlet_jstl.version>1.2</javax_servlet_jstl.version>
-		<tomcat_jsp_api.version>9.0.8</tomcat_jsp_api.version>
+		<tomcat_jsp_api.version>9.0.10</tomcat_jsp_api.version>
 		<guava.version>25.1-jre</guava.version>
-		<log4j.version>1.2.17</log4j.version>
+		<logback.version>1.2.3</logback.version>
 		<h2.version>1.4.197</h2.version>
 		<sentry.version>1.7.5</sentry.version>
 		<buildNumber>${maven.build.timestamp}</buildNumber>
@@ -148,11 +148,11 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-		<!-- Log4j dependencies -->
+		<!-- Logback dependencies -->
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
 		</dependency>
 		<!-- Guava dependencies -->
 		<dependency>
