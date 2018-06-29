@@ -26,7 +26,7 @@
 	<mvc:annotation-driven />
 	<context:component-scan base-package="lp.web" />
 	<context:property-placeholder
-		location="classpath:application.properties, classpath:log4j.properties" />
+		location="classpath:application.properties" />
 
 	<!-- Jackson configurations -->
 	<bean id="jacksonObjectMapper"
