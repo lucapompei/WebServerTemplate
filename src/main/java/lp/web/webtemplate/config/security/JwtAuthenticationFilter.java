@@ -23,7 +23,7 @@ import lp.web.utils.JsonUtils;
 import lp.web.webtemplate.model.ApplicationUser;
 
 /**
- * This class reprensent a custom filter used for the jwt authentication
+ * This class represents a custom filter used for the jwt authentication
  * 
  * @author lucapompei
  *
