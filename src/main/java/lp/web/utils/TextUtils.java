@@ -11,7 +11,7 @@ public class TextUtils {
 	 * Private constructor for an utility class, construct a new {@code TextUtils}
 	 */
 	private TextUtils() {
-		// Empty implementation
+		throw new IllegalAccessError();
 	}
 
 	/**

@@ -28,7 +28,7 @@ public class LambaUtils {
 	 * Private constructor for a new {@code LambaUtils}
 	 */
 	private LambaUtils() {
-		// Empty implementation
+		throw new IllegalAccessError();
 	}
 
 	/**

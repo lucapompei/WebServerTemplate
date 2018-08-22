@@ -31,7 +31,7 @@ public class JsonUtils {
 	 * Private constructor for an utility class, construct a new {@code JsonUtils}
 	 */
 	private JsonUtils() {
-		// Empty implementation
+		throw new IllegalAccessError();
 	}
 
 	/**

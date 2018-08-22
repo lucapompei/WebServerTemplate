@@ -28,7 +28,7 @@ public class RestUtils {
 	 * Private constructor for a new {@code RestUtils}
 	 */
 	private RestUtils() {
-		// Empty implementation
+		throw new IllegalAccessError();
 	}
 
 	/**
