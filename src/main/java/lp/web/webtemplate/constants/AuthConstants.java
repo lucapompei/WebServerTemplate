@@ -11,7 +11,7 @@ public class AuthConstants {
 	 * Private constructor for an utility class, construct a new {@code AuthUtils}
 	 */
 	private AuthConstants() {
-		// Empty implementation
+		throw new IllegalAccessError();
 	}
 
 	/**

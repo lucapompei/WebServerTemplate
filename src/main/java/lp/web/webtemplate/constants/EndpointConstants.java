@@ -39,7 +39,7 @@ public class EndpointConstants {
 	 * Private constructor for {@code Endpoints}
 	 */
 	private EndpointConstants() {
-		// Empty implementation
+		throw new IllegalAccessError();
 	}
 
 }
