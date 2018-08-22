@@ -1,9 +1,12 @@
 package lp.web.utils;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -42,19 +45,29 @@ public class RestUtils {
 			return cachedHeaders;
 		}
 		HttpHeaders headers = new HttpHeaders();
-		headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");
+		headers.setContentType(MediaType.APPLICATION_JSON);
 		// update cache
 		cachedHeaders = headers;
 		return headers;
 	}
 
 	/**
+	 * Logs the spent time for the response returned for the given endpoint
+	 * 
+	 * @param endpoint, the analyzed endpoint
+	 * @param beginTime, the begin operation time
+	 */
+	public static void logSpentTime(String endpoint, Date beginTime) {
+		Date endTime = new Date();
+		LOGGER.info("Returned response for " + endpoint + " in "
+				+ String.format("%s ms", endTime.getTime() - beginTime.getTime()));
+	}
+
+	/**
 	 * Get a response entity with the given httpStatus using object
 	 * 
-	 * @param object,
-	 *            an optional param to indicate the entity to return
-	 * @param httpStatus,
-	 *            the httpsStatus to return
+	 * @param object, an optional param to indicate the entity to return
+	 * @param httpStatus, the httpsStatus to return
 	 * @return response entity with the given httpStatus using object
 	 */
 	public static ResponseEntity<String> getResponseEntity(Object object, HttpStatus httpStatus) {
@@ -64,8 +77,7 @@ public class RestUtils {
 	/**
 	 * Get a response entity with 200 OK HTTP status using object
 	 * 
-	 * @param object,
-	 *            an optional param to indicate the entity to return
+	 * @param object, an optional param to indicate the entity to return
 	 * @return response entity with 200 OK HTTP status using object
 	 */
 	public static ResponseEntity<String> getResponseEntity(Object object) {
