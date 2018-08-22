@@ -15,13 +15,13 @@ public class InfoService {
 	/**
 	 * The application name
 	 */
-	@Value("${app_name}")
+	@Value("${application.app_name}")
 	private String appName;
 
 	/**
 	 * The application version
 	 */
-	@Value("${app_version}")
+	@Value("${application.app_version}")
 	private String appVersion;
 
 	/**

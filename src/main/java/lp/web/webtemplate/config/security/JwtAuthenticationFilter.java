@@ -18,8 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lp.web.utils.AuthUtils;
 import lp.web.utils.JsonUtils;
+import lp.web.webtemplate.constants.AuthConstants;
 import lp.web.webtemplate.model.ApplicationUser;
 
 /**
@@ -84,6 +84,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String token = Jwts.builder().setSubject(((User) auth.getPrincipal()).getUsername())
 				.setExpiration(new Date(System.currentTimeMillis() + this.jwtExpirationTime))
 				.signWith(SignatureAlgorithm.HS512, this.jwtSecretKey).compact();
-		res.addHeader(AuthUtils.AUTH_HEADER, AuthUtils.AUTH_BEARERPREFIX + token);
+		res.addHeader(AuthConstants.AUTH_HEADER, AuthConstants.AUTH_BEARERPREFIX + token);
 	}
 }

@@ -1,20 +1,20 @@
-# Web Template v.2.5
+# Web Template v.3.0
 
 [![Build Status](https://travis-ci.org/lucapompei/WebServerTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebServerTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CodeFactor](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate/badge)](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate)
 
 =============================
 
-This maven project represents a generic web template based on Spring 5 Framework.
+This maven project represents a generic web template based on Spring Boot 2 Framework.
 
 
 Summary features
 -------
 
-- Maven project based on Spring 5 Framework;
+- Maven project based on Spring Boot 2 Framework;
 - Spring MVC configuration;
 - Spring Security configuration (BasicAuth or JwtAuth or none);
 - Spring JDBC + H2 embedded configuration;
-- RestTemplate + HttpInterceptor configuration;
+- HttpInterceptor configuration;
 - Sentry configuration for crashes/errors reporting;
 - Logback basic configuration;
 - Fully customizable through the environment properties.

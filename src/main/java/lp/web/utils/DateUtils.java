@@ -23,7 +23,7 @@ public class DateUtils {
 	 * Private constructor for an utility class, construct a new {@code DateUtils}
 	 */
 	private DateUtils() {
-		// Empty implementation
+		throw new IllegalAccessError();
 	}
 
 	/**

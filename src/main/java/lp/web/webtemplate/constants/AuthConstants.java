@@ -1,16 +1,16 @@
-package lp.web.utils;
+package lp.web.webtemplate.constants;
 
 /**
  * This class exposes utils to handle generic auth operations
  *
  * @author lucapompei
  */
-public class AuthUtils {
+public class AuthConstants {
 
 	/**
 	 * Private constructor for an utility class, construct a new {@code AuthUtils}
 	 */
-	private AuthUtils() {
+	private AuthConstants() {
 		// Empty implementation
 	}
 

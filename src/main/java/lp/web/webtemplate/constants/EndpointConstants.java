@@ -1,5 +1,7 @@
-package lp.web.webtemplate.controller;
+package lp.web.webtemplate.constants;
 
+import lp.web.webtemplate.controller.ExampleController;
+import lp.web.webtemplate.controller.HomeController;
 import lp.web.webtemplate.controller.api.InfoAPI;
 
 /**
@@ -8,7 +10,7 @@ import lp.web.webtemplate.controller.api.InfoAPI;
  * @author lucapompei
  *
  */
-public class Endpoints {
+public class EndpointConstants {
 
 	/**
 	 * Endpoints handled by {@link HomeController}
@@ -36,7 +38,7 @@ public class Endpoints {
 	/**
 	 * Private constructor for {@code Endpoints}
 	 */
-	private Endpoints() {
+	private EndpointConstants() {
 		// Empty implementation
 	}
 

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import lp.web.webtemplate.constants.EndpointConstants;
+
 /**
  * This rest controller exposes endpoints to handle homepage requests
  * 
@@ -26,7 +28,7 @@ public class HomeController {
 	 *
 	 * @return the home page
 	 */
-	@RequestMapping(value = Endpoints.HOME, method = RequestMethod.GET)
+	@RequestMapping(value = EndpointConstants.HOME, method = RequestMethod.GET)
 	public ModelAndView getHome() {
 		LOGGER.debug("Requesting for homepage");
 		return new ModelAndView("index");
@@ -37,7 +39,7 @@ public class HomeController {
 	 *
 	 * @return the login page
 	 */
-	@RequestMapping(value = Endpoints.LOGIN, method = RequestMethod.GET)
+	@RequestMapping(value = EndpointConstants.LOGIN, method = RequestMethod.GET)
 	public ModelAndView getLogin() {
 		LOGGER.debug("Requesting for login page");
 		return new ModelAndView("login");

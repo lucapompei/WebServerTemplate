@@ -2,10 +2,9 @@ package lp.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -14,15 +13,9 @@ import org.springframework.web.client.RestTemplate;
  * @author lucapompei
  *
  */
-@ContextConfiguration(locations = { "classpath:META-INF/spring/applicationContext.xml" })
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = { MainApplication.class })
 public class TestHttpInterceptor {
-
-	/**
-	 * The rest template
-	 */
-	@Autowired
-	private RestTemplate restTemplate;
 
 	/**
 	 * It tests the http interceptor
@@ -31,7 +24,7 @@ public class TestHttpInterceptor {
 	public void testHttpInterceptor() {
 		// restTemplate.setInterceptors(Arrays.asList(new HttpInterceptor()));
 		String url = "http://api.openweathermap.org/data/2.5/forecast?q=Bologna,it&appid=10387e20c2b67f1efc038f11549d6dde";
-		ResponseEntity<String> response = this.restTemplate.getForEntity(url, String.class);
+		ResponseEntity<String> response = new RestTemplate().getForEntity(url, String.class);
 		if (response != null) {
 			System.out.println(response.getBody());
 		}

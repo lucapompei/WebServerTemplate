@@ -31,19 +31,19 @@ public class SentryConfig {
 	/**
 	 * A boolean indicating if Sentry is enabled or not
 	 */
-	@Value("${sentry_enabled:false}")
+	@Value("${sentry.sentry_enabled:false}")
 	private boolean isSentryEnabled;
 
 	/**
 	 * The application name
 	 */
-	@Value("${app_name}")
+	@Value("${application.app_name}")
 	private String appName;
 
 	/**
 	 * The application version
 	 */
-	@Value("${app_version}")
+	@Value("${application.app_version}")
 	private String appVersion;
 
 	/**
