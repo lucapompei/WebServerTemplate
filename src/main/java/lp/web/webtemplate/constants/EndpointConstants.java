@@ -30,6 +30,11 @@ public class EndpointConstants {
 	public static final String API_BASE = "/api";
 
 	/**
+	 * Endpoints handled by {@link DataAPI}
+	 */
+	public static final String DATA = "/data";
+	
+	/**
 	 * Endpoints handled by {@link InfoAPI}
 	 */
 	public static final String IS_ALIVE = "/isAlive";

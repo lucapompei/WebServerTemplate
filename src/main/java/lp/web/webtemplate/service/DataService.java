@@ -30,9 +30,7 @@ public class DataService {
 	 */
 	public List<Integer> getFakeData() {
 		List<Integer> data = new ArrayList<>();
-		
 		long beginTime = new Date().getTime();
-
 		List<CompletableFuture<Void>> futureRequests = new ArrayList<>();
 		int dataSize = 10;
 		for (int i = 0; i < dataSize; i++) {
@@ -51,17 +49,13 @@ public class DataService {
 			});
 			futureRequests.add(futureRequest);
 		}
-		
 		try {
 			CompletableFuture.allOf(futureRequests.toArray(new CompletableFuture[futureRequests.size()])).get();
-			
 			long endTime = new Date().getTime();
 			LOGGER.info("EndTime: " + String.valueOf(endTime - beginTime));
-			
 		} catch (Exception e) {
 			LOGGER.error("Unable to supply multiple parallel requests");
 		}
-
 		return data;
 	}
 
