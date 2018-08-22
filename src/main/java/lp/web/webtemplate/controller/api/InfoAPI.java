@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lp.web.utils.RestUtils;
-import lp.web.webtemplate.controller.Endpoints;
+import lp.web.webtemplate.constants.EndpointConstants;
 import lp.web.webtemplate.service.InfoService;
 
 /**
@@ -24,7 +24,7 @@ import lp.web.webtemplate.service.InfoService;
  *
  */
 @RestController
-@RequestMapping(Endpoints.API_BASE)
+@RequestMapping(EndpointConstants.API_BASE)
 public class InfoAPI {
 
 	/**
@@ -43,14 +43,14 @@ public class InfoAPI {
 	 * 
 	 * @return the main application info
 	 */
-	@RequestMapping(value = Endpoints.ABOUT, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = EndpointConstants.ABOUT, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.OK)
 	public ResponseEntity<String> getAbout() {
-		LOGGER.info("Requesting for " + Endpoints.ABOUT);
+		LOGGER.info("Requesting for " + EndpointConstants.ABOUT);
 		Date beginTime = new Date();
 		String response = infoService.getAppInfo();
 		Date endTime = new Date();
-		LOGGER.info("Returned response for " + Endpoints.ABOUT + " request in "
+		LOGGER.info("Returned response for " + EndpointConstants.ABOUT + " request in "
 				+ String.format("%s ms", endTime.getTime() - beginTime.getTime()));
 		return RestUtils.getResponseEntity(response);
 	}
@@ -60,13 +60,13 @@ public class InfoAPI {
 	 * 
 	 * @return the server status
 	 */
-	@RequestMapping(value = Endpoints.IS_ALIVE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = EndpointConstants.IS_ALIVE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.OK)
 	public ResponseEntity<String> isAlive() {
-		LOGGER.info("Requesting for " + Endpoints.IS_ALIVE);
+		LOGGER.info("Requesting for " + EndpointConstants.IS_ALIVE);
 		Date beginTime = new Date();
 		Date endTime = new Date();
-		LOGGER.info("Returned true response for " + Endpoints.IS_ALIVE + " request in "
+		LOGGER.info("Returned true response for " + EndpointConstants.IS_ALIVE + " request in "
 				+ String.format("%s ms", endTime.getTime() - beginTime.getTime()));
 		return RestUtils.getResponseEntity(true);
 	}

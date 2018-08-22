@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lp.web.utils.JsonUtils;
 import lp.web.utils.RestUtils;
+import lp.web.webtemplate.constants.EndpointConstants;
 
 /**
  * This rest controller exposes endpoints to handle some example requests
@@ -36,7 +37,7 @@ public class ExampleController {
 	 *
 	 * @return the response for link A
 	 */
-	@RequestMapping(value = Endpoints.LINK_A, method = { RequestMethod.GET,
+	@RequestMapping(value = EndpointConstants.LINK_A, method = { RequestMethod.GET,
 			RequestMethod.POST }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.OK)
 	public ResponseEntity<String> getHome(@RequestBody(required = false) SampleModel sampleModel,

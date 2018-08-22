@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import lp.web.webtemplate.controller.Endpoints;
+import lp.web.webtemplate.constants.EndpointConstants;
 import lp.web.webtemplate.service.ApplicationUserDetailsService;
 
 /**
@@ -36,26 +36,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * This variable allows the security configuration based on the basic
 	 * authentication
 	 */
-	@Value("${security_basicauth_enabled:true}")
+	@Value("${security.security_basicauth_enabled:true}")
 	private boolean securityBasicAuthEnabled;
 
 	/**
 	 * This variable allows the security configuration based on the jwt
 	 * authentication
 	 */
-	@Value("${security_jwtauth_enabled:false}")
+	@Value("${security.security_jwtauth_enabled:false}")
 	private boolean securityJwtAuthEnabled;
 
 	/**
 	 * The secret key used for the jwt auth
 	 */
-	@Value("${security_jwtauth_secretkey:WebTemplateSecretKey!}")
+	@Value("${security.security_jwtauth_secretkey:WebTemplateSecretKey!}")
 	private String jwtSecretKey;
 
 	/**
 	 * The expiration time used for the jwt auth
 	 */
-	@Value("${security_jwtauth_minexpirationtime:5}")
+	@Value("${security.security_jwtauth_minexpirationtime:5}")
 	private long jwtMinExpirationTime;
 
 	/**
@@ -100,7 +100,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/js/**").permitAll().anyRequest().authenticated().and().formLogin().and().httpBasic();
 		} else if (this.securityJwtAuthEnabled) {
 			// permit form login and require the jwt authentication for each other request
-			http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, Endpoints.LOGIN).permitAll()
+			http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, EndpointConstants.LOGIN).permitAll()
 					.antMatchers("/images/**").permitAll().antMatchers("/css/**").permitAll().antMatchers("/js/**")
 					.permitAll().anyRequest().authenticated().and().sessionManagement()
 					.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

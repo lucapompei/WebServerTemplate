@@ -18,7 +18,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-import lp.web.utils.AuthUtils;
+import lp.web.webtemplate.constants.AuthConstants;
 
 /**
  * This class reprensent a custom filter used for the jwt authorization
@@ -48,8 +48,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 		// giving the header from the request, check it to validate the request
-		String header = req.getHeader(AuthUtils.AUTH_HEADER);
-		if (header == null || !header.startsWith(AuthUtils.AUTH_BEARERPREFIX)) {
+		String header = req.getHeader(AuthConstants.AUTH_HEADER);
+		if (header == null || !header.startsWith(AuthConstants.AUTH_BEARERPREFIX)) {
 			// the request does not contain the authorization
 			chain.doFilter(req, res);
 			return;
@@ -67,14 +67,14 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	 * @return the authentication token
 	 */
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-		String token = request.getHeader(AuthUtils.AUTH_HEADER);
+		String token = request.getHeader(AuthConstants.AUTH_HEADER);
 		if (token == null) {
 			return null;
 		}
 		// parse the token
 		try {
 			String user = Jwts.parser().setSigningKey(this.jwtSecretKey)
-					.parseClaimsJws(token.replace(AuthUtils.AUTH_BEARERPREFIX, "")).getBody().getSubject();
+					.parseClaimsJws(token.replace(AuthConstants.AUTH_BEARERPREFIX, "")).getBody().getSubject();
 			return user == null ? null : new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
 		} catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException
 				| IllegalArgumentException e) {
