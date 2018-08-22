@@ -78,10 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * It configures the authentication manager used to authenticate the http
 	 * requests
 	 * 
-	 * @param auth,
-	 *            the authentication manager builder
-	 * @throws Exception,
-	 *             if something goes wrong
+	 * @param auth, the authentication manager builder
+	 * @throws Exception, if something goes wrong
 	 */
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -96,13 +94,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		if (this.securityBasicAuthEnabled) {
 			// permit form login and require the basic authentication for each other request
-			http.authorizeRequests().antMatchers("/images/**").permitAll().antMatchers("/css/**").permitAll()
-					.antMatchers("/js/**").permitAll().anyRequest().authenticated().and().formLogin().and().httpBasic();
+			http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
 		} else if (this.securityJwtAuthEnabled) {
 			// permit form login and require the jwt authentication for each other request
 			http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, EndpointConstants.LOGIN).permitAll()
-					.antMatchers("/images/**").permitAll().antMatchers("/css/**").permitAll().antMatchers("/js/**")
-					.permitAll().anyRequest().authenticated().and().sessionManagement()
+					.anyRequest().authenticated().and().sessionManagement()
 					.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 					.addFilter(new JwtAuthenticationFilter(authenticationManager(), this.jwtSecretKey,
 							this.jwtMinExpirationTime * 1000))
