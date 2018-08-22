@@ -13,7 +13,6 @@
 		<java.version>1.8</java.version>
 		<jwt_version>0.9.0</jwt_version>
 		<reactiverest.version>1.14</reactiverest.version>
-		<guava.version>25.1-jre</guava.version>
 		<sentry.version>1.7.5</sentry.version>
 		<apache_common_upload.version>1.3.3</apache_common_upload.version>
 		<swagger.version>2.8.0</swagger.version>
@@ -71,12 +70,6 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>${jwt_version}</version>
-		</dependency>
-		<!-- Guava dependencies -->
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava-gwt</artifactId>
-			<version>${guava.version}</version>
 		</dependency>
 		<!-- Reactive Rest dependencies -->
 		<dependency>

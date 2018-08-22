@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lp.web.webtemplate.MainApplication;
 import lp.web.webtemplate.service.SentryService;
 
 /**

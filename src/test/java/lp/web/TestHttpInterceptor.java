@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import lp.web.webtemplate.MainApplication;
-
 /**
  * This class is used to http configuration
  * 

@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import lp.web.utils.JsonUtils;
-import lp.web.webtemplate.MainApplication;
 import lp.web.webtemplate.model.ApplicationUser;
 
 /**

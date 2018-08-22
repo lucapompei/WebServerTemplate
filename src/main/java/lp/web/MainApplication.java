@@ -1,4 +1,4 @@
-package lp.web.webtemplate;
+package lp.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

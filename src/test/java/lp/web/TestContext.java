@@ -5,8 +5,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lp.web.webtemplate.MainApplication;
-
 /**
  * This class is used to test the context loading
  * 
