@@ -1,7 +1,7 @@
 package lp.web.webtemplate.constants;
 
-import lp.web.webtemplate.controller.ExampleController;
 import lp.web.webtemplate.controller.HomeController;
+import lp.web.webtemplate.controller.api.DataAPI;
 import lp.web.webtemplate.controller.api.InfoAPI;
 
 /**
@@ -20,11 +20,6 @@ public class EndpointConstants {
 	public static final String LOGOUT = "/logout";
 
 	/**
-	 * Endpoints handled by {@link ExampleController}
-	 */
-	public static final String LINK_A = "/linkA";
-
-	/**
 	 * Basepath for APIs endpoint
 	 */
 	public static final String API_BASE = "/api";
@@ -33,7 +28,7 @@ public class EndpointConstants {
 	 * Endpoints handled by {@link DataAPI}
 	 */
 	public static final String DATA = "/data";
-	
+
 	/**
 	 * Endpoints handled by {@link InfoAPI}
 	 */
