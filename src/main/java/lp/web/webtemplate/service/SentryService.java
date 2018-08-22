@@ -25,7 +25,7 @@ public class SentryService {
 	/**
 	 * A boolean indicating if Sentry is enabled or not
 	 */
-	@Value("${sentry_enabled:false}")
+	@Value("${sentry.sentry_enabled:false}")
 	private boolean isSentryEnabled;
 
 	/**
