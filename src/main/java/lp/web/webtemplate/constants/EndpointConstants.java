@@ -1,8 +1,8 @@
 package lp.web.webtemplate.constants;
 
-import lp.web.webtemplate.controller.HomeController;
-import lp.web.webtemplate.controller.api.DataAPI;
-import lp.web.webtemplate.controller.api.InfoAPI;
+import lp.web.webtemplate.rest.api.DataAPI;
+import lp.web.webtemplate.rest.api.HomeController;
+import lp.web.webtemplate.rest.api.InfoAPI;
 
 /**
  * This class contains the list of endpoints used by the application
