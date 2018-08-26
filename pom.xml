@@ -13,7 +13,6 @@
 		<java.version>1.8</java.version>
 		<jwt_version>0.9.0</jwt_version>
 		<reactiverest.version>1.14</reactiverest.version>
-		<sentry.version>1.7.5</sentry.version>
 		<apache_common_upload.version>1.3.3</apache_common_upload.version>
 		<swagger.version>2.8.0</swagger.version>
 		<swagger_ui.version>2.7.0</swagger_ui.version>
@@ -76,12 +75,6 @@
 			<groupId>lp.reactive</groupId>
 			<artifactId>ReactiveRest</artifactId>
 			<version>${reactiverest.version}</version>
-		</dependency>
-		<!-- Sentry dependencies -->
-		<dependency>
-			<groupId>io.sentry</groupId>
-			<artifactId>sentry-spring</artifactId>
-			<version>${sentry.version}</version>
 		</dependency>
 		<!-- Apache dependencies -->
 		<dependency>

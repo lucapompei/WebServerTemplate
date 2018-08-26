@@ -25,7 +25,7 @@ public class HomeController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
 	/**
-	 * Endpoint for HomePage
+	 * Endpoint for Home page
 	 *
 	 * @return the home page
 	 */

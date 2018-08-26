@@ -44,7 +44,3 @@ security:
   security_jwtauth_enabled: true
   security_jwtauth_secretkey: WebTemplateSecretKey!
   security_jwtauth_minexpirationtime: 3600
-
-sentry:
-  sentry_enabled: false
-  dsn: https://public:private@host:port/1
