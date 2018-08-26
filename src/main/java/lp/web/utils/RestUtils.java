@@ -66,21 +66,25 @@ public class RestUtils {
 	/**
 	 * Get a response entity with the given httpStatus using object
 	 * 
+	 * @param <T>
+	 * 
 	 * @param object, an optional param to indicate the entity to return
 	 * @param httpStatus, the httpsStatus to return
 	 * @return response entity with the given httpStatus using object
 	 */
-	public static ResponseEntity<String> getResponseEntity(Object object, HttpStatus httpStatus) {
-		return new ResponseEntity<>(object == null ? null : JsonUtils.toJson(object), getHeaders(), httpStatus);
+	public static <T> ResponseEntity<T> getResponseEntity(T object, HttpStatus httpStatus) {
+		return new ResponseEntity<>(object, httpStatus);
 	}
 
 	/**
 	 * Get a response entity with 200 OK HTTP status using object
 	 * 
+	 * @param <T>
+	 * 
 	 * @param object, an optional param to indicate the entity to return
 	 * @return response entity with 200 OK HTTP status using object
 	 */
-	public static ResponseEntity<String> getResponseEntity(Object object) {
+	public static <T> ResponseEntity<T> getResponseEntity(T object) {
 		return getResponseEntity(object, HttpStatus.OK);
 	}
 

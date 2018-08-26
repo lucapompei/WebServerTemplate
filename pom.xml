@@ -6,7 +6,7 @@
 	<groupId>lp.web</groupId>
 	<artifactId>WebTemplate</artifactId>
 	<packaging>jar</packaging>
-	<version>3.0</version>
+	<version>3.1</version>
 	<name>${project.artifactId}</name>
 
 	<properties>

@@ -55,7 +55,7 @@ public class InfoAPI {
 	 * @return the server status
 	 */
 	@GetMapping(value = EndpointConstants.IS_ALIVE)
-	public ResponseEntity<String> isAlive() {
+	public ResponseEntity<Boolean> isAlive() {
 		LOGGER.info("Requesting for " + EndpointConstants.IS_ALIVE);
 		Date beginTime = new Date();
 		RestUtils.logSpentTime(EndpointConstants.IS_ALIVE, beginTime);

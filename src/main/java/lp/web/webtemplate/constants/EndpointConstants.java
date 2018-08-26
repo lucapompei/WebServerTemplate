@@ -17,7 +17,6 @@ public class EndpointConstants {
 	 */
 	public static final String HOME = "/";
 	public static final String LOGIN = "/login";
-	public static final String LOGOUT = "/logout";
 
 	/**
 	 * Basepath for APIs endpoint
@@ -36,7 +35,7 @@ public class EndpointConstants {
 	public static final String ABOUT = "/about";
 
 	/**
-	 * Private constructor for {@code Endpoints}
+	 * Private constructor for {@link EndpointConstants}
 	 */
 	private EndpointConstants() {
 		throw new IllegalAccessError();

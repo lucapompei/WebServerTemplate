@@ -42,7 +42,7 @@ public class DataAPI {
 	 * @return the main application info
 	 */
 	@GetMapping(value = EndpointConstants.DATA)
-	public ResponseEntity<String> getAbout() {
+	public ResponseEntity<List<Integer>> getAbout() {
 		LOGGER.info("Requesting for " + EndpointConstants.DATA);
 		Date beginTime = new Date();
 		List<Integer> response = dataService.getFakeData();
