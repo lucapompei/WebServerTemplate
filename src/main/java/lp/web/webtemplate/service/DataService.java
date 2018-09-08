@@ -3,6 +3,7 @@ package lp.web.webtemplate.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
@@ -35,24 +36,22 @@ public class DataService {
 		int dataSize = 10;
 		for (int i = 0; i < dataSize; i++) {
 			CompletableFuture<Void> futureRequest = CompletableFuture.supplyAsync(() -> {
-				int randomNumber = (int) (Math.random() * 5000);
+				int randomNumber = new Random().nextInt(5000);
 				try {
 					Thread.sleep(randomNumber);
-					LOGGER.info("Computation: " + String.valueOf(randomNumber));
+					LOGGER.info("Computation: {}", String.valueOf(randomNumber));
 					return randomNumber;
 				} catch (Exception e) {
 					LOGGER.warn("Unexpected error, a default value will be used");
 					return randomNumber;
 				}
-			}).thenAccept((response) -> {
-				data.add(response);
-			});
+			}).thenAccept(response -> data.add(response));
 			futureRequests.add(futureRequest);
 		}
 		try {
 			CompletableFuture.allOf(futureRequests.toArray(new CompletableFuture[futureRequests.size()])).get();
 			long endTime = new Date().getTime();
-			LOGGER.info("EndTime: " + String.valueOf(endTime - beginTime));
+			LOGGER.info("EndTime: {}", String.valueOf(endTime - beginTime));
 		} catch (Exception e) {
 			LOGGER.error("Unable to supply multiple parallel requests");
 		}

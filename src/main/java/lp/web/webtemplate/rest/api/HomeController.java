@@ -30,7 +30,7 @@ public class HomeController {
 	 */
 	@GetMapping(value = EndpointConstants.HOME)
 	public ResponseEntity<String> getHome() {
-		LOGGER.debug("Requesting for " + EndpointConstants.HOME);
+		LOGGER.debug("Requesting for {}", EndpointConstants.HOME);
 		return RestUtils.getResponseEntity("Ok");
 	}
 

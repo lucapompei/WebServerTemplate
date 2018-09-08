@@ -59,8 +59,8 @@ public class RestUtils {
 	 */
 	public static void logSpentTime(String endpoint, Date beginTime) {
 		Date endTime = new Date();
-		LOGGER.info("Returned response for " + endpoint + " in "
-				+ String.format("%s ms", endTime.getTime() - beginTime.getTime()));
+		LOGGER.info("Returned response for {} in " + String.format("%s ms", endTime.getTime() - beginTime.getTime()),
+				endpoint);
 	}
 
 	/**

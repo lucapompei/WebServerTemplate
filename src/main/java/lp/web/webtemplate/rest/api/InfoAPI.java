@@ -42,7 +42,7 @@ public class InfoAPI {
 	 */
 	@GetMapping(value = EndpointConstants.ABOUT)
 	public ResponseEntity<String> getAbout() {
-		LOGGER.info("Requesting for " + EndpointConstants.ABOUT);
+		LOGGER.info("Requesting for {}", EndpointConstants.ABOUT);
 		Date beginTime = new Date();
 		String response = infoService.getAppInfo();
 		RestUtils.logSpentTime(EndpointConstants.ABOUT, beginTime);
@@ -56,7 +56,7 @@ public class InfoAPI {
 	 */
 	@GetMapping(value = EndpointConstants.IS_ALIVE)
 	public ResponseEntity<Boolean> isAlive() {
-		LOGGER.info("Requesting for " + EndpointConstants.IS_ALIVE);
+		LOGGER.info("Requesting for {}", EndpointConstants.IS_ALIVE);
 		Date beginTime = new Date();
 		RestUtils.logSpentTime(EndpointConstants.IS_ALIVE, beginTime);
 		return RestUtils.getResponseEntity(true);

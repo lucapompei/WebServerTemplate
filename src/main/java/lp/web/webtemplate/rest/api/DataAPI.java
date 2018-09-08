@@ -43,7 +43,7 @@ public class DataAPI {
 	 */
 	@GetMapping(value = EndpointConstants.DATA)
 	public ResponseEntity<List<Integer>> getAbout() {
-		LOGGER.info("Requesting for " + EndpointConstants.DATA);
+		LOGGER.info("Requesting for {}", EndpointConstants.DATA);
 		Date beginTime = new Date();
 		List<Integer> response = dataService.getFakeData();
 		RestUtils.logSpentTime(EndpointConstants.DATA, beginTime);
