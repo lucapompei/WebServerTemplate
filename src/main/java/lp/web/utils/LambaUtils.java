@@ -1,12 +1,11 @@
 package lp.web.utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +33,7 @@ public class LambaUtils {
 	/**
 	 * This method sort the given map
 	 * 
-	 * @param map,
-	 *            the map to sort
+	 * @param map, the map to sort
 	 * @return a sorted map
 	 */
 	public static Map<String, Long> sortMap(Map<String, Long> map) {
@@ -51,20 +49,14 @@ public class LambaUtils {
 	}
 
 	/**
-	 * Filter a list of generic object using the given predicate
+	 * Filter by the given function
 	 * 
-	 * @param objects,
-	 *            the list of objects to filter
-	 * @param predicate,
-	 *            the predicate used to filter
-	 * @return a filter list of generic objects
+	 * @param key, the function used to filter
+	 * @return a filter by the given function
 	 */
-	public static <T> List<T> filterObjects(List<T> objects, Predicate<? super T> predicate) {
-		if (objects == null) {
-			LOGGER.debug("The list of objects is null");
-			return new ArrayList<>();
-		}
-		return objects.parallelStream().filter(predicate).collect(Collectors.toList());
+	public static <T> Predicate<T> distinctByKey(Function<? super T, Object> key) {
+		Map<Object, Boolean> map = new ConcurrentHashMap<>();
+		return t -> map.putIfAbsent(key.apply(t), Boolean.TRUE) == null;
 	}
 
 }
