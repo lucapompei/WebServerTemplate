@@ -26,18 +26,14 @@ spring:
       enabled: false
   thymeleaf: 
     cache: false
-  mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
   datasource:
     url: jdbc:h2:mem:inmemorydbname
     driver-class: org.h2.Driver
     initialize: true
     
 application:
-  app_name: #project.artifactId#
-  app_version: #project.version#.#buildNumber#
+  app_name: @project.artifactId@
+  app_version: @project.version@.@buildNumber@
 
 security:
   security_basicauth_enabled: false

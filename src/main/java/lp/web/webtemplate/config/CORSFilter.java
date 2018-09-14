@@ -40,9 +40,11 @@ public class CORSFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) {
+		// Empty implementation
 	}
 
 	@Override
 	public void destroy() {
+		// Empty implementation
 	}
 }

@@ -21,7 +21,7 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import lp.web.webtemplate.constants.AuthConstants;
 
 /**
- * This class reprensent a custom filter used for the jwt authorization
+ * This class represents a custom filter used for the jwt authorization
  * 
  * @author lucapompei
  *
