@@ -15,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = { MainApplication.class })
 public class TestContext {
 
+
+
 	/**
 	 * Test the context loading
 	 */

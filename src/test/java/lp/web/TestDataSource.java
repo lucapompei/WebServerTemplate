@@ -22,11 +22,15 @@ import lp.web.webtemplate.model.ApplicationUser;
 @SpringBootTest(classes = { MainApplication.class })
 public class TestDataSource {
 
+
+
 	/**
 	 * The Jdbc template
 	 */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+
+
 
 	/**
 	 * Test a simple query on db
