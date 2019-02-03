@@ -1,11 +1,11 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jre-alpine
 
-VOLUME /tmp
+ARG JAR_NAME="${artifactId}"
+ENV HTTP_PORT=8080
+ENV LOG_LEVEL=warn
+EXPOSE ${HTTP_PORT}
+WORKDIR /usr/src/app
 
-ARG JAR_FILE
+COPY ./target/${JAR_NAME}.jar ./app.jar
 
-COPY ${JAR_FILE} app.jar
-
-EXPOSE 8080
-
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-XX:+UseG1GC", "-Xmx512m", "-Xms256m", "-jar", "/app.jar"]
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-XX:+UseG1GC", "-Xmx512m", "-Xms256m", "./app.jar"]

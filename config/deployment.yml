@@ -1,0 +1,53 @@
+kind: "DeploymentConfig"
+apiVersion: "v1"
+metadata:
+  name: ${artifactId}
+spec:
+  replicas: 1
+  strategy:
+    type: Rolling
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: ${artifactId}
+    spec:
+      containers:
+        - name: ${artifactId}
+          imagePullPolicy: Always
+          image: /** INSERT YOUR REGISTRY URL **/ /${artifactId}:latest
+          resources:
+            limits:
+              memory: 200Mi
+            requests:
+              memory: 30Mi
+          ports:
+          - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+          env:
+            - name: mcu.profile.active
+              value: 'prod'
+      imagePullSecrets:
+        - name: /** INSERT YOUR PULL SECRET **/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${artifactId}
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: ${artifactId}
