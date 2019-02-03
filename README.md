@@ -29,13 +29,13 @@ Clone or download the maven archetype and then:
 - Install the archetype
 
 ```
-mvn install
+	mvn install
 ```
 
 - Create a new project starting from the archetype
 	
 ```
-mvn archetype:generate
+	mvn archetype:generate
 ```
 
 
