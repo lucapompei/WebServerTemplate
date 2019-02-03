@@ -1,4 +1,4 @@
-# Web Template v.3.3
+# Web Project Archetype v.4.0.0
 
 [![Build Status](https://travis-ci.org/lucapompei/WebServerTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebServerTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CodeFactor](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate/badge)](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate)
 
@@ -24,13 +24,13 @@ Summary features
 Usage
 -------
 
-Clone or download the maven project and start its customization.
+Clone or download the maven archetype and start its usage/customization.
 
 
 License
 -------
 
-  Copyright (C) 2018 lucapompei
+  Copyright (C) 2019 lucapompei
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
