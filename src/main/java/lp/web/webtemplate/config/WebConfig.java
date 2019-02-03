@@ -13,6 +13,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @Configuration
 public class WebConfig {
 
+
+
 	/**
 	 * Defines a common multipart resolver
 	 * 

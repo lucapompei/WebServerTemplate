@@ -15,10 +15,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
+/**
+ * This config class globally configures the CORS management
+ * 
+ * @author lucapompei
+ *
+ */
 @Configuration
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CORSFilter implements Filter {
 
+
+
+	/**
+	 * Applies the filter to handle the requests
+	 */
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
@@ -38,10 +49,14 @@ public class CORSFilter implements Filter {
 		chain.doFilter(req, res);
 	}
 
+
+
 	@Override
 	public void init(FilterConfig filterConfig) {
 		// Empty implementation
 	}
+
+
 
 	@Override
 	public void destroy() {

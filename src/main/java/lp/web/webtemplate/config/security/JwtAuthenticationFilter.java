@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -30,20 +29,28 @@ import lp.web.webtemplate.model.ApplicationUser;
  */
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+
+
 	/**
 	 * The authentication manager
 	 */
 	private AuthenticationManager authenticationManager;
+
+
 
 	/**
 	 * The secret key used for the jwt auth
 	 */
 	private String jwtSecretKey;
 
+
+
 	/**
 	 * The expiration time used for the jwt auth
 	 */
 	private long jwtExpirationTime;
+
+
 
 	/**
 	 * Construct a new {@link JwtAuthenticationFilter} configuring it
@@ -56,14 +63,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		this.jwtExpirationTime = jwtExpirationTime;
 	}
 
+
+
 	/**
 	 * It tries to authenticate the request
 	 * 
 	 * @return the authentication
 	 */
 	@Override
-	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
-			throws AuthenticationException {
+	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) {
 		try {
 			// load the application user from the request body
 			ApplicationUser creds = JsonUtils.fromInputStream(req.getInputStream(), ApplicationUser.class);
@@ -73,6 +81,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			return null;
 		}
 	}
+
+
 
 	/**
 	 * Whether the request is valid, authenticate it

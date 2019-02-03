@@ -15,9 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import lp.web.webtemplate.constants.EndpointConstants;
 import lp.web.webtemplate.service.ApplicationUserDetailsService;
@@ -33,12 +30,16 @@ import lp.web.webtemplate.service.ApplicationUserDetailsService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+
 	/**
 	 * This variable allows the security configuration based on the basic
 	 * authentication
 	 */
 	@Value("${security.security_basicauth_enabled:true}")
 	private boolean securityBasicAuthEnabled;
+
+
 
 	/**
 	 * This variable allows the security configuration based on the jwt
@@ -47,11 +48,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Value("${security.security_jwtauth_enabled:false}")
 	private boolean securityJwtAuthEnabled;
 
+
+
 	/**
 	 * The secret key used for the jwt auth
 	 */
 	@Value("${security.security_jwtauth_secretkey:WebTemplateSecretKey!}")
 	private String jwtSecretKey;
+
+
 
 	/**
 	 * The expiration time used for the jwt auth
@@ -59,11 +64,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Value("${security.security_jwtauth_minexpirationtime:5}")
 	private long jwtMinExpirationTime;
 
+
+
 	/**
 	 * The application user details service
 	 */
 	@Autowired
 	private ApplicationUserDetailsService userDetailsService;
+
+
 
 	/**
 	 * Configure the password encoder
@@ -74,6 +83,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public static PasswordEncoder configurePasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
+
 
 	/**
 	 * It configures the authentication manager used to authenticate the http
@@ -87,6 +98,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(this.userDetailsService).passwordEncoder(configurePasswordEncoder());
 	}
 
+
+
 	/**
 	 * This method configures the security, enabling or disabling it and permitting
 	 * or denying the http requests
@@ -95,13 +108,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		if (this.securityBasicAuthEnabled) {
 			// permit form login and require the basic authentication for each other request
-			http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
+			http.authorizeRequests()
+					.antMatchers(HttpMethod.GET, EndpointConstants.ROOT).permitAll()
+					.antMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
+					.anyRequest().authenticated()
+					.and().formLogin()
+					.and().httpBasic();
 		} else if (this.securityJwtAuthEnabled) {
 			// permit form login and require the jwt authentication for each other request
-			http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, EndpointConstants.LOGIN).permitAll()
-					.anyRequest().authenticated().and().sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-					.addFilter(new JwtAuthenticationFilter(authenticationManager(), this.jwtSecretKey,
+			http.csrf().disable().authorizeRequests()
+					.antMatchers(HttpMethod.OPTIONS).permitAll()
+					.antMatchers(HttpMethod.GET, EndpointConstants.ROOT).permitAll()
+					.antMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
+					.antMatchers(HttpMethod.POST, EndpointConstants.LOGIN).permitAll()
+					.anyRequest().authenticated()
+					.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+					.and().addFilter(new JwtAuthenticationFilter(authenticationManager(), this.jwtSecretKey,
 							this.jwtMinExpirationTime * 1000))
 					.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.jwtSecretKey))
 					.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
@@ -112,6 +134,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		}
 	}
 
+
+
 	/**
 	 * The authentication entry point used to return 401 when jwt is enabled and the
 	 * authorization is denied
@@ -121,27 +145,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private AuthenticationEntryPoint unauthorizedEntryPoint() {
 		return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
 				authException.getMessage());
-	}
-
-	/**
-	 * Configures the cors filter
-	 * 
-	 * @return the configured cors filter
-	 */
-	@Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin("http://localhost:4200");
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("OPTIONS");
-		config.addAllowedMethod("GET");
-		config.addAllowedMethod("POST");
-		config.addAllowedMethod("PUT");
-		config.addAllowedMethod("DELETE");
-		source.registerCorsConfiguration("/**", config);
-		return new CorsFilter(source);
 	}
 
 }

@@ -28,10 +28,14 @@ import lp.web.webtemplate.constants.AuthConstants;
  */
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
+
+
 	/**
 	 * The secret key used for the jwt auth
 	 */
 	private String jwtSecretKey;
+
+
 
 	/**
 	 * Construct a new {@link JwtAuthorizationFilter} configuring it
@@ -40,6 +44,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		super(authenticationManager);
 		this.jwtSecretKey = jwtSecretKey;
 	}
+
+
 
 	/**
 	 * Configure the custom filters for the jwt authorization
@@ -59,11 +65,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		chain.doFilter(req, res);
 	}
 
+
+
 	/**
 	 * It tries to get and validate the authorization token used by the request
 	 * 
-	 * @param request,
-	 *            the request to authorize
+	 * @param request, the request to authorize
 	 * @return the authentication token
 	 */
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
