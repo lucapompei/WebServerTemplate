@@ -7,24 +7,32 @@ import java.time.temporal.WeekFields;
 import java.util.Date;
 import java.util.Locale;
 
+import lp.web.webtemplate.constants.CommonConstants;
+
 /**
- * This class exposes utils to handle date operations
+ * This class exposes utilities to handle date operations
  *
  * @author lucapompei
  */
 public class DateUtils {
 
+
+
 	/**
-	 * The date formatter
+	 * The date formatter pattern
 	 */
 	private static final String DATE_FORMATTER_PATTERN = "dd-MM-yyyy";
 
+
+
 	/**
-	 * Private constructor for an utility class, construct a new {@code DateUtils}
+	 * Private constructor for an utility class
 	 */
 	private DateUtils() {
-		throw new IllegalAccessError();
+		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
 	}
+
+
 
 	/**
 	 * Calculates and returns the current week
@@ -37,11 +45,12 @@ public class DateUtils {
 		return "W" + date.get(woy);
 	}
 
+
+
 	/**
 	 * Returns a formatted and more readable date
 	 * 
-	 * @param date,
-	 *            the date to format
+	 * @param date, the date to format
 	 * 
 	 * @return a formatted date
 	 */

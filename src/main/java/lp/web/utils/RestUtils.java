@@ -9,30 +9,40 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import lp.web.webtemplate.constants.CommonConstants;
+
 /**
- * This class exposes utils to handle rest operations
+ * This class exposes utilities to handle rest operations
  * 
  * @author lucapompei
  *
  */
 public class RestUtils {
 
+
+
 	/**
 	 * Logger
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
+
+
 
 	/**
 	 * Cached object
 	 */
 	private static HttpHeaders cachedHeaders;
 
+
+
 	/**
-	 * Private constructor for a new {@code RestUtils}
+	 * Private constructor for an utility class
 	 */
 	private RestUtils() {
-		throw new IllegalAccessError();
+		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
 	}
+
+
 
 	/**
 	 * Get a generic http headers
@@ -51,6 +61,8 @@ public class RestUtils {
 		return headers;
 	}
 
+
+
 	/**
 	 * Logs the spent time for the response returned for the given endpoint
 	 * 
@@ -59,9 +71,13 @@ public class RestUtils {
 	 */
 	public static void logSpentTime(String endpoint, Date beginTime) {
 		Date endTime = new Date();
-		LOGGER.info("Returned response for {} in " + String.format("%s ms", endTime.getTime() - beginTime.getTime()),
-				endpoint);
+		if (LOGGER.isInfoEnabled()) {
+			LOGGER.info("Returned response for {} in {}", endpoint,
+					String.format("%s ms", endTime.getTime() - beginTime.getTime()));
+		}
 	}
+
+
 
 	/**
 	 * Get a response entity with the given httpStatus using object
@@ -75,6 +91,8 @@ public class RestUtils {
 	public static <T> ResponseEntity<T> getResponseEntity(T object, HttpStatus httpStatus) {
 		return new ResponseEntity<>(object, httpStatus);
 	}
+
+
 
 	/**
 	 * Get a response entity with 200 OK HTTP status using object

@@ -8,31 +8,39 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import retrofit2.converter.jackson.JacksonConverterFactory;
+import lp.web.webtemplate.constants.CommonConstants;
 
 /**
- * This class exposes utils to handle json string
+ * This class exposes utilities to handle json string
  *
  * @author lucapompei
  */
 public class JsonUtils {
+
+
 
 	/**
 	 * Logger
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
 
+
+
 	/**
 	 * Jackson instance
 	 */
 	private static ObjectMapper instance;
 
+
+
 	/**
-	 * Private constructor for an utility class, construct a new {@code JsonUtils}
+	 * Private constructor for an utility class
 	 */
 	private JsonUtils() {
-		throw new IllegalAccessError();
+		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
 	}
+
+
 
 	/**
 	 * Static method used to initialize and retrieve the {@link ObjectMapper}
@@ -49,21 +57,12 @@ public class JsonUtils {
 		return instance;
 	}
 
-	/**
-	 * Create a Jackson converter instance using an instance of {@link ObjectMapper}
-	 * for json conversion
-	 *
-	 * @return an instance of {@link JacksonConverterFactory}
-	 */
-	public static JacksonConverterFactory getConverterInstance() {
-		return JacksonConverterFactory.create(getInstance());
-	}
+
 
 	/**
-	 * Convert the given object to a json string
+	 * Converts the given object to a json string
 	 *
-	 * @param object,
-	 *            the object to be converted into a json string
+	 * @param object, the object to be converted into a json string
 	 * @return a json string representation of the given object or {@code null} if
 	 *         some exception occurs during conversion
 	 */
@@ -76,15 +75,14 @@ public class JsonUtils {
 		}
 	}
 
+
+
 	/**
-	 * Convert the given json string to its represented object
+	 * Converts the given json string to its represented object
 	 *
-	 * @param <T>,
-	 *            generic type
-	 * @param json,
-	 *            the json string from which re-create the represented object
-	 * @param cls,
-	 *            the class of the represented object used to re-create it
+	 * @param <T>, generic type
+	 * @param json, the json string from which re-create the represented object
+	 * @param cls, the class of the represented object used to re-create it
 	 * @return the object represented by the json string or {@code null} if some
 	 *         exception occurs during conversion
 	 */
@@ -97,15 +95,15 @@ public class JsonUtils {
 		}
 	}
 
+
+
 	/**
-	 * Convert the given input stream string to its represented object
+	 * Converts the given input stream string to its represented object
 	 *
-	 * @param <T>,
-	 *            generic type
-	 * @param inputStream,
-	 *            the input stream from which re-create the represented object
-	 * @param cls,
-	 *            the class of the represented object used to re-create it
+	 * @param <T>, generic type
+	 * @param inputStream, the input stream from which re-create the represented
+	 *        object
+	 * @param cls, the class of the represented object used to re-create it
 	 * @return the object represented by the json string or {@code null} if some
 	 *         exception occurs during conversion
 	 */

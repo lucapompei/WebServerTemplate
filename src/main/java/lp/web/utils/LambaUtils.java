@@ -10,25 +10,33 @@ import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lp.web.webtemplate.constants.CommonConstants;
+
 /**
- * This class exposes utils to handle Lambda expressions
+ * This class exposes utilities to handle Lambda expressions
  * 
  * @author lucapompei
  *
  */
 public class LambaUtils {
 
+
+
 	/**
 	 * Logger
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(LambaUtils.class);
 
+
+
 	/**
-	 * Private constructor for a new {@code LambaUtils}
+	 * Private constructor for an utility class
 	 */
 	private LambaUtils() {
-		throw new IllegalAccessError();
+		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
 	}
+
+
 
 	/**
 	 * This method sort the given map
@@ -47,6 +55,8 @@ public class LambaUtils {
 				.forEachOrdered(e -> sortedMap.put(e.getKey(), e.getValue()));
 		return sortedMap;
 	}
+
+
 
 	/**
 	 * Filter by the given function

@@ -1,45 +1,34 @@
 package lp.web.utils;
 
+import lp.web.webtemplate.constants.CommonConstants;
+
 /**
- * This class exposes utils to handle generic text operations
+ * This class exposes utilities to handle generic text operations
  *
  * @author lucapompei
  */
 public class TextUtils {
 
+
+
 	/**
-	 * Private constructor for an utility class, construct a new {@code TextUtils}
+	 * Private constructor for an utility class
 	 */
 	private TextUtils() {
-		throw new IllegalAccessError();
+		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
 	}
+
+
 
 	/**
 	 * This method checks if the passed value is {@code null} or empty
 	 *
-	 * @param value,
-	 *            the string value to check
+	 * @param value, the string value to check
 	 * @return a {@code boolean} indicating if the checked string value is
 	 *         {@code null} or empty or not
 	 */
 	public static boolean isNullOrEmpty(String value) {
 		return value == null || value.isEmpty();
-	}
-
-	/**
-	 * This method add missing http protocol to the given base url
-	 *
-	 * @param baseUrl,
-	 *            the base url to check
-	 * @return a formatted base url with a default http protocol
-	 */
-	public static String configHttpProtocolForBaseUrl(String baseUrl) {
-		String regexForHttpProtocol = "^(http|https)://.*";
-		if (baseUrl != null && !baseUrl.matches(regexForHttpProtocol)) {
-			return "http://" + baseUrl;
-		} else {
-			return baseUrl;
-		}
 	}
 
 }
