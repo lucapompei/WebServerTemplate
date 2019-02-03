@@ -18,17 +18,20 @@ import lp.web.webtemplate.model.ApplicationUser;
 @Component
 public class UserRepository {
 
+
+
 	/**
 	 * The jdbc template
 	 */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+
+
 	/**
 	 * Finds and returns the user identified by the given username
 	 * 
-	 * @param username,
-	 *            the username
+	 * @param username, the username
 	 * @return the user identified by the given username
 	 */
 	public ApplicationUser findByUsername(String username) {
