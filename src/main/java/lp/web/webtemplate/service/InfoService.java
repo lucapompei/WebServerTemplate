@@ -12,17 +12,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class InfoService {
 
+
+
 	/**
 	 * The application name
 	 */
 	@Value("${application.app_name}")
 	private String appName;
 
+
+
 	/**
 	 * The application version
 	 */
 	@Value("${application.app_version}")
 	private String appVersion;
+
+
 
 	/**
 	 * Retrieve then main application info

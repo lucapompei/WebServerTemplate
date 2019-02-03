@@ -21,11 +21,15 @@ import lp.web.webtemplate.model.ApplicationUser;
 @Service
 public class ApplicationUserDetailsService implements UserDetailsService {
 
+
+
 	/**
 	 * The user repository
 	 */
 	@Autowired
 	private UserRepository userRepository;
+
+
 
 	/**
 	 * Create a new empty {@link ApplicationUserDetailsService}
@@ -34,15 +38,16 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 		// Empty implementation
 	}
 
+
+
 	/**
 	 * Loads user details based on the given username
 	 * 
-	 * @param username,
-	 *            the username
+	 * @param username, the username
 	 * @return the user details based on the given username
 	 */
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) {
 		ApplicationUser user = this.userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException(username);
