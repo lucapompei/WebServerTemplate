@@ -4,6 +4,7 @@
 package ${package}.config.security;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -75,13 +76,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	 */
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) {
-		try {
+		try (InputStream is = req.getInputStream()) {
 			// load the application user from the request body
 			ApplicationUser creds = JsonUtils.fromInputStream(req.getInputStream(), ApplicationUser.class);
 			return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
 					creds.getPassword(), new ArrayList<>()));
 		} catch (IOException e) {
-			return null;
+			throw new RuntimeException(e);
 		}
 	}
 
