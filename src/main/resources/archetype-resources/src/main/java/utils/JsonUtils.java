@@ -46,6 +46,16 @@ public class JsonUtils {
 
 
 	/**
+	 * Initialized the static instance
+	 */
+	private static synchronized void initializeMapper() {
+		instance = new ObjectMapper();
+		instance.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+	}
+
+
+
+	/**
 	 * Static method used to initialize and retrieve the {@link ObjectMapper}
 	 * instance
 	 *
@@ -54,8 +64,7 @@ public class JsonUtils {
 	private static ObjectMapper getInstance() {
 		if (instance == null) {
 			// lazy initialization
-			instance = new ObjectMapper();
-			instance.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+			initializeMapper();
 		}
 		return instance;
 	}
