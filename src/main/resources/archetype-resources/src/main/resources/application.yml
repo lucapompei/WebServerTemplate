@@ -15,24 +15,24 @@ logging:
     lp.web: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{50} - %msg%n"
-    
+
 spring:
   main:
     banner-mode: "off"
-  jmx: 
+  jmx:
     enabled: false
-  freemarker: 
+  freemarker:
     enabled: false
-  groovy: 
-    template: 
+  groovy:
+    template:
       enabled: false
-  thymeleaf: 
+  thymeleaf:
     cache: false
   datasource:
     url: jdbc:h2:mem:inmemorydbname
     driver-class: org.h2.Driver
     initialize: true
-    
+
 application:
   app_name: @project.artifactId@
   app_version: @project.version@.@timestamp@
