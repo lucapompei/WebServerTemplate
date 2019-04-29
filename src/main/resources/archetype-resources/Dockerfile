@@ -8,4 +8,4 @@ WORKDIR /usr/src/app
 
 COPY ./target/${JAR_NAME}.jar ./app.jar
 
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-XX:+UseG1GC", "-Xmx512m", "-Xms256m", "./app.jar"]
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-XX:+UseG1GC", "-Xmx256m", "-Xms32m", "-XX:MaxHeapFreeRatio=70", "./app.jar"]

@@ -1,4 +1,4 @@
-# Web Project Archetype v.4.0.2
+# Web Project Archetype v.4.0.3
 
 [![Build Status](https://travis-ci.org/lucapompei/WebServerTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebServerTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CodeFactor](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate/badge)](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate)
 
@@ -19,7 +19,7 @@ Summary features
 - Logback basic configuration;
 - Swagger auto-generated;
 - Dockerfile pre-configuration;
-- Jenkins pre-configuration;
+- Jenkinsfile pre-configuration;
 - OpenShift pre-configuration;
 - Fully customizable through the environment properties.
 
@@ -40,6 +40,7 @@ Clone or download the maven archetype and then:
 ```
   mvn archetype:generate
 ```
+ 
 
 
 License
