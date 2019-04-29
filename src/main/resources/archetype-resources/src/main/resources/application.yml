@@ -7,6 +7,10 @@ server:
     mime-types: application/json
   undertow:
     worker-threads: 128
+  error:
+    whitelabel.enabled: false
+  jsp-servlet:
+    registered: false
 
 logging:
   level:
@@ -18,6 +22,7 @@ logging:
 
 spring:
   main:
+    web-environment: false
     banner-mode: "off"
   jmx:
     enabled: false
@@ -25,6 +30,9 @@ spring:
     enabled: false
   groovy:
     template:
+      enabled: false
+  mobile:
+    sitepreference:
       enabled: false
   thymeleaf:
     cache: false
