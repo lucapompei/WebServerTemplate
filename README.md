@@ -15,9 +15,12 @@ Summary features
 - Spring Security configuration (BasicAuth or JwtAuth or none);
 - Spring JDBC + H2 embedded configuration;
 - Untertow embedded;
-- HttpInterceptor configuration;
+- CORS configuration;
 - Logback basic configuration;
+- Swagger auto-generated;
 - Dockerfile pre-configuration;
+- Jenkins pre-configuration;
+- OpenShift pre-configuration;
 - Fully customizable through the environment properties.
 
 
