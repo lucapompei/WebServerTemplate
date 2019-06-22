@@ -37,4 +37,13 @@
 		</license>
 	</licenses>
 
+
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<name>Nexus Sysdata</name>
+			<url>https://nexus.sysdata.it/repository/maven-sysdata/</url>
+		</repository>
+	</distributionManagement>
+
 </project>
