@@ -1,9 +1,5 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')#set($symbol_dollar='$')#set($symbol_escape='\')
 package ${package}.utils;
-
-import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import ${package}.constants.CommonConstants;
+
+
 
 /**
  * This class exposes utilities to handle rest operations
@@ -67,27 +65,11 @@ public class RestUtils {
 
 
 	/**
-	 * Logs the spent time for the response returned for the given endpoint
-	 * 
-	 * @param endpoint, the analyzed endpoint
-	 * @param beginTime, the begin operation time
-	 */
-	public static void logSpentTime(String endpoint, Date beginTime) {
-		Date endTime = new Date();
-		if (LOGGER.isInfoEnabled()) {
-			LOGGER.info("Returned response for {} in {}", endpoint,
-					String.format("%s ms", endTime.getTime() - beginTime.getTime()));
-		}
-	}
-
-
-
-	/**
 	 * Get a response entity with the given httpStatus using object
 	 * 
 	 * @param <T>
 	 * 
-	 * @param object, an optional param to indicate the entity to return
+	 * @param object,     an optional param to indicate the entity to return
 	 * @param httpStatus, the httpsStatus to return
 	 * @return response entity with the given httpStatus using object
 	 */
