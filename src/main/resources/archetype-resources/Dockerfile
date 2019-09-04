@@ -24,4 +24,6 @@ WORKDIR /usr/src/app
 
 COPY ./target/${JAR_NAME}.jar ./app.jar
 
+RUN chmod 777 /usr/src/app
+
 CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-XX:+UseG1GC", "-Xmx256m", "-Xms32m", "-XX:MaxHeapFreeRatio=70", "./app.jar"]
