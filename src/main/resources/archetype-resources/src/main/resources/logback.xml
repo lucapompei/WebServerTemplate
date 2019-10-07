@@ -2,6 +2,9 @@
 <!DOCTYPE xml>
 <configuration>
 
+	<!-- Define properties -->
+	<property scope="context" name="LOG_PATH" value="logs/${artifactId}/${artifactId}.log" />
+
 	<!-- Console -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
@@ -11,10 +14,10 @@
 	
 	<!-- File -->
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-	    <file>logs/${artifactId}/${artifactId}.log</file>
+	    <file>${LOG_PATH}</file>
 	    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 	      <!-- rollover daily -->
-	      <fileNamePattern>logs/${artifactId}/${artifactId}.log-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+	      <fileNamePattern>${LOG_PATH}.log-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
 	      <maxFileSize>10MB</maxFileSize>    
 	      <maxHistory>3</maxHistory>
 	      <totalSizeCap>30MB</totalSizeCap>
