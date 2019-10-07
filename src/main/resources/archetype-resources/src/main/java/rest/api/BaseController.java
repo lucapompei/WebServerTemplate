@@ -4,14 +4,17 @@
 package ${package}.rest.api;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ${package}.utils.RestUtils;
 import ${package}.constants.EndpointConstants;
 import ${package}.service.InfoService;
+import ${package}.utils.RestUtils;
 
 /**
  * This rest controller exposes endpoints to handle the base requests
@@ -21,6 +24,13 @@ import ${package}.service.InfoService;
  */
 @RestController
 public class BaseController {
+
+
+
+	/**
+	 * The logger
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(BaseController.class);
 
 
 
@@ -54,5 +64,25 @@ public class BaseController {
 		String response = infoService.getAppInfo();
 		return RestUtils.getResponseEntity(response);
 	}
+
+
+
+	/**
+	 * This method exposes API to show the application logs
+	 * 
+	 * @return the application logs
+	 */
+	@GetMapping(value = EndpointConstants.LOGS)
+	public ResponseEntity<String> getLogs() {
+		try {
+			String response = infoService.getAppLogs();
+			return RestUtils.getResponseEntity(response);
+		} catch (Exception e) {
+			LOGGER.error("Unable to get application logs: {}", e.getMessage());
+			return RestUtils.getResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
 
 }

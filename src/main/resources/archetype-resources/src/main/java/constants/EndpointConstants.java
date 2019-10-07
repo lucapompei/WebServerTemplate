@@ -35,6 +35,13 @@ public class EndpointConstants {
 
 
 	/**
+	 * The logs endpoint
+	 */
+	public static final String LOGS = "/logs";
+
+
+
+	/**
 	 * Private constructor for an utility class
 	 */
 	private EndpointConstants() {

@@ -20,6 +20,13 @@ public class CommonConstants {
 
 
 	/**
+	 * The log property used to indicate the logs path
+	 */
+	public static final String LOGS_PATH = "LOG_PATH";
+
+
+
+	/**
 	 * Private constructor for an utility class
 	 */
 	private CommonConstants() {
