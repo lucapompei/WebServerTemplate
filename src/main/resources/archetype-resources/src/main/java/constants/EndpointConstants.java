@@ -17,6 +17,27 @@ public class EndpointConstants {
 	 * The root endpoint
 	 */
 	public static final String ROOT = "/";
+	
+	
+	
+	/**
+	 * The swagger endpoint
+	 */
+	public static final String SWAGGER = "/swagger*/**";
+	
+	
+	
+	/**
+	 * The swagger json endpoint
+	 */
+	public static final String SWAGGER_JSON = "/v2/api-docs";
+	
+	
+	
+	/**
+	 * The swagger webjars endpoint
+	 */
+	public static final String SWAGGER_WEBJARS = "/webjars/";
 
 
 

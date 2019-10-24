@@ -19,7 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import ${package}.constants.EndpointConstants;
+import $
+import it.test.constants.EndpointConstants;
 import ${package}.service.ApplicationUserDetailsService;
 
 /**
@@ -114,6 +115,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			http.authorizeRequests()
 					.antMatchers(HttpMethod.GET, EndpointConstants.ROOT).permitAll()
 					.antMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
+					.antMatchers(EndpointConstants.SWAGGER).permitAll()
+					.antMatchers(EndpointConstants.SWAGGER_JSON).permitAll()
+					.antMatchers(EndpointConstants.SWAGGER_WEBJARS).permitAll()
 					.anyRequest().authenticated()
 					.and().formLogin()
 					.and().httpBasic();
@@ -124,6 +128,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers(HttpMethod.GET, EndpointConstants.ROOT).permitAll()
 					.antMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
 					.antMatchers(HttpMethod.POST, EndpointConstants.LOGIN).permitAll()
+					.antMatchers(EndpointConstants.SWAGGER).permitAll()
+					.antMatchers(EndpointConstants.SWAGGER_JSON).permitAll()
+					.antMatchers(EndpointConstants.SWAGGER_WEBJARS).permitAll()
 					.anyRequest().authenticated()
 					.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 					.and().addFilter(new JwtAuthenticationFilter(authenticationManager(), this.jwtSecretKey,
