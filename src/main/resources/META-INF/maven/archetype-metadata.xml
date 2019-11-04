@@ -68,6 +68,7 @@
 				<include>.classpath</include>
 				<include>.dockerignore</include>
 				<include>.project</include>
+				<include>*properties</include>
 			</includes>
 		</fileSet>
 	</fileSets>

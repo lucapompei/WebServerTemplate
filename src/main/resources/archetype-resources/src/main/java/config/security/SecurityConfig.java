@@ -19,8 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import $
-import it.test.constants.EndpointConstants;
+import ${package}.constants.EndpointConstants;
 import ${package}.service.ApplicationUserDetailsService;
 
 /**
@@ -115,6 +114,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			http.authorizeRequests()
 					.antMatchers(HttpMethod.GET, EndpointConstants.ROOT).permitAll()
 					.antMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
+					.antMatchers(HttpMethod.GET, EndpointConstants.LOGS).permitAll()
 					.antMatchers(EndpointConstants.SWAGGER).permitAll()
 					.antMatchers(EndpointConstants.SWAGGER_JSON).permitAll()
 					.antMatchers(EndpointConstants.SWAGGER_WEBJARS).permitAll()
@@ -127,6 +127,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers(HttpMethod.OPTIONS).permitAll()
 					.antMatchers(HttpMethod.GET, EndpointConstants.ROOT).permitAll()
 					.antMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
+					.antMatchers(HttpMethod.GET, EndpointConstants.LOGS).permitAll()
 					.antMatchers(HttpMethod.POST, EndpointConstants.LOGIN).permitAll()
 					.antMatchers(EndpointConstants.SWAGGER).permitAll()
 					.antMatchers(EndpointConstants.SWAGGER_JSON).permitAll()
