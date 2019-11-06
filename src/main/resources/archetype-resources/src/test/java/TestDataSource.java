@@ -3,14 +3,13 @@
 #set( $symbol_escape = '\' )
 package ${package};
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import ${package}.utils.JsonUtils;
 import ${package}.model.ApplicationUser;
@@ -21,7 +20,6 @@ import ${package}.model.ApplicationUser;
  * @author lucapompei
  *
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = { MainApplication.class })
 public class TestDataSource {
 
@@ -38,6 +36,7 @@ public class TestDataSource {
 	/**
 	 * Test a simple query on db
 	 */
+	@DisplayName("Find user by username")
 	@Test
 	public void testFindByUsername() {
 		System.out.println("Starting test for datasource");
@@ -47,7 +46,7 @@ public class TestDataSource {
 		ApplicationUser user = jdbcTemplate.queryForObject(sql, args,
 				new BeanPropertyRowMapper<>(ApplicationUser.class));
 		System.out.println("Query result: " + JsonUtils.toJson(user));
-		Assert.assertNotNull(user);
+		Assertions.assertNotNull(user);
 		System.out.println("Test for datasource is completed");
 	}
 

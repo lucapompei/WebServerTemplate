@@ -18,6 +18,7 @@ Summary features
 - Untertow embedded;
 - CORS configuration;
 - Logback basic configuration;
+- Junit 5;
 - API response time auto-calculated and logged;
 - Swagger auto-generated;
 - Dockerfile pre-configuration;

@@ -3,10 +3,9 @@
 #set( $symbol_escape = '\' )
 package ${package};
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * This class is used to test the context loading
@@ -14,8 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author lucapompei
  *
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { MainApplication.class })
+@SpringBootTest
 public class TestContext {
 
 
@@ -23,6 +21,7 @@ public class TestContext {
 	/**
 	 * Test the context loading
 	 */
+	@DisplayName("Load context")
 	@Test
 	public void testContext() {
 		System.out.println("Context loaded succesfully");
