@@ -1,6 +1,6 @@
 -- users table
-CREATE TABLE users (
-	id INT(11) PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS users (
+	id INT(11) PRIMARY KEY auto_increment,
  	username VARCHAR(255),
  	password VARCHAR(255),
  	role VARCHAR(255)
