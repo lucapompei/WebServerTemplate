@@ -1,4 +1,6 @@
-#set($symbol_pound='#')#set($symbol_dollar='$')#set($symbol_escape='\')
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.utils;
 
 import org.slf4j.Logger;
@@ -10,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 
 import ${package}.constants.CommonConstants;
 
-
-
 /**
  * This class exposes utilities to handle rest operations
  * 
@@ -20,21 +20,15 @@ import ${package}.constants.CommonConstants;
  */
 public class RestUtils {
 
-
-
 	/**
 	 * Logger
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
-
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(RestUtils.class);
 
 	/**
 	 * Cached object
 	 */
 	private static HttpHeaders cachedHeaders;
-
-
 
 	/**
 	 * Private constructor for an utility class
@@ -42,8 +36,6 @@ public class RestUtils {
 	private RestUtils() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
 	}
-
-
 
 	/**
 	 * Get a generic http headers
@@ -62,8 +54,6 @@ public class RestUtils {
 		return headers;
 	}
 
-
-
 	/**
 	 * Get a response entity with the given httpStatus using object
 	 * 
@@ -76,8 +66,6 @@ public class RestUtils {
 	public static <T> ResponseEntity<T> getResponseEntity(T object, HttpStatus httpStatus) {
 		return new ResponseEntity<>(object, httpStatus);
 	}
-
-
 
 	/**
 	 * Get a response entity with 200 OK HTTP status using object

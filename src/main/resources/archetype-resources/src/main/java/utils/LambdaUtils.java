@@ -21,21 +21,21 @@ import ${package}.constants.CommonConstants;
  * @author lucapompei
  *
  */
-public class LambaUtils {
+public class LambdaUtils {
 
 
 
 	/**
 	 * Logger
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(LambaUtils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(LambdaUtils.class);
 
 
 
 	/**
 	 * Private constructor for an utility class
 	 */
-	private LambaUtils() {
+	private LambdaUtils() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
 	}
 
