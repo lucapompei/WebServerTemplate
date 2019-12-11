@@ -3,6 +3,7 @@
 #set( $symbol_escape = '\' )
 package ${package};
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +26,7 @@ public class TestContext {
 	@Test
 	public void testContext() {
 		System.out.println("Context loaded succesfully");
+		Assertions.assertTrue(true);
 	}
 
 }
