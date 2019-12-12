@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.model;
 
 /**
@@ -11,37 +11,20 @@ package ${package}.model;
  */
 public class ApplicationUser {
 
-
-
 	/**
 	 * The id
 	 */
 	private int id;
-
-
 
 	/**
 	 * The username
 	 */
 	private String username;
 
-
-
 	/**
 	 * The password
 	 */
 	private String password;
-
-
-
-	/**
-	 * Construct a new {@link ApplicationUser}
-	 */
-	public ApplicationUser() {
-		// Empty implementation
-	}
-
-
 
 	/**
 	 * Getter method for retrieve the id
@@ -52,8 +35,6 @@ public class ApplicationUser {
 		return this.id;
 	}
 
-
-
 	/**
 	 * Setter method for the id
 	 *
@@ -62,8 +43,6 @@ public class ApplicationUser {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 	/**
 	 * Getter method for retrieve the username
@@ -74,8 +53,6 @@ public class ApplicationUser {
 		return this.username;
 	}
 
-
-
 	/**
 	 * Setter method for the username
 	 *
@@ -85,8 +62,6 @@ public class ApplicationUser {
 		this.username = username;
 	}
 
-
-
 	/**
 	 * Getter method for retrieve the password
 	 *
@@ -95,8 +70,6 @@ public class ApplicationUser {
 	public String getPassword() {
 		return this.password;
 	}
-
-
 
 	/**
 	 * Setter method for the password

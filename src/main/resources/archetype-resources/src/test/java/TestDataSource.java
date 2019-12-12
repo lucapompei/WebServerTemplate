@@ -47,10 +47,10 @@ public class TestDataSource {
 		Object[] args = { username };
 		ApplicationUser user = jdbcTemplate.queryForObject(sql, args,
 				new BeanPropertyRowMapper<>(ApplicationUser.class));
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("Query result: " + JsonUtils.toJson(user));
-		}
-		Assertions.assertNotNull(user);
+		LOGGER.info("Retrieved user data from db");
+		Assertions.assertNotNull(user, "User not found");
+		Assertions.assertNotNull(user.getId(), "User ID not found");
+		Assertions.assertNotNull(user.getUsername(), "User name not found");
 		LOGGER.info("Test for datasource is completed");
 	}
 

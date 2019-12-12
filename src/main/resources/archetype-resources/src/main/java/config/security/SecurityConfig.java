@@ -148,7 +148,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 	/**
-	 * The authentication entry point used to return 401 when jwt is enabled and the
+	 * The authentication entry point used to return 401 when JWT is enabled and the
 	 * authorization is denied
 	 * 
 	 * @return the authentication entry point
