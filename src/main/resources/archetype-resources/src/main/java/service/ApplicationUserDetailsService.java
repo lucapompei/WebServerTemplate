@@ -35,15 +35,6 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 
 
 	/**
-	 * Create a new empty {@link ApplicationUserDetailsService}
-	 */
-	public ApplicationUserDetailsService() {
-		// Empty implementation
-	}
-
-
-
-	/**
 	 * Loads user details based on the given username
 	 * 
 	 * @param username, the username

@@ -12,11 +12,6 @@ package ${package}.model;
 public class ApplicationUser {
 
 	/**
-	 * The id
-	 */
-	private int id;
-
-	/**
 	 * The username
 	 */
 	private String username;
@@ -25,24 +20,6 @@ public class ApplicationUser {
 	 * The password
 	 */
 	private String password;
-
-	/**
-	 * Getter method for retrieve the id
-	 *
-	 * @return the id
-	 */
-	public int getId() {
-		return this.id;
-	}
-
-	/**
-	 * Setter method for the id
-	 *
-	 * @param id, the id
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	/**
 	 * Getter method for retrieve the username

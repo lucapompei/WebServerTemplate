@@ -1,12 +1,13 @@
-#set($symbol_pound='#')
-#set($symbol_dollar='$')
-#set($symbol_escape='\')
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 package ${package};
 
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,12 +27,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import ${package}.utils.JsonUtils;
+import ${package}.constants.AuthConstants;
+import ${package}.constants.CommonConstants;
+import ${package}.constants.EndpointConstants;
+import ${package}.model.ApplicationUser;
 import ${package}.utils.DateUtils;
 import ${package}.utils.JsonUtils;
+import ${package}.utils.LambdaUtils;
 import ${package}.utils.RestUtils;
 import ${package}.utils.TextUtils;
-import ${package}.utils.LambdaUtils;
 
 /**
  * This class is used to test the utility classes
@@ -89,6 +93,8 @@ public class TestUtilities {
 		notEmptyMapOrdered.put("a", 1L);
 		notEmptyMapOrdered.put("c", 1L);
 		Map<String, Long> notEmptyMapSorted = LambdaUtils.sortMap(notEmptyMap);
+		// Testing data
+		Assertions.assertEquals(JsonUtils.toJson(notEmptyMapOrdered), JsonUtils.toJson(notEmptyMapSorted), "Maps have not the same order");
 	}
 
 	/**
@@ -99,23 +105,24 @@ public class TestUtilities {
 	public void testDistinctByKey() {
 		// Prepare cases
 		ApplicationUser first = new ApplicationUser();
-		first.setId(1);
+		first.setUsername("A");
 		ApplicationUser second = new ApplicationUser();
-		first.setId(1);
+		second.setUsername("A");
 		ApplicationUser third = new ApplicationUser();
-		first.setId(2);
+		third.setUsername("B");
 		List<ApplicationUser> startingUsers = Arrays.asList(first, second, third);
 		List<ApplicationUser> distinctUsers = Arrays.asList(first, third);
 		// Filtering starting data
 		List<ApplicationUser> finalUsers = startingUsers.stream()
-				.filter(LambdaUtils.distinctByKey(ApplicationUser::getId)).collect(Collectors.toList());
+				.filter(LambdaUtils.distinctByKey(ApplicationUser::getUsername)).collect(Collectors.toList());
 		// Testing result
-		Assertions.assertTrue(distinctUsers.size() == finalUsers.size(), "Final and filtered list are not the same size");
+		Assertions.assertTrue(distinctUsers.size() == finalUsers.size(),
+				"Final and filtered list are not the same size");
 		boolean areEquals = true;
 		int distinctUsersSize = distinctUsers.size();
 		for (int i = 0; i < distinctUsersSize; i++) {
-			if (distinctUsers.get(i) != null && finalUsers.get(i) != null
-					&& Long.compare(distinctUsers.get(i).getId(), finalUsers.get(i).getId()) != 0) {
+			if (distinctUsers.get(i) != null && finalUsers.get(i) != null && distinctUsers.get(i).getUsername() != null
+					&& !distinctUsers.get(i).getUsername().equals(finalUsers.get(i).getUsername())) {
 				areEquals = false;
 			}
 		}
