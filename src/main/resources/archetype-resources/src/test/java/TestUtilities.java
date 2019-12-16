@@ -12,17 +12,21 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import ${package}.constants.EndpointConstants;
+import ${package}.utils.JsonUtils;
 import ${package}.utils.DateUtils;
 import ${package}.utils.JsonUtils;
 import ${package}.utils.RestUtils;
@@ -66,12 +70,10 @@ public class TestUtilities {
 	
 	/**
 	 * Test sorting map
-	 * 
-	 * @param <T>
 	 */
 	@DisplayName("Test sorting map")
 	@Test
-	public <T> void testSortingMap() {
+	public void testSortingMap() {
 		// Prepare case for null map
 		Map<String, Long> nullMap = null;
 		Map<String, Long> emptyMap = new HashMap<>();
@@ -91,12 +93,10 @@ public class TestUtilities {
 
 	/**
 	 * Test distinct by key
-	 * 
-	 * @param <T>
 	 */
 	@DisplayName("Test distinct by key")
 	@Test
-	public <T> void testDistinctByKey() {
+	public void testDistinctByKey() {
 		// Prepare cases
 		ApplicationUser first = new ApplicationUser();
 		first.setId(1);
@@ -124,12 +124,10 @@ public class TestUtilities {
 
 	/**
 	 * Test null text verification
-	 * 
-	 * @param <T>
 	 */
 	@DisplayName("Test null text verification")
 	@Test
-	public <T> void testNullTextVerification() {
+	public void testNullTextVerification() {
 		// Prepare cases
 		String nullText = null;
 		String emptyText = "";
@@ -137,6 +135,75 @@ public class TestUtilities {
 		Assertions.assertTrue(TextUtils.isNullOrEmpty(nullText), "Null text not identified");
 		Assertions.assertTrue(TextUtils.isNullOrEmpty(emptyText), "Empty text not identified");
 		Assertions.assertTrue(!TextUtils.isNullOrEmpty(notEmptyText), "Not empty text not identified");
+	}
+
+	/**
+	 * Test base header generation
+	 */
+	@DisplayName("Test base header generation")
+	@Test
+	public void testBaseHeadersGeneration() {
+		// Assert generation
+		Assertions.assertNotNull(RestUtils.getHeaders(), "Base headers not properly generated");
+	}
+
+	/**
+	 * Test date utilities
+	 */
+	@DisplayName("Test date utilities")
+	@ParameterizedTest
+	@MethodSource("getDataUtils")
+	public void testDateUtils(String data) {
+		// Assert data
+		Assertions.assertNotNull(data, "Date utils not properly handled");
+	}
+
+	/**
+	 * Get a stream of arguments to test date utilities static methods
+	 * 
+	 * @return
+	 */
+	public static Stream<Arguments> getDataUtils() {
+		return Stream.of(Arguments.of(DateUtils.getCurrentWeek()),
+				Arguments.of(DateUtils.getFormattedDate(new Date())));
+
+	}
+
+	/**
+	 * Test JSON utilities
+	 *
+	 * @param <T>
+	 * @param data
+	 * @param expectedData
+	 */
+	@DisplayName("Test JSON utils")
+	@ParameterizedTest
+	@MethodSource("getJsonUtils")
+	public <T> void testJsonUtils(T data, T expectedData) {
+		// Assert data
+		Assertions.assertEquals(JsonUtils.toJson(data), JsonUtils.toJson(expectedData), "JSON utils not properly handled");
+	}
+
+	/**
+	 * Get a stream of arguments to test JSON utilities static methods
+	 * 
+	 * @return
+	 */
+	public static Stream<Arguments> getJsonUtils() {
+		Object emptyObject = new Object();
+		String emptyJson = "{}";
+		return Stream.of(
+				// Empty object to empty JSON
+				Arguments.of(JsonUtils.toJson(emptyObject), emptyJson),
+				// Empty JSON to wrong class
+				Arguments.of(JsonUtils.fromJson(emptyJson, String.class), null),
+				// Empty JSON to right class
+				Arguments.of(JsonUtils.fromJson(emptyJson, Object.class), emptyObject),
+				// Empty JSON input stream to wrong class
+				Arguments.of(JsonUtils.fromInputStream(IOUtils.toInputStream(emptyJson), String.class), null),
+				// Empty JSON input stream to right class
+				Arguments.of(JsonUtils.fromInputStream(IOUtils.toInputStream(emptyJson), Object.class), emptyObject));
+
 	}
 
 }
