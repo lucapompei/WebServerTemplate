@@ -21,7 +21,7 @@ import ${package}.model.ApplicationUser;
  * @author lucapompei
  *
  */
-@SpringBootTest(classes = { MainApplication.class })
+@SpringBootTest
 public class TestDataSource {
 
 	/**
