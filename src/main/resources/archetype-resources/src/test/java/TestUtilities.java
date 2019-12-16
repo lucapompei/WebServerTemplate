@@ -5,23 +5,23 @@ package ${package};
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.stream.Stream;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import ${package}.model.ApplicationUser;
-import ${package}.constants.CommonConstants;
 import ${package}.constants.EndpointConstants;
 import ${package}.utils.DateUtils;
 import ${package}.utils.JsonUtils;
@@ -63,34 +63,63 @@ public class TestUtilities {
 		Assertions.assertThrows(InvocationTargetException.class, () -> constructor.newInstance(),
 				"The class " + className + " is instantiable");
 	}
-
+	
 	/**
-	 * Test date utils
+	 * Test sorting map
+	 * 
+	 * @param <T>
 	 */
-	@DisplayName("Test utils")
-	@ParameterizedTest
-	@MethodSource("getUtilsData")
-	public void testDateUtils(String utilData) {
-		// Test data
-		Assertions.assertNotNull(utilData);
+	@DisplayName("Test sorting map")
+	@Test
+	public <T> void testSortingMap() {
+		// Prepare case for null map
+		Map<String, Long> nullMap = null;
+		Map<String, Long> emptyMap = new HashMap<>();
+		Map<String, Long> nullMapSorted = LambdaUtils.sortMap(nullMap);
+		Assertions.assertTrue(nullMapSorted != null && emptyMap.size() == nullMapSorted.size(), "Unable to sort null map");
+		// Prepare case for not null map
+		Map<String, Long> notEmptyMap = new LinkedHashMap<>();
+		notEmptyMap.put("a", 1L);
+		notEmptyMap.put("b", 2L);
+		notEmptyMap.put("c", 1L);
+		Map<String, Long> notEmptyMapOrdered = new LinkedHashMap<>();
+		notEmptyMapOrdered.put("b", 2L);
+		notEmptyMapOrdered.put("a", 1L);
+		notEmptyMapOrdered.put("c", 1L);
+		Map<String, Long> notEmptyMapSorted = LambdaUtils.sortMap(notEmptyMap);
 	}
 
 	/**
-	 * Get a stream of arguments to test util static methods
+	 * Test distinct by key
 	 * 
-	 * @return
+	 * @param <T>
 	 */
-	public static Stream<Arguments> getUtilsData() {
-		return Stream.of(Arguments.of(DateUtils.getCurrentWeek()), Arguments.of(DateUtils.getFormattedDate(new Date())),
-				Arguments.of(DateUtils.getFormattedDate(new Date())),
-				Arguments.of(LambdaUtils.sortMap(null).toString()),
-				Arguments.of(LambdaUtils.sortMap(new HashMap<>()).toString()),
-				Arguments.of(LambdaUtils.distinctByKey(ApplicationUser::getId).toString()),
-				Arguments.of(RestUtils.getHeaders().toString()),
-				Arguments.of(String.valueOf(TextUtils.isNullOrEmpty(null))), Arguments.of(JsonUtils.toJson("")),
-				Arguments.of(JsonUtils.fromJson("[]", String[].class).toString()),
-				Arguments.of(JsonUtils.fromInputStream(IOUtils.toInputStream("[]"), String[].class).toString()));
-
+	@DisplayName("Test distinct by key")
+	@Test
+	public <T> void testDistinctByKey() {
+		// Prepare cases
+		ApplicationUser first = new ApplicationUser();
+		first.setId(1);
+		ApplicationUser second = new ApplicationUser();
+		first.setId(1);
+		ApplicationUser third = new ApplicationUser();
+		first.setId(2);
+		List<ApplicationUser> startingUsers = Arrays.asList(first, second, third);
+		List<ApplicationUser> distinctUsers = Arrays.asList(first, third);
+		// Filtering starting data
+		List<ApplicationUser> finalUsers = startingUsers.stream()
+				.filter(LambdaUtils.distinctByKey(ApplicationUser::getId)).collect(Collectors.toList());
+		// Testing result
+		Assertions.assertTrue(distinctUsers.size() == finalUsers.size(), "Final and filtered list are not the same size");
+		boolean areEquals = true;
+		int distinctUsersSize = distinctUsers.size();
+		for (int i = 0; i < distinctUsersSize; i++) {
+			if (distinctUsers.get(i) != null && finalUsers.get(i) != null
+					&& Long.compare(distinctUsers.get(i).getId(), finalUsers.get(i).getId()) != 0) {
+				areEquals = false;
+			}
+		}
+		Assertions.assertTrue(areEquals, "Final and filtered list have not the same order");
 	}
 
 }
