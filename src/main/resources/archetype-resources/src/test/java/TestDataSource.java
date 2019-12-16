@@ -10,9 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 
+import ${package}.dao.UserRepository;
 import ${package}.model.ApplicationUser;
 
 /**
@@ -30,28 +29,39 @@ public class TestDataSource {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TestDataSource.class);
 
 	/**
-	 * The Jdbc template
+	 * The user repository
 	 */
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private UserRepository userRepository;
 
 	/**
-	 * Test a simple query on db
+	 * Test a simple query to find an existing user on db
 	 */
-	@DisplayName("Find user by username")
+	@DisplayName("Find user by existing username")
 	@Test
-	public void testFindByUsername() {
-		LOGGER.info("Starting test for datasource");
+	public void testFindByExistingUsername() {
+		LOGGER.info("Starting test for finding existing user on db");
 		String username = "user";
-		String sql = "SELECT id, username FROM users WHERE username = ?";
-		Object[] args = { username };
-		ApplicationUser user = jdbcTemplate.queryForObject(sql, args,
-				new BeanPropertyRowMapper<>(ApplicationUser.class));
+		ApplicationUser user = userRepository.findByUsername(username);
 		LOGGER.info("Retrieved user data from db");
 		Assertions.assertNotNull(user, "User not found");
 		Assertions.assertNotNull(user.getId(), "User ID not found");
 		Assertions.assertNotNull(user.getUsername(), "User name not found");
-		LOGGER.info("Test for datasource is completed");
+		LOGGER.info("Test for finding an existing user is completed");
+	}
+	
+	/**
+	 * Test a simple query to find a not existing user on db
+	 */
+	@DisplayName("Find user by not existing username")
+	@Test
+	public void testFindByNotExistingUsername() {
+		LOGGER.info("Starting test for finding not existing user on db");
+		String username = "newUser";
+		ApplicationUser user = userRepository.findByUsername(username);
+		LOGGER.info("Retrieved user data from db");
+		Assertions.assertNull(user, "User found");
+		LOGGER.info("Test for finding a not existing user completed");
 	}
 
 }

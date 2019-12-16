@@ -42,7 +42,7 @@ public class UserRepository {
 		Object[] parameters = new Object[] { username };
 		List<ApplicationUser> users = this.jdbcTemplate.query(sqlForResults, parameters,
 				new BeanPropertyRowMapper<>(ApplicationUser.class));
-		return users != null && !users.isEmpty() ? users.get(0) : null;
+		return users.isEmpty() ? null : users.get(0);
 	}
 
 }
