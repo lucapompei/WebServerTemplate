@@ -3,6 +3,7 @@
 #set($symbol_escape='\')
 package ${package};
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -21,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import ${package}.model.ApplicationUser;
 import ${package}.constants.EndpointConstants;
 import ${package}.utils.DateUtils;
 import ${package}.utils.JsonUtils;
@@ -120,6 +120,23 @@ public class TestUtilities {
 			}
 		}
 		Assertions.assertTrue(areEquals, "Final and filtered list have not the same order");
+	}
+
+	/**
+	 * Test null text verification
+	 * 
+	 * @param <T>
+	 */
+	@DisplayName("Test null text verification")
+	@Test
+	public <T> void testNullTextVerification() {
+		// Prepare cases
+		String nullText = null;
+		String emptyText = "";
+		String notEmptyText = File.separator;
+		Assertions.assertTrue(TextUtils.isNullOrEmpty(nullText), "Null text not identified");
+		Assertions.assertTrue(TextUtils.isNullOrEmpty(emptyText), "Empty text not identified");
+		Assertions.assertTrue(!TextUtils.isNullOrEmpty(notEmptyText), "Not empty text not identified");
 	}
 
 }
