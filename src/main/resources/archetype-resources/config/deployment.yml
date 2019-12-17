@@ -34,9 +34,6 @@ spec:
             httpGet:
               path: /
               port: 8080
-          env:
-            - name: mcu.profile.active
-              value: 'prod'
       imagePullSecrets:
         - name: /** INSERT YOUR PULL SECRET **/
 ---

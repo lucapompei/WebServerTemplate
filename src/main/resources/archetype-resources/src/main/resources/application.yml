@@ -21,6 +21,8 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{50} - %msg%n"
 
 spring:
+  profiles:
+    active: 'default'
   main:
     web-environment: false
     banner-mode: "off"
