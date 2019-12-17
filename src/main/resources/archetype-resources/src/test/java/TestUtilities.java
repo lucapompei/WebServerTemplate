@@ -147,7 +147,7 @@ public class TestUtilities {
 	/**
 	 * Test base header generation
 	 */
-	@DisplayName("Test base header generation")
+	@DisplayName("Test base headers generation")
 	@Test
 	public void testBaseHeadersGeneration() {
 		// Assert generation
