@@ -29,7 +29,7 @@ public class SwaggerConfig {
 	/**
 	 * Creates the Docket bean
 	 * 
-	 * @return the Docker bean
+	 * @return the Docket bean
 	 */
 	@Bean
 	public Docket api() {
