@@ -17,6 +17,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import io.jsonwebtoken.Jwts;
@@ -81,8 +82,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			ApplicationUser creds = JsonUtils.fromInputStream(req.getInputStream(), ApplicationUser.class);
 			return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
 					creds.getPassword(), new ArrayList<>()));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
+		} catch (Exception e) {
+			throw new UsernameNotFoundException(e.getMessage());
 		}
 	}
 
