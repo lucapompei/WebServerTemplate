@@ -82,7 +82,7 @@ public class JsonUtils {
 		try {
 			return getInstance().writeValueAsString(object);
 		} catch (Exception e) {
-			LOGGER.error("Error during converting to json", e);
+			LOGGER.error("Error during converting to json: {}", e.getMessage());
 			return null;
 		}
 	}
@@ -102,7 +102,7 @@ public class JsonUtils {
 		try {
 			return getInstance().readValue(json, cls);
 		} catch (Exception e) {
-			LOGGER.error("Error during reading json", e);
+			LOGGER.error("Error during reading json: {}", e.getMessage());
 			return null;
 		}
 	}
@@ -123,7 +123,7 @@ public class JsonUtils {
 		try {
 			return getInstance().readValue(inputStream, cls);
 		} catch (Exception e) {
-			LOGGER.error("Error during reading json", e);
+			LOGGER.error("Error during reading json: {}", e.getMessage());
 			return null;
 		}
 	}

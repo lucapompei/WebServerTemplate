@@ -118,6 +118,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers(EndpointConstants.SWAGGER).permitAll()
 					.antMatchers(EndpointConstants.SWAGGER_JSON).permitAll()
 					.antMatchers(EndpointConstants.SWAGGER_WEBJARS).permitAll()
+					.antMatchers(EndpointConstants.ERROR).permitAll()
 					.anyRequest().authenticated()
 					.and().formLogin()
 					.and().httpBasic();
@@ -132,6 +133,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers(EndpointConstants.SWAGGER).permitAll()
 					.antMatchers(EndpointConstants.SWAGGER_JSON).permitAll()
 					.antMatchers(EndpointConstants.SWAGGER_WEBJARS).permitAll()
+					.antMatchers(EndpointConstants.ERROR).permitAll()
 					.anyRequest().authenticated()
 					.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 					.and().addFilter(new JwtAuthenticationFilter(authenticationManager(), this.jwtSecretKey,
