@@ -4,16 +4,19 @@ pipeline {
     
     // Project properties
     projectName = '${artifactId}'
-    
+
+    // SonarQube properties
+    sonarServer = '/** INSERT YOUR SONAR SERVER NAME **/'
+
     // Docker properties
     registryURL = '/** INSERT YOUR REGISTRY URL **/'
     registryCredential = '/** INSERT YOUR REGISTRY CREDENTIAL **/'
-    
+
     // OpenShift properties
     openShiftCredentials = 'KUBECONFIG_CONTENT_CREDENTIALS'
     openShiftCluster = '/** INSERT YOUR OPENSHIFT CLUSTER **/'
     openShiftProjectName = '/** INSERT YOUR OPENSHIFT PROJECT NAME **/'
-    
+
   }
   
   agent any
@@ -28,6 +31,22 @@ pipeline {
         }
       }
     }
+
+    stage('SonarQube analysis') {
+	    steps {
+	      script { 
+		      try {
+            // requires SonarQube Scanner 2.8+
+            def scannerHome = tool 'SonarQube Scanner';
+            withSonarQubeEnv(sonarServer) {
+              sh "${scannerHome}/bin/sonar-scanner"
+            }
+          } catch (Exception e) {
+            echo "Error during reporting on SonarQube"
+          }
+	   	  }
+	    }
+	  }
 
     stage('Building Docker image') {
       steps {
