@@ -1,4 +1,4 @@
-# Web Project Archetype v.4.2.6
+# Web Project Archetype v.4.2.7
 
 [![Build Status](https://travis-ci.org/lucapompei/WebServerTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebServerTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CodeFactor](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate/badge)](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate)
 
@@ -17,15 +17,14 @@ Summary features
 - Spring JDBC + H2 embedded configuration;
 - Untertow embedded;
 - CORS configuration;
-- Logback basic configuration;
-- Junit 5;
+- Logback configuration for uniquely record each request;
+- Junit 5 with coverage >= 75%;
 - API response time auto-calculated and logged;
 - Swagger auto-generated;
 - Dockerfile pre-configuration;
 - Jenkinsfile pre-configuration;
 - OpenShift pre-configuration;
-- Fully customizable through the environment properties;
-- Coverage >=75%.
+- Fully customizable through the environment properties.
 
 
 Usage
