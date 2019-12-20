@@ -12,14 +12,6 @@ server:
   jsp-servlet:
     registered: false
 
-logging:
-  level:
-    root: ERROR
-    org.springframework: ERROR
-    lp.web: INFO
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{50} - %msg%n"
-
 spring:
   profiles:
     active: 'default'
