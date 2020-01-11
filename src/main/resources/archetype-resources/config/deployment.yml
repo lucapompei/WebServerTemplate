@@ -21,7 +21,7 @@ spec:
           image: /** INSERT YOUR REGISTRY URL **/ /${artifactId}:latest
           resources:
             limits:
-              memory: 200Mi
+              memory: 300Mi
             requests:
               memory: 30Mi
           ports:
