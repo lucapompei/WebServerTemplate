@@ -22,6 +22,22 @@ pipeline {
   agent any
   
   stages {
+  
+    stage('Defining environment') {
+      steps {
+        script {
+          echo "Defining environment"
+          if (env.BRANCH_NAME != "master") {
+            echo "Setting master env"
+            env.ENVIRONMENT = "master"
+            env.GIT_TAG = sh(returnStdout: true, script: 'git tag -l --points-at HEAD').trim()
+          } else {
+            echo "Setting dev env"
+            env.ENVIRONMENT = "dev"
+          }
+        }
+      }
+    }
 
     stage('Compiling application') {
       steps {
@@ -35,15 +51,15 @@ pipeline {
     stage('SonarQube analysis') {
 	    steps {
 	      script { 
-		      try {
-            // requires SonarQube Scanner 2.8+
-            def scannerHome = tool 'SonarQube Scanner';
-            withSonarQubeEnv(sonarServer) {
-              sh "${scannerHome}/bin/sonar-scanner"
+		    try {
+              // requires SonarQube Scanner 2.8+
+              def scannerHome = tool 'SonarQube Scanner';
+              withSonarQubeEnv(sonarServer) {
+                sh "${scannerHome}/bin/sonar-scanner"
+              }
+            } catch (Exception e) {
+              echo "Error during reporting on SonarQube"
             }
-          } catch (Exception e) {
-            echo "Error during reporting on SonarQube"
-          }
 	   	  }
 	    }
 	  }
@@ -53,8 +69,11 @@ pipeline {
         script {
           echo "Building Docker image"
           docker.withRegistry(registryURL + projectName, registryCredential) {
-            def customImage = docker.build(projectName + ':latest')
-            customImage.push()
+            docker.build(projectName + ":latest").push()
+            docker.build(projectName + ":${env.BUILD_NUMBER}").push()
+            if (env.ENVIRONMENT == "master" && env.GIT_TAG != "") {
+              docker.build(projectName + ":${env.GIT_TAG}").push()
+            }
             echo "Docker image pushed"
           }
         }
@@ -64,14 +83,19 @@ pipeline {
     stage('Publishing on OpenShift') {
       steps {
         script {
-          echo "Publishing on OpenShift"
-          withCredentials([kubeconfigContent(credentialsId: openShiftCredentials, variable: 'KUBECONFIG_CONTENT')]){
-            sh '''echo "$KUBECONFIG_CONTENT" > kubeconfig'''
-            // Update OpenShift configuration
-            sh("oc apply --kubeconfig=kubeconfig -f config/deployment.yml")
-            // Try to expose route, otherwise ignore the error
-            sh '''! oc expose --kubeconfig=kubeconfig svc/"$projectName"'''
-            sh '''oc rollout latest --kubeconfig=kubeconfig dc/"$projectName"'''
+          if (env.ENVIRONMENT != "master") {
+            echo "Master branch, skipping deploy on Openshift"
+          } else {
+            echo "Publishing on OpenShift"
+            sh "config/interpolate.sh"
+            withCredentials([kubeconfigContent(credentialsId: openShiftCredentials, variable: 'KUBECONFIG_CONTENT')]){
+              sh '''echo "$KUBECONFIG_CONTENT" > kubeconfig'''
+              // Update OpenShift configuration
+              sh("oc apply --kubeconfig=kubeconfig -f config/deployment.yml")
+              // Try to expose route, otherwise ignore the error
+              sh '''! oc expose --kubeconfig=kubeconfig svc/"$projectName"'''
+              sh '''oc rollout latest --kubeconfig=kubeconfig dc/"$projectName"'''
+            }
           }
         }
       }
@@ -80,8 +104,12 @@ pipeline {
     stage('Verifying') {
       steps {
         script {
-          echo "Verifying"
-          sh '''oc rollout status dc/"$projectName"'''
+          if (env.ENVIRONMENT != "master") {
+            echo "Master branch, skipping verifying on Openshift"
+          } else {
+            echo "Verifying"
+            sh '''oc rollout status dc/"$projectName"'''
+          }
         }
       }
     }
