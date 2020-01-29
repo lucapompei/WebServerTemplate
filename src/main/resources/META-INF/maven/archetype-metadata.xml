@@ -29,7 +29,14 @@
 		<fileSet filtered="true" encoding="UTF-8">
 			<directory>config</directory>
 			<includes>
-				<include>**</include>
+				<include>*.yml</include>
+				<include>env/*.env</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>config</directory>
+			<includes>
+				<include>*.sh</include>
 			</includes>
 		</fileSet>
 		<fileSet filtered="true" encoding="UTF-8">
