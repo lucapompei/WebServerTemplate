@@ -1,6 +1,4 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')#set($symbol_dollar='$')#set($symbol_escape='\')
 package ${package};
 
 import org.junit.jupiter.api.Assertions;
@@ -11,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 import ${package}.rest.api.BaseController;
 
@@ -59,7 +58,7 @@ public class TestControllers {
 		// Test data
 		Assertions.assertNotNull(about, "About response not retrieved");
 	}
-	
+
 	/**
 	 * Test about
 	 */
@@ -71,6 +70,20 @@ public class TestControllers {
 		LOGGER.info("Retrieved logs response", logs.getBody());
 		// Test data
 		Assertions.assertNotNull(logs, "logs response not retrieved");
+	}
+
+	/**
+	 * Test errors
+	 */
+	@DisplayName("Test errors")
+	@Test
+	public void testErrors() {
+		// Getting errors response
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		ResponseEntity<String> errors = baseController.getError(request);
+		LOGGER.info("Retrieved errors response", errors.getBody());
+		// Test data
+		Assertions.assertNotNull(errors, "Error response not retrieved");
 	}
 
 }
