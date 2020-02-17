@@ -28,7 +28,7 @@ public class TestControllers {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TestControllers.class);
 
 	/**
-	 * The info service
+	 * The base controller
 	 */
 	@Autowired
 	private BaseController baseController;
