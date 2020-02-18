@@ -1,6 +1,8 @@
 #set($symbol_pound='#')#set($symbol_dollar='$')#set($symbol_escape='\')
 package ${package};
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,7 +43,7 @@ public class TestControllers {
 	public void testHome() {
 		// Getting home response
 		ResponseEntity<String> home = baseController.getHome();
-		LOGGER.info("Retrieved home response", home.getBody());
+		LOGGER.info("Retrieved home response {}", home.getBody());
 		// Test data
 		Assertions.assertNotNull(home, "Home response not retrieved");
 	}
@@ -54,7 +56,7 @@ public class TestControllers {
 	public void testAbout() {
 		// Getting about response
 		ResponseEntity<String> about = baseController.getAbout();
-		LOGGER.info("Retrieved about response", about.getBody());
+		LOGGER.info("Retrieved about response {}", about.getBody());
 		// Test data
 		Assertions.assertNotNull(about, "About response not retrieved");
 	}
@@ -67,7 +69,7 @@ public class TestControllers {
 	public void testLogs() {
 		// Getting logs response
 		ResponseEntity<String> logs = baseController.getLogs();
-		LOGGER.info("Retrieved logs response", logs.getBody());
+		LOGGER.info("Retrieved logs response {}", logs.getBody());
 		// Test data
 		Assertions.assertNotNull(logs, "logs response not retrieved");
 	}
@@ -78,10 +80,28 @@ public class TestControllers {
 	@DisplayName("Test errors")
 	@Test
 	public void testErrors() {
+		String errorPath = baseController.getErrorPath();
+		LOGGER.info("Retrieved error path {}", errorPath);
 		// Getting errors response
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		ResponseEntity<String> errors = baseController.getError(request);
-		LOGGER.info("Retrieved errors response", errors.getBody());
+		LOGGER.info("Retrieved errors response {}", errors.getBody());
+		// Test data
+		Assertions.assertNotNull(errors, "Error response not retrieved");
+	}
+
+	/**
+	 * Test errors with details
+	 */
+	@DisplayName("Test errors with details")
+	@Test
+	public void testErrorsWithDetails() {
+		// Getting errors response
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setAttribute("javax.servlet.error.status_code", 500);
+		request.setAttribute("javax.servlet.error.exception", new IllegalStateException("Illegal State"));
+		ResponseEntity<Map<String, String>> errors = baseController.getError(request);
+		LOGGER.info("Retrieved errors response {}", errors.getBody());
 		// Test data
 		Assertions.assertNotNull(errors, "Error response not retrieved");
 	}

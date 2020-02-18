@@ -1,6 +1,9 @@
 #set($symbol_pound='#')#set($symbol_dollar='$')#set($symbol_escape='\')
 package ${package}.rest.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -82,11 +85,11 @@ public class BaseController implements ErrorController {
 	public ResponseEntity<String> getError(HttpServletRequest request) {
 		Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
 		Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
-		String response = String.format(
-				"<html><body><h2>Error Page</h2><div>Status code: <b>%s</b></div>"
-						+ "<div>Exception Message: <b>%s</b></div><body></html>",
-				statusCode, exception == null ? "N/A" : exception.getMessage());
-		return RestUtils.getResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		String errorMessage = exception != null ? exception.getMessage() : "N/A";
+		HttpStatus status = statusCode != null ? HttpStatus.valueOf(statusCode) : HttpStatus.INTERNAL_SERVER_ERROR;
+		Map<String, String> response = new HashMap<>();
+		response.put("message", errorMessage);
+		return RestUtils.getResponseEntity(response, status);
 	}
 
 	/**
