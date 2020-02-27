@@ -152,6 +152,8 @@ public class TestUtilities {
 	public void testBaseHeadersGeneration() {
 		// Assert generation
 		Assertions.assertNotNull(RestUtils.getHeaders(), "Base headers not properly generated");
+		// Twice for test the cache mechanism
+		Assertions.assertNotNull(RestUtils.getHeaders(), "Base headers not properly generated");
 	}
 
 	/**

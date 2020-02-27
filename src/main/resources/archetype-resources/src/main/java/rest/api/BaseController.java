@@ -1,15 +1,9 @@
 #set($symbol_pound='#')#set($symbol_dollar='$')#set($symbol_escape='\')
 package ${package}.rest.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +20,7 @@ import ${package}.utils.RestUtils;
  *
  */
 @RestController
-public class BaseController implements ErrorController {
+public class BaseController {
 
 	/**
 	 * The logger
@@ -74,30 +68,6 @@ public class BaseController implements ErrorController {
 			LOGGER.error("Unable to get application logs: {}", e.getMessage());
 			return RestUtils.getResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
-
-	/**
-	 * This method exposes API to show the application errors
-	 * 
-	 * @return the application errors
-	 */
-	@GetMapping(value = EndpointConstants.ERROR)
-	public ResponseEntity<String> getError(HttpServletRequest request) {
-		Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-		Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
-		String errorMessage = exception != null ? exception.getMessage() : "N/A";
-		HttpStatus status = statusCode != null ? HttpStatus.valueOf(statusCode) : HttpStatus.INTERNAL_SERVER_ERROR;
-		Map<String, String> response = new HashMap<>();
-		response.put("message", errorMessage);
-		return RestUtils.getResponseEntity(response, status);
-	}
-
-	/**
-	 * Return the error page path
-	 */
-	@Override
-	public String getErrorPath() {
-		return EndpointConstants.ERROR;
 	}
 
 }
