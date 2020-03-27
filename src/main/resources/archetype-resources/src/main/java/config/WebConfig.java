@@ -54,15 +54,17 @@ public class WebConfig implements Filter {
 	 * @param res
 	 */
 	private void handleCORS(ServletRequest req, ServletResponse res) {
-		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) res;
-		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-		response.setHeader("Access-Control-Allow-Credentials", "true");
-		response.setHeader("Access-Control-Allow-Methods", "POST, PUT, PATCH, GET, OPTIONS, DELETE");
-		response.setHeader("Access-Control-Max-Age", "3600");
-		String headers = "Content-Type, Accept, X-Requested-With, Authorization";
-		response.setHeader("Access-Control-Allow-Headers", headers);
-		response.setHeader("Access-Control-Expose-Headers", headers);
+		if (req instanceof HttpServletRequest && res instanceof HttpServletResponse) {
+			HttpServletRequest request = (HttpServletRequest) req;
+			HttpServletResponse response = (HttpServletResponse) res;
+			response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+			response.setHeader("Access-Control-Allow-Credentials", "true");
+			response.setHeader("Access-Control-Allow-Methods", "POST, PUT, PATCH, GET, OPTIONS, DELETE");
+			response.setHeader("Access-Control-Max-Age", "3600");
+			String headers = "Content-Type, Accept, X-Requested-With, Authorization";
+			response.setHeader("Access-Control-Allow-Headers", headers);
+			response.setHeader("Access-Control-Expose-Headers", headers);
+		}
 	}
 
 	/**
