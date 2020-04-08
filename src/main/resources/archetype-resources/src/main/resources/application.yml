@@ -8,7 +8,7 @@ server:
   undertow:
     worker-threads: 128
   error:
-    whitelabel.enabled: false
+    whitelabel.enabled: true
   jsp-servlet:
     registered: false
 
