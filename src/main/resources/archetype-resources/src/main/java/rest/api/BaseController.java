@@ -4,8 +4,10 @@ package ${package}.rest.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +34,12 @@ public class BaseController {
 	 */
 	@Autowired
 	private InfoService infoService;
+
+	/**
+	 * The cache manager
+	 */
+	@Autowired
+	private CacheManager cacheManager;
 
 	/**
 	 * Root Endpoint
@@ -68,6 +76,17 @@ public class BaseController {
 			LOGGER.error("Unable to get application logs: {}", e.getMessage());
 			return RestUtils.getResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	/**
+	 * Cache Endpoint
+	 *
+	 * @return the cache
+	 */
+	@DeleteMapping(value = EndpointConstants.CACHE)
+	public ResponseEntity<String> cleanCache() {
+		cacheManager.getCacheNames().stream().forEach(e -> cacheManager.getCache(e).clear());
+		return RestUtils.getResponseEntity("Ok");
 	}
 
 }

@@ -70,5 +70,18 @@ public class TestControllers {
 		// Test data
 		Assertions.assertNotNull(logs, "logs response not retrieved");
 	}
+	
+	/**
+	 * Test clean cache
+	 */
+	@DisplayName("Test clean cache")
+	@Test
+	public void testCleanCache() {
+		// Getting clean cache response
+		ResponseEntity<String> response = baseController.cleanCache();
+		// Test data
+		Assertions.assertNotNull(response, "Clean cache response not retrieved");
+	}
+
 
 }
