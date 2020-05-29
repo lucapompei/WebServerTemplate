@@ -37,7 +37,7 @@ spring:
 
 application:
   app_name: @project.artifactId@
-  app_version: @project.version@.@timestamp@
+  app_version: @project.version@ @timestamp@
 
 security:
   security_basicauth_enabled: false
