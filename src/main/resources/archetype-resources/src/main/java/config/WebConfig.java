@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
@@ -45,6 +46,16 @@ public class WebConfig implements Filter {
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
 		return new CommonsMultipartResolver();
+	}
+	
+	/**
+	 * Defines the eTag header filter bean
+	 * 
+	 * @return the eTag header filter bean
+	 */
+	@Bean
+	public ShallowEtagHeaderFilter shallowEtagHeaderFilter() {
+		return new ShallowEtagHeaderFilter();
 	}
 
 	/**
