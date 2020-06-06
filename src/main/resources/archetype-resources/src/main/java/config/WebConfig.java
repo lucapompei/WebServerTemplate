@@ -72,7 +72,7 @@ public class WebConfig implements Filter {
 			response.setHeader("Access-Control-Allow-Credentials", "true");
 			response.setHeader("Access-Control-Allow-Methods", "POST, PUT, PATCH, GET, OPTIONS, DELETE");
 			response.setHeader("Access-Control-Max-Age", "3600");
-			String headers = "Content-Type, Accept, X-Requested-With, Authorization";
+			String headers = "Content-Type, Accept, X-Requested-With, Authorization, ETag, If-None-Match";
 			response.setHeader("Access-Control-Allow-Headers", headers);
 			response.setHeader("Access-Control-Expose-Headers", headers);
 		}
