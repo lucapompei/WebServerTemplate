@@ -138,6 +138,12 @@
 			<artifactId>h2</artifactId>
 		</dependency>
 
+		<!-- Jaxb dependencies -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
