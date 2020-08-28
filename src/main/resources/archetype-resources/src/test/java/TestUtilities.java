@@ -26,6 +26,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import ${package}.constants.AuthConstants;
 import ${package}.constants.CommonConstants;
@@ -44,6 +45,7 @@ import ${package}.utils.TextUtils;
  *
  */
 @SpringBootTest
+@DirtiesContext
 public class TestUtilities {
 
 	/**
