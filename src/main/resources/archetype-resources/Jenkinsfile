@@ -31,7 +31,7 @@ pipeline {
       steps {
         script {
           echo "Defining environment"
-          if (env.BRANCH_NAME != "master") {
+          if (env.BRANCH_NAME == "master") {
             echo "Setting master env"
             env.ENVIRONMENT = "master"
             env.GIT_TAG = sh(returnStdout: true, script: 'git tag -l --points-at HEAD').trim()

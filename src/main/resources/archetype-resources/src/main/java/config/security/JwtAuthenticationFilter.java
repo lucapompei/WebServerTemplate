@@ -80,6 +80,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		try (InputStream is = req.getInputStream()) {
 			// load the application user from the request body
 			ApplicationUser user = JsonUtils.fromInputStream(req.getInputStream(), ApplicationUser.class);
+			if (user == null) {
+				return null;
+			}
 			return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),
 					user.getPassword(), new ArrayList<>()));
 		} catch (Exception e) {
