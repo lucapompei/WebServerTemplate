@@ -68,7 +68,7 @@ public class TestUtilities {
 		Constructor<T> constructor = cls.getDeclaredConstructor();
 		constructor.setAccessible(true);
 		// Test class illegal invocation
-		Assertions.assertThrows(InvocationTargetException.class, () -> constructor.newInstance(),
+		Assertions.assertThrows(InvocationTargetException.class, constructor::newInstance,
 				"The class " + className + " is instantiable");
 	}
 	
@@ -79,9 +79,8 @@ public class TestUtilities {
 	@Test
 	public void testSortingMap() {
 		// Prepare case for null map
-		Map<String, Long> nullMap = null;
 		Map<String, Long> emptyMap = new HashMap<>();
-		Map<String, Long> nullMapSorted = LambdaUtils.sortMap(nullMap);
+		Map<String, Long> nullMapSorted = LambdaUtils.sortMap(null);
 		Assertions.assertTrue(nullMapSorted != null && emptyMap.size() == nullMapSorted.size(), "Unable to sort null map");
 		// Prepare case for not null map
 		Map<String, Long> notEmptyMap = new LinkedHashMap<>();
@@ -116,7 +115,7 @@ public class TestUtilities {
 		List<ApplicationUser> finalUsers = startingUsers.stream()
 				.filter(LambdaUtils.distinctByKey(ApplicationUser::getUsername)).collect(Collectors.toList());
 		// Testing result
-		Assertions.assertTrue(distinctUsers.size() == finalUsers.size(),
+		Assertions.assertEquals(distinctUsers.size(), finalUsers.size(),
 				"Final and filtered list are not the same size");
 		boolean areEquals = true;
 		int distinctUsersSize = distinctUsers.size();
@@ -124,6 +123,7 @@ public class TestUtilities {
 			if (distinctUsers.get(i) != null && finalUsers.get(i) != null && distinctUsers.get(i).getUsername() != null
 					&& !distinctUsers.get(i).getUsername().equals(finalUsers.get(i).getUsername())) {
 				areEquals = false;
+				break;
 			}
 		}
 		Assertions.assertTrue(areEquals, "Final and filtered list have not the same order");
@@ -141,7 +141,7 @@ public class TestUtilities {
 		String notEmptyText = File.separator;
 		Assertions.assertTrue(TextUtils.isNullOrEmpty(nullText), "Null text not identified");
 		Assertions.assertTrue(TextUtils.isNullOrEmpty(emptyText), "Empty text not identified");
-		Assertions.assertTrue(!TextUtils.isNullOrEmpty(notEmptyText), "Not empty text not identified");
+		Assertions.assertFalse(TextUtils.isNullOrEmpty(notEmptyText), "Not empty text not identified");
 	}
 
 	/**
