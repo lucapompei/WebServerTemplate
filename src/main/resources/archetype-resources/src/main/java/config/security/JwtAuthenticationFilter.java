@@ -39,21 +39,21 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	/**
 	 * The authentication manager
 	 */
-	private AuthenticationManager authenticationManager;
+	private final AuthenticationManager authenticationManager;
 
 
 
 	/**
 	 * The secret key used for the jwt auth
 	 */
-	private String jwtSecretKey;
+	private final String jwtSecretKey;
 
 
 
 	/**
 	 * The expiration time used for the jwt auth
 	 */
-	private long jwtExpirationTime;
+	private final long jwtExpirationTime;
 
 
 
@@ -79,9 +79,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) {
 		try (InputStream is = req.getInputStream()) {
 			// load the application user from the request body
-			ApplicationUser creds = JsonUtils.fromInputStream(req.getInputStream(), ApplicationUser.class);
-			return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
-					creds.getPassword(), new ArrayList<>()));
+			ApplicationUser user = JsonUtils.fromInputStream(req.getInputStream(), ApplicationUser.class);
+			return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),
+					user.getPassword(), new ArrayList<>()));
 		} catch (Exception e) {
 			throw new UsernameNotFoundException(e.getMessage());
 		}
