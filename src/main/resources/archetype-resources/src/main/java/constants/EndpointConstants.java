@@ -27,7 +27,7 @@ public class EndpointConstants {
 	/**
 	 * The swagger webjars endpoint
 	 */
-	public static final String SWAGGER_WEBJARS = "/webjars/";
+	public static final String SWAGGER_WEBJARS = "/webjars/**";
 
 	/**
 	 * The login endpoint
