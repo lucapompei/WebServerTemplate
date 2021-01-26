@@ -15,6 +15,8 @@ import ${package}.constants.EndpointConstants;
 import ${package}.service.InfoService;
 import ${package}.utils.RestUtils;
 
+import java.util.Objects;
+
 /**
  * This rest controller exposes endpoints to handle the base requests
  * 
@@ -85,7 +87,7 @@ public class BaseController {
 	 */
 	@DeleteMapping(value = EndpointConstants.CACHE)
 	public ResponseEntity<String> cleanCache() {
-		cacheManager.getCacheNames().stream().forEach(e -> cacheManager.getCache(e).clear());
+		cacheManager.getCacheNames().forEach(e -> Objects.requireNonNull(cacheManager.getCache(e)));
 		return RestUtils.getResponseEntity("Ok");
 	}
 

@@ -36,7 +36,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	/**
 	 * The secret key used for the jwt auth
 	 */
-	private String jwtSecretKey;
+	private final String jwtSecretKey;
 
 
 

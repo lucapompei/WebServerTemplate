@@ -41,7 +41,7 @@ public class TestContext {
 	@DisplayName("Load context")
 	@Test
 	public void testContext() {
-		LOGGER.info("Context loaded succesfully");
+		LOGGER.info("Context loaded successfully");
 		Assertions.assertTrue(true);
 	}
 

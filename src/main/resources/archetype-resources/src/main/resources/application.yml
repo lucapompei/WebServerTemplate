@@ -34,6 +34,10 @@ spring:
     url: jdbc:h2:mem:inmemorydbname
     driver-class: org.h2.Driver
     initialize: true
+  cache:
+    caffeine:
+      spec:
+        maximumSize=200,expireAfterWrite=10m
 
 application:
   app_name: @project.artifactId@
