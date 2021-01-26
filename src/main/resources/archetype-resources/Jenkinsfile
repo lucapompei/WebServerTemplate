@@ -72,8 +72,10 @@ pipeline {
       steps {
         script {
           echo "Building Docker image"
+          sh 'docker logout'
+          def baseImage = docker.build(projectName + ":latest");
           docker.withRegistry(registryURL + projectName, registryCredential) {
-            docker.build(projectName + ":latest").push()
+            baseImage.push()
             docker.build(projectName + ":${env.BUILD_NUMBER}").push()
             if (env.ENVIRONMENT == "master" && env.GIT_TAG != "") {
               docker.build(projectName + ":${env.GIT_TAG}").push()
