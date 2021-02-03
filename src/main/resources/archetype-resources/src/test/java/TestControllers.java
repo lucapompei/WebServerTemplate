@@ -1,4 +1,6 @@
-#set($symbol_pound='#')#set($symbol_dollar='$')#set($symbol_escape='\')
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package};
 
 import org.junit.jupiter.api.Assertions;
@@ -72,7 +74,7 @@ public class TestControllers {
 		// Test data
 		Assertions.assertNotNull(logs, "logs response not retrieved");
 	}
-	
+
 	/**
 	 * Test clean cache
 	 */
@@ -84,6 +86,5 @@ public class TestControllers {
 		// Test data
 		Assertions.assertNotNull(response, "Clean cache response not retrieved");
 	}
-
 
 }

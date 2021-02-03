@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.utils;
 
 import ${package}.constants.CommonConstants;
@@ -12,16 +12,12 @@ import ${package}.constants.CommonConstants;
  */
 public class TextUtils {
 
-
-
 	/**
 	 * Private constructor for an utility class
 	 */
 	private TextUtils() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
 	}
-
-
 
 	/**
 	 * This method checks if the passed value is {@code null} or empty
