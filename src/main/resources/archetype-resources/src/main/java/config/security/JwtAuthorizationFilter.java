@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.config.security;
 
 import java.io.IOException;
@@ -31,14 +31,10 @@ import ${package}.constants.AuthConstants;
  */
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-
-
 	/**
 	 * The secret key used for the jwt auth
 	 */
 	private final String jwtSecretKey;
-
-
 
 	/**
 	 * Construct a new {@link JwtAuthorizationFilter} configuring it
@@ -47,8 +43,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		super(authenticationManager);
 		this.jwtSecretKey = jwtSecretKey;
 	}
-
-
 
 	/**
 	 * Configure the custom filters for the jwt authorization
@@ -67,8 +61,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		chain.doFilter(req, res);
 	}
-
-
 
 	/**
 	 * It tries to get and validate the authorization token used by the request

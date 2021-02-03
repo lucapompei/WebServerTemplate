@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.service;
 
 import java.io.IOException;
@@ -25,14 +25,10 @@ import ${package}.constants.CommonConstants;
 @Service
 public class InfoService {
 
-
-
 	/**
 	 * The logger
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(InfoService.class);
-
-
 
 	/**
 	 * The application name
@@ -40,15 +36,11 @@ public class InfoService {
 	@Value("${symbol_dollar}{application.app_name}")
 	private String appName;
 
-
-
 	/**
 	 * The application version
 	 */
 	@Value("${symbol_dollar}{application.app_version}")
 	private String appVersion;
-
-
 
 	/**
 	 * Retrieve then main application info
@@ -58,8 +50,6 @@ public class InfoService {
 	public String getAppInfo() {
 		return this.appName + " - v." + this.appVersion;
 	}
-
-
 
 	/**
 	 * Retrieve then application logs

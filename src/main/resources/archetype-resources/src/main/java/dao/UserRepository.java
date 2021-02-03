@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.dao;
 
 import java.util.List;
@@ -21,15 +21,11 @@ import ${package}.model.ApplicationUser;
 @Component
 public class UserRepository {
 
-
-
 	/**
 	 * The jdbc template
 	 */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
-
 
 	/**
 	 * Finds and returns the user identified by the given username

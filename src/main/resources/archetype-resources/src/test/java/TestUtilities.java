@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package};
 
 import java.io.File;
@@ -73,7 +73,7 @@ public class TestUtilities {
 		Assertions.assertThrows(InvocationTargetException.class, constructor::newInstance,
 				"The class " + className + " is instantiable");
 	}
-	
+
 	/**
 	 * Test sorting map
 	 */
@@ -83,7 +83,8 @@ public class TestUtilities {
 		// Prepare case for null map
 		Map<String, Long> emptyMap = new HashMap<>();
 		Map<String, Long> nullMapSorted = LambdaUtils.sortMap(null);
-		Assertions.assertTrue(nullMapSorted != null && emptyMap.size() == nullMapSorted.size(), "Unable to sort null map");
+		Assertions.assertTrue(nullMapSorted != null && emptyMap.size() == nullMapSorted.size(),
+				"Unable to sort null map");
 		// Prepare case for not null map
 		Map<String, Long> notEmptyMap = new LinkedHashMap<>();
 		notEmptyMap.put("a", 1L);
@@ -95,7 +96,8 @@ public class TestUtilities {
 		notEmptyMapOrdered.put("c", 1L);
 		Map<String, Long> notEmptyMapSorted = LambdaUtils.sortMap(notEmptyMap);
 		// Testing data
-		Assertions.assertEquals(JsonUtils.toJson(notEmptyMapOrdered), JsonUtils.toJson(notEmptyMapSorted), "Maps have not the same order");
+		Assertions.assertEquals(JsonUtils.toJson(notEmptyMapOrdered), JsonUtils.toJson(notEmptyMapSorted),
+				"Maps have not the same order");
 	}
 
 	/**
@@ -192,7 +194,8 @@ public class TestUtilities {
 	@MethodSource("getJsonUtils")
 	public <T> void testJsonUtils(T data, T expectedData) {
 		// Assert data
-		Assertions.assertEquals(JsonUtils.toJson(data), JsonUtils.toJson(expectedData), "JSON utils not properly handled");
+		Assertions.assertEquals(JsonUtils.toJson(data), JsonUtils.toJson(expectedData),
+				"JSON utils not properly handled");
 	}
 
 	/**

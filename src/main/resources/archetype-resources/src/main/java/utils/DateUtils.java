@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.utils;
 
 import java.text.SimpleDateFormat;
@@ -19,14 +19,10 @@ import ${package}.constants.CommonConstants;
  */
 public class DateUtils {
 
-
-
 	/**
 	 * The date formatter pattern
 	 */
 	private static final String DATE_FORMATTER_PATTERN = "dd-MM-yyyy";
-
-
 
 	/**
 	 * Private constructor for an utility class
@@ -34,8 +30,6 @@ public class DateUtils {
 	private DateUtils() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
 	}
-
-
 
 	/**
 	 * Calculates and returns the current week
@@ -47,8 +41,6 @@ public class DateUtils {
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
 		return "W" + date.get(woy);
 	}
-
-
 
 	/**
 	 * Returns a formatted and more readable date

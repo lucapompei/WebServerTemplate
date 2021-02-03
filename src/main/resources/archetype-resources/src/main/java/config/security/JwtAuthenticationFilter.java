@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.config.security;
 
 import java.io.IOException;
@@ -34,28 +34,20 @@ import ${package}.model.ApplicationUser;
  */
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-
-
 	/**
 	 * The authentication manager
 	 */
 	private final AuthenticationManager authenticationManager;
-
-
 
 	/**
 	 * The secret key used for the jwt auth
 	 */
 	private final String jwtSecretKey;
 
-
-
 	/**
 	 * The expiration time used for the jwt auth
 	 */
 	private final long jwtExpirationTime;
-
-
 
 	/**
 	 * Construct a new {@link JwtAuthenticationFilter} configuring it
@@ -67,8 +59,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		this.jwtSecretKey = jwtSecretKey;
 		this.jwtExpirationTime = jwtExpirationTime;
 	}
-
-
 
 	/**
 	 * It tries to authenticate the request
@@ -83,14 +73,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			if (user == null) {
 				return null;
 			}
-			return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),
-					user.getPassword(), new ArrayList<>()));
+			return this.authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>()));
 		} catch (Exception e) {
 			throw new UsernameNotFoundException(e.getMessage());
 		}
 	}
-
-
 
 	/**
 	 * Whether the request is valid, authenticate it
