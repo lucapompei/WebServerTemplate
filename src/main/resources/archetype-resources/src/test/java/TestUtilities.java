@@ -34,6 +34,7 @@ import ${package}.constants.EndpointConstants;
 import ${package}.model.ApplicationUser;
 import ${package}.utils.DateUtils;
 import ${package}.utils.JsonUtils;
+import ${package}.utils.JwtUtils;
 import ${package}.utils.LambdaUtils;
 import ${package}.utils.RestUtils;
 import ${package}.utils.TextUtils;
@@ -61,7 +62,7 @@ public class TestUtilities {
 	@DisplayName("Test utilities")
 	@ParameterizedTest
 	@ValueSource(classes = { AuthConstants.class, CommonConstants.class, DateUtils.class, EndpointConstants.class,
-			JsonUtils.class, LambdaUtils.class, RestUtils.class, TextUtils.class })
+			JsonUtils.class, JwtUtils.class, LambdaUtils.class, RestUtils.class, TextUtils.class })
 	public <T> void testConstants(Class<T> cls) throws NoSuchMethodException, SecurityException {
 		// Getting class name
 		String className = cls.getSimpleName();
@@ -214,7 +215,36 @@ public class TestUtilities {
 				Arguments.of(JsonUtils.fromInputStream(IOUtils.toInputStream(emptyJson), String.class), null),
 				// Empty JSON input stream to right class
 				Arguments.of(JsonUtils.fromInputStream(IOUtils.toInputStream(emptyJson), Object.class), emptyObject));
+	}
+	
+	/**
+	 * Test generate JWT
+	 */
+	@DisplayName("Test JWT generate and parse")
+	@Test
+	public void testJWTGenerateAndParse() {
+		String subject = "username";
+		String jwtSecretKey = "mySecret";
+		long jwtExpirationTime = 1000 * 60 * 24;
+		String token = JwtUtils.getToken(subject, jwtSecretKey, jwtExpirationTime);
+		String user = JwtUtils.parseToken(token, jwtSecretKey);
+		Assertions.assertNotNull(token);
+		Assertions.assertEquals(subject, user);
+	}
 
+	/**
+	 * Test expired JWT
+	 */
+	@DisplayName("Test expired JWT")
+	@Test
+	public void testExpiredJwt() {
+		String subject = "username";
+		String jwtSecretKey = "mySecret";
+		long jwtExpirationTime = 0;
+		String expiredToken = JwtUtils.getToken(subject, jwtSecretKey, jwtExpirationTime);
+		String user = JwtUtils.parseToken(expiredToken, jwtSecretKey);
+		Assertions.assertNotNull(expiredToken);
+		Assertions.assertNull(user);
 	}
 
 }
