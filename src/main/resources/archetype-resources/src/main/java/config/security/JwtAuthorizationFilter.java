@@ -16,7 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import ${package}.utils.JwtUtils;
+import ${package}.constants.AuthConstants;
 import ${package}.utils.JwtUtils;
 
 /**
