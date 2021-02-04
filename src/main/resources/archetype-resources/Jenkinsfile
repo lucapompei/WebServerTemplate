@@ -47,7 +47,22 @@ pipeline {
       steps {
         script {
           echo "Compiling application"
-          sh 'mvn clean package'
+          sh 'mvn -DskipTests clean package'
+        }
+      }
+    }
+    
+    stage('Test') {
+      steps {
+        echo 'Avvio degli Unit Test in corso...'
+        //Esecuzione dei tests e creazione report
+        sh 'mvn surefire-report:report'
+      }
+      
+      post {
+        always {
+          //Rendo disponibili a JaCoCo i reports generati
+          junit 'target/surefire-reports/*.xml'
         }
       }
     }
@@ -72,9 +87,8 @@ pipeline {
       steps {
         script {
           echo "Building Docker image"
-          sh 'docker logout'
-          def baseImage = docker.build(projectName + ":latest");
           docker.withRegistry(registryURL + projectName, registryCredential) {
+            def baseImage = docker.build(projectName + ":latest");
             baseImage.push()
             docker.build(projectName + ":${env.BUILD_NUMBER}").push()
             if (env.ENVIRONMENT == "master" && env.GIT_TAG != "") {
