@@ -24,12 +24,7 @@ public class EndpointConstants {
 	/**
 	 * The swagger json endpoint
 	 */
-	public static final String SWAGGER_JSON = "/v2/api-docs";
-
-	/**
-	 * The swagger webjars endpoint
-	 */
-	public static final String SWAGGER_WEBJARS = "/webjars/**";
+	public static final String SWAGGER_JSON = "/v3/**";
 
 	/**
 	 * The login endpoint
