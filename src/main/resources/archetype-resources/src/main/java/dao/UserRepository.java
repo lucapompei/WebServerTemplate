@@ -6,7 +6,6 @@ package ${package}.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -36,8 +35,7 @@ public class UserRepository {
 	public ApplicationUser findByUsername(String username) {
 		String sqlForResults = "SELECT * FROM users WHERE username = ?";
 		Object[] parameters = new Object[] { username };
-		List<ApplicationUser> users = this.jdbcTemplate.query(sqlForResults, parameters,
-				new BeanPropertyRowMapper<>(ApplicationUser.class));
+		List<ApplicationUser> users = this.jdbcTemplate.queryForList(sqlForResults, ApplicationUser.class, parameters);
 		return users.isEmpty() ? null : users.get(0);
 	}
 

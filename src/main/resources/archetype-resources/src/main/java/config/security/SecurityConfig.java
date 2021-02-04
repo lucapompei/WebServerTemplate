@@ -99,8 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
 					.antMatchers(HttpMethod.GET, EndpointConstants.LOGS).permitAll()
 					.antMatchers(EndpointConstants.SWAGGER).permitAll().antMatchers(EndpointConstants.SWAGGER_JSON)
-					.permitAll().antMatchers(EndpointConstants.SWAGGER_WEBJARS).permitAll().anyRequest().authenticated()
-					.and().formLogin().and().httpBasic();
+					.permitAll().anyRequest().authenticated().and().formLogin().and().httpBasic();
 		} else if (this.securityJwtAuthEnabled) {
 			// permit form login and require the jwt authentication for each other request
 			http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll()
@@ -109,8 +108,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers(HttpMethod.GET, EndpointConstants.LOGS).permitAll()
 					.antMatchers(HttpMethod.POST, EndpointConstants.LOGIN).permitAll()
 					.antMatchers(EndpointConstants.SWAGGER).permitAll().antMatchers(EndpointConstants.SWAGGER_JSON)
-					.permitAll().antMatchers(EndpointConstants.SWAGGER_WEBJARS).permitAll().anyRequest().authenticated()
-					.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+					.permitAll().anyRequest().authenticated().and().sessionManagement()
+					.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 					.addFilter(new JwtAuthenticationFilter(authenticationManager(), this.jwtSecretKey,
 							this.jwtMinExpirationTime * 1000))
 					.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.jwtSecretKey))
