@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.service;
 
 import java.util.Collections;
@@ -24,15 +24,11 @@ import ${package}.model.ApplicationUser;
 @Service
 public class ApplicationUserDetailsService implements UserDetailsService {
 
-
-
 	/**
 	 * The user repository
 	 */
 	@Autowired
 	private UserRepository userRepository;
-
-
 
 	/**
 	 * Loads user details based on the given username

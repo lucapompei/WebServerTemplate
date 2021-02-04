@@ -1,4 +1,6 @@
-#set($symbol_pound='#')#set($symbol_dollar='$')#set($symbol_escape='\')
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.config;
 
 import java.io.IOException;
@@ -47,7 +49,7 @@ public class WebConfig implements Filter {
 	public CommonsMultipartResolver multipartResolver() {
 		return new CommonsMultipartResolver();
 	}
-	
+
 	/**
 	 * Defines the eTag header filter bean
 	 * 

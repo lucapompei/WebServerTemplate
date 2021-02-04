@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.utils;
 
 import java.util.HashMap;
@@ -23,14 +23,10 @@ import ${package}.constants.CommonConstants;
  */
 public class LambdaUtils {
 
-
-
 	/**
 	 * Logger
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(LambdaUtils.class);
-
-
 
 	/**
 	 * Private constructor for an utility class
@@ -38,8 +34,6 @@ public class LambdaUtils {
 	private LambdaUtils() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
 	}
-
-
 
 	/**
 	 * This method sort the given map
@@ -58,8 +52,6 @@ public class LambdaUtils {
 				.forEachOrdered(e -> sortedMap.put(e.getKey(), e.getValue()));
 		return sortedMap;
 	}
-
-
 
 	/**
 	 * Filter by the given function

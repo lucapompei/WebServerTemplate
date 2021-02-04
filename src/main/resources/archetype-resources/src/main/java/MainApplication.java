@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package};
 
 import org.springframework.boot.SpringApplication;
@@ -18,8 +18,6 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication
 @EnableCaching
 public class MainApplication {
-
-
 
 	/**
 	 * Main method used to launch the spring boot application

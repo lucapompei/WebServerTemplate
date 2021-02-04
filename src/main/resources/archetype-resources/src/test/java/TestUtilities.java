@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package};
 
 import java.io.File;
@@ -34,6 +34,7 @@ import ${package}.constants.EndpointConstants;
 import ${package}.model.ApplicationUser;
 import ${package}.utils.DateUtils;
 import ${package}.utils.JsonUtils;
+import ${package}.utils.JwtUtils;
 import ${package}.utils.LambdaUtils;
 import ${package}.utils.RestUtils;
 import ${package}.utils.TextUtils;
@@ -61,7 +62,7 @@ public class TestUtilities {
 	@DisplayName("Test utilities")
 	@ParameterizedTest
 	@ValueSource(classes = { AuthConstants.class, CommonConstants.class, DateUtils.class, EndpointConstants.class,
-			JsonUtils.class, LambdaUtils.class, RestUtils.class, TextUtils.class })
+			JsonUtils.class, JwtUtils.class, LambdaUtils.class, RestUtils.class, TextUtils.class })
 	public <T> void testConstants(Class<T> cls) throws NoSuchMethodException, SecurityException {
 		// Getting class name
 		String className = cls.getSimpleName();
@@ -73,7 +74,7 @@ public class TestUtilities {
 		Assertions.assertThrows(InvocationTargetException.class, constructor::newInstance,
 				"The class " + className + " is instantiable");
 	}
-	
+
 	/**
 	 * Test sorting map
 	 */
@@ -83,7 +84,8 @@ public class TestUtilities {
 		// Prepare case for null map
 		Map<String, Long> emptyMap = new HashMap<>();
 		Map<String, Long> nullMapSorted = LambdaUtils.sortMap(null);
-		Assertions.assertTrue(nullMapSorted != null && emptyMap.size() == nullMapSorted.size(), "Unable to sort null map");
+		Assertions.assertTrue(nullMapSorted != null && emptyMap.size() == nullMapSorted.size(),
+				"Unable to sort null map");
 		// Prepare case for not null map
 		Map<String, Long> notEmptyMap = new LinkedHashMap<>();
 		notEmptyMap.put("a", 1L);
@@ -95,7 +97,8 @@ public class TestUtilities {
 		notEmptyMapOrdered.put("c", 1L);
 		Map<String, Long> notEmptyMapSorted = LambdaUtils.sortMap(notEmptyMap);
 		// Testing data
-		Assertions.assertEquals(JsonUtils.toJson(notEmptyMapOrdered), JsonUtils.toJson(notEmptyMapSorted), "Maps have not the same order");
+		Assertions.assertEquals(JsonUtils.toJson(notEmptyMapOrdered), JsonUtils.toJson(notEmptyMapSorted),
+				"Maps have not the same order");
 	}
 
 	/**
@@ -192,7 +195,8 @@ public class TestUtilities {
 	@MethodSource("getJsonUtils")
 	public <T> void testJsonUtils(T data, T expectedData) {
 		// Assert data
-		Assertions.assertEquals(JsonUtils.toJson(data), JsonUtils.toJson(expectedData), "JSON utils not properly handled");
+		Assertions.assertEquals(JsonUtils.toJson(data), JsonUtils.toJson(expectedData),
+				"JSON utils not properly handled");
 	}
 
 	/**
@@ -214,7 +218,36 @@ public class TestUtilities {
 				Arguments.of(JsonUtils.fromInputStream(IOUtils.toInputStream(emptyJson), String.class), null),
 				// Empty JSON input stream to right class
 				Arguments.of(JsonUtils.fromInputStream(IOUtils.toInputStream(emptyJson), Object.class), emptyObject));
+	}
+	
+	/**
+	 * Test generate JWT
+	 */
+	@DisplayName("Test JWT generate and parse")
+	@Test
+	public void testJWTGenerateAndParse() {
+		String subject = "username";
+		String jwtSecretKey = "mySecret";
+		long jwtExpirationTime = 1000 * 60 * 24;
+		String token = JwtUtils.getToken(subject, jwtSecretKey, jwtExpirationTime);
+		String user = JwtUtils.parseToken(token, jwtSecretKey);
+		Assertions.assertNotNull(token);
+		Assertions.assertEquals(subject, user);
+	}
 
+	/**
+	 * Test expired JWT
+	 */
+	@DisplayName("Test expired JWT")
+	@Test
+	public void testExpiredJwt() {
+		String subject = "username";
+		String jwtSecretKey = "mySecret";
+		long jwtExpirationTime = 0;
+		String expiredToken = JwtUtils.getToken(subject, jwtSecretKey, jwtExpirationTime);
+		String user = JwtUtils.parseToken(expiredToken, jwtSecretKey);
+		Assertions.assertNotNull(expiredToken);
+		Assertions.assertNull(user);
 	}
 
 }

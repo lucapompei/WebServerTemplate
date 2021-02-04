@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.config.security;
 
 import java.io.IOException;
@@ -16,12 +16,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
 import ${package}.constants.AuthConstants;
+import ${package}.utils.JwtUtils;
 
 /**
  * This class represents a custom filter used for the jwt authorization
@@ -31,14 +27,10 @@ import ${package}.constants.AuthConstants;
  */
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-
-
 	/**
 	 * The secret key used for the jwt auth
 	 */
 	private final String jwtSecretKey;
-
-
 
 	/**
 	 * Construct a new {@link JwtAuthorizationFilter} configuring it
@@ -47,8 +39,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		super(authenticationManager);
 		this.jwtSecretKey = jwtSecretKey;
 	}
-
-
 
 	/**
 	 * Configure the custom filters for the jwt authorization
@@ -68,8 +58,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		chain.doFilter(req, res);
 	}
 
-
-
 	/**
 	 * It tries to get and validate the authorization token used by the request
 	 * 
@@ -82,13 +70,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 			return null;
 		}
 		// parse the token
-		try {
-			String user = Jwts.parser().setSigningKey(this.jwtSecretKey)
-					.parseClaimsJws(token.replace(AuthConstants.AUTH_BEARERPREFIX, "")).getBody().getSubject();
-			return user == null ? null : new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-		} catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException
-				| IllegalArgumentException e) {
-			return null;
-		}
+		String user = JwtUtils.parseToken(token, this.jwtSecretKey);
+		return user == null ? null : new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
 	}
 }

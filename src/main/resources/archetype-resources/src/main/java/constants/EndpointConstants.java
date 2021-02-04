@@ -1,4 +1,6 @@
-#set($symbol_pound='#')#set($symbol_dollar='$')#set($symbol_escape='\')
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.constants;
 
 /**
@@ -22,12 +24,7 @@ public class EndpointConstants {
 	/**
 	 * The swagger json endpoint
 	 */
-	public static final String SWAGGER_JSON = "/v2/api-docs";
-
-	/**
-	 * The swagger webjars endpoint
-	 */
-	public static final String SWAGGER_WEBJARS = "/webjars/**";
+	public static final String SWAGGER_JSON = "/v3/**";
 
 	/**
 	 * The login endpoint

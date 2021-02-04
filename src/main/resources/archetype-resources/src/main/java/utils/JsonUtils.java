@@ -1,6 +1,6 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
 package ${package}.utils;
 
 import java.io.InputStream;
@@ -20,21 +20,15 @@ import ${package}.constants.CommonConstants;
  */
 public class JsonUtils {
 
-
-
 	/**
 	 * Logger
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
 
-
-
 	/**
 	 * Jackson instance
 	 */
 	private static ObjectMapper instance;
-
-
 
 	/**
 	 * Private constructor for an utility class
@@ -43,8 +37,6 @@ public class JsonUtils {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
 	}
 
-
-
 	/**
 	 * Initialized the static instance
 	 */
@@ -52,8 +44,6 @@ public class JsonUtils {
 		instance = new ObjectMapper();
 		instance.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 	}
-
-
 
 	/**
 	 * Static method used to initialize and retrieve the {@link ObjectMapper}
@@ -68,8 +58,6 @@ public class JsonUtils {
 		}
 		return instance;
 	}
-
-
 
 	/**
 	 * Converts the given object to a json string
@@ -87,14 +75,12 @@ public class JsonUtils {
 		}
 	}
 
-
-
 	/**
 	 * Converts the given json string to its represented object
 	 *
-	 * @param <T>, generic type
+	 * @param <T>,  generic type
 	 * @param json, the json string from which re-create the represented object
-	 * @param cls, the class of the represented object used to re-create it
+	 * @param cls,  the class of the represented object used to re-create it
 	 * @return the object represented by the json string or {@code null} if some
 	 *         exception occurs during conversion
 	 */
@@ -107,15 +93,13 @@ public class JsonUtils {
 		}
 	}
 
-
-
 	/**
 	 * Converts the given input stream string to its represented object
 	 *
-	 * @param <T>, generic type
+	 * @param <T>,         generic type
 	 * @param inputStream, the input stream from which re-create the represented
-	 *        object
-	 * @param cls, the class of the represented object used to re-create it
+	 *                     object
+	 * @param cls,         the class of the represented object used to re-create it
 	 * @return the object represented by the json string or {@code null} if some
 	 *         exception occurs during conversion
 	 */
