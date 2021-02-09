@@ -40,42 +40,15 @@
 			</includes>
 		</fileSet>
 		<fileSet filtered="true" encoding="UTF-8">
-			<directory>.settings</directory>
-			<includes>
-				<include>**/*.xml</include>
-			</includes>
-		</fileSet>
-		<fileSet encoding="UTF-8">
-			<directory>.settings</directory>
-			<includes>
-				<include>**/*.container</include>
-				<include>**/*.component</include>
-				<include>**/*.name</include>
-				<include>**/*.jsdtscope</include>
-				<include>**/*.prefs</include>
-			</includes>
-		</fileSet>
-		<fileSet filtered="true" encoding="UTF-8">
-			<directory></directory>
-			<includes>
-				<include>.classpath</include>
-				<include>.project</include>
-			</includes>
-		</fileSet>
-		<fileSet filtered="true" encoding="UTF-8">
 			<directory></directory>
 			<includes>
 				<include>LICENSE</include>
-				<include>.springBeans</include>
 				<include>Dockerfile</include>
 				<include>README.md</include>
-				<include>.gitignore</include>
 				<include>Jenkinsfile</include>
 				<include>.travis.yml</include>
-				<include>.classpath</include>
-				<include>.dockerignore</include>
-				<include>.project</include>
 				<include>*properties</include>
+				<include>.gitignore</include>
 			</includes>
 		</fileSet>
 	</fileSets>

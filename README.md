@@ -25,6 +25,7 @@ Summary features
 - Dockerfile pre-configuration;
 - Jenkinsfile pre-configuration;
 - OpenShift pre-configuration;
+- .gitignore file;
 - Fully customizable through the environment properties.
 
 
