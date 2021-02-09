@@ -4,7 +4,6 @@
 package ${package}.config;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.Filter;
@@ -89,7 +88,7 @@ public class WebConfig implements Filter {
 		handleCORS(request, response);
 		// Configure the logger to uniquely record the request
 		MDC.clear();
-		MDC.put("uuid", UUID.randomUUID().toString() + new Date().getTime());
+		MDC.put("uuid", UUID.randomUUID().toString());
 		// Find servlet name
 		String name = "servlet";
 		if (request instanceof HttpServletRequest) {
