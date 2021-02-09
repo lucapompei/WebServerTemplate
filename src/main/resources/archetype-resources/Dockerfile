@@ -1,3 +1,7 @@
+#if (${javaVersion} == '1.8')
+FROM openjdk:8-jre-alpine 
+#end
+#if (${javaVersion} == '11')
 FROM alpine:3.10.3
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
@@ -15,6 +19,10 @@ RUN ZULU_ARCH=zulu11.31.11-ca-jre11.0.3-linux_musl_x64.tar.gz && \
     cd ${BIN_DIR} && find ${JAVA_HOME}/bin -type f -perm -a=x -exec ln -s {} . \; && \
     mkdir -p ${MAN_DIR} && \
     cd ${MAN_DIR} && find ${JAVA_HOME}/man/man1 -type f -name "*.1" -exec ln -s {} . \;
+#end
+#if (${javaVersion} == '15')
+FROM openjdk:15-alpine
+#end
 
 ARG JAR_NAME="${artifactId}"
 ENV HTTP_PORT=8080
