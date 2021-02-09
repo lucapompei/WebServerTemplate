@@ -7,7 +7,7 @@
 	<groupId>${groupId}</groupId>
 	<artifactId>${artifactId}</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0</version>
+	<version>${version}</version>
 
 	<name>${project.artifactId}</name>
 
@@ -16,7 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- Compiler -->
-		<java.version>11</java.version>
+		<java.version>${javaVersion}</java.version>
 
 		<!-- Dependencies versions -->
 		<junit.version>5.7.0</junit.version>
@@ -135,12 +135,6 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-		</dependency>
-
-		<!-- Jaxb dependencies -->
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
 		</dependency>
 
 	</dependencies>

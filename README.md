@@ -10,7 +10,7 @@ This maven project represents a generic web template based on Spring Boot 2 Fram
 Summary features
 -------
 
-- Java 11;
+- Java 8, 11 or 15 (configurable during creation);
 - Maven project based on Spring Boot 2 Framework;
 - Spring MVC configuration;
 - Spring Security configuration (BasicAuth or JwtAuth or none);

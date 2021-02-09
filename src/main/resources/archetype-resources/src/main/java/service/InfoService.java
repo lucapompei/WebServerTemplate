@@ -6,7 +6,9 @@ package ${package}.service;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +66,12 @@ public class InfoService {
 		String logsPath = context.getProperty(CommonConstants.LOGS_PATH);
 		LOGGER.debug("Getting logs from {}", logsPath);
 		// Read logs
-		return Files.readString(Path.of(logsPath), StandardCharsets.US_ASCII);
+		try (Stream<String> logs = Files.lines(Paths.get(logsPath), StandardCharsets.US_ASCII)) {
+			return logs.collect(Collectors.joining("\n\r"));
+		} catch (Exception e) {
+			LOGGER.error("Unable to read log from {}: {}", logsPath, e.getMessage());
+			return null;
+		}
 	}
 
 }
