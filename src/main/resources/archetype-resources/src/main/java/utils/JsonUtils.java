@@ -4,10 +4,13 @@
 package ${package}.utils;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -90,6 +93,24 @@ public class JsonUtils {
 		} catch (Exception e) {
 			LOGGER.error("Error during reading json: {}", e.getMessage());
 			return null;
+		}
+	}
+	
+	/**
+	 * Converts the given json string to its represented array object
+	 *
+	 * @param <T>,  generic type
+	 * @param json, the json string from which re-create the represented object
+	 * @param cls,  the class of the represented object used to re-create it
+	 * @return the array object represented by the json string or {@code null} if
+	 *         some exception occurs during conversion
+	 */
+	public static <T> List<T> fromJson(String json, TypeReference<List<T>> c) {
+		try {
+			return getInstance().readValue(json, c);
+		} catch (Exception e) {
+			LOGGER.error("Error during reading json: {}", e.getMessage());
+			return new ArrayList<>();
 		}
 	}
 
