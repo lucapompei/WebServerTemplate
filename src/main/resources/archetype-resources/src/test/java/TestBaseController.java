@@ -16,19 +16,19 @@ import org.springframework.test.annotation.DirtiesContext;
 import ${package}.rest.api.BaseController;
 
 /**
- * This class is used to test the application controllers
+ * This class is used to test the base controller
  * 
  * @author lucapompei
  *
  */
 @SpringBootTest
 @DirtiesContext
-public class TestControllers {
+public class TestBaseController {
 
 	/**
 	 * The logger
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(TestControllers.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TestBaseController.class);
 
 	/**
 	 * The base controller
