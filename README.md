@@ -1,4 +1,4 @@
-# Web Project Archetype v.4.5.5
+# Web Project Archetype v.4.5.6
 
 [![Build Status](https://travis-ci.org/lucapompei/WebServerTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebServerTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CodeFactor](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate/badge)](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate)
 
@@ -51,7 +51,7 @@ Clone or download the maven archetype and then:
 License
 -------
 
-  Copyright (C) 2019 lucapompei
+  Copyright (C) 2021 lucapompei
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
