@@ -122,7 +122,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return httpRegistry.antMatchers(HttpMethod.OPTIONS).permitAll()
 				.antMatchers(HttpMethod.GET, EndpointConstants.ROOT).permitAll()
 				.antMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
-				.antMatchers(HttpMethod.GET, EndpointConstants.LOGS).permitAll()
 				.antMatchers(HttpMethod.POST, EndpointConstants.LOGIN).permitAll()
 				.antMatchers(EndpointConstants.SWAGGER).permitAll().antMatchers(EndpointConstants.SWAGGER_JSON)
 				.permitAll();
