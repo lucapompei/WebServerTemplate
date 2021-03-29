@@ -25,6 +25,12 @@ pipeline {
   
   agent any
   
+  #if (${javaVersion} == '16')
+  tools {
+    jdk 'Open JDK 16'
+  }
+  #end
+  
   stages {
   
     stage('Defining environment') {
@@ -134,26 +140,34 @@ pipeline {
       }
     }
     
-    post {
-      always {
-        echo 'One way or another, I have finished'
-        deleteDir() /* clean up our workspace */
-      }
-
-      success {
-        mattermostSend(color: "#a4c639", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Build n.${env.BUILD_NUMBER} of ${env.JOB_NAME} completed", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
-      }
-
-      unstable {
-        mattermostSend(color: "#ffbf00", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Build Unstable!", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
-      }
-
-      failure {
-        mattermostSend(color: "#c0392b", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "WARNING -- Build FAILURE!!", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
-      }
-
-      changed {
-        mattermostSend(color: "#ffbf00", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Things were different before...", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+    stage('Clean up') {
+      steps {
+        script {
+          
+          post {
+	        always {
+	          echo 'One way or another, I have finished'
+	          deleteDir() /* clean up our workspace */
+	        }
+	
+	        success {
+	          mattermostSend(color: "#a4c639", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Build n.${env.BUILD_NUMBER} of ${env.JOB_NAME} completed", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+	        }
+	
+	        unstable {
+	          mattermostSend(color: "#ffbf00", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Build Unstable!", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+	        }
+	
+	        failure {
+	          mattermostSend(color: "#c0392b", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "WARNING -- Build FAILURE!!", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+	        }
+	
+	        changed {
+	          mattermostSend(color: "#ffbf00", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Things were different before...", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+	        }
+	      }
+          
+        }
       }
     }
 
