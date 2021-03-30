@@ -48,6 +48,7 @@
 			<directory></directory>
 			<includes>
 				<include>LICENSE</include>
+				<include>*.service</include>
 				<include>Dockerfile</include>
 				<include>README.md</include>
 				<include>Jenkinsfile</include>
