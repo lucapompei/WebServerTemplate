@@ -74,20 +74,29 @@ pipeline {
     }
 
     stage('SonarQube analysis') {
-	    steps {
-	      script { 
-		    try {
-              // requires SonarQube Scanner 2.8+
-              def scannerHome = tool 'SonarQube Scanner';
-              withSonarQubeEnv(sonarServer) {
-                sh "${scannerHome}/bin/sonar-scanner"
-              }
-            } catch (Exception e) {
-              echo "Error during reporting on SonarQube"
+	  steps {
+	    script { 
+		  try {
+            // requires SonarQube Scanner 2.8+
+            def scannerHome = tool 'SonarQube Scanner';
+            withSonarQubeEnv(sonarServer) {
+              sh "${scannerHome}/bin/sonar-scanner"
             }
-	   	  }
-	    }
+          } catch (Exception e) {
+            echo "Error during reporting on SonarQube"
+          }
+	   	}
 	  }
+	}
+	
+	stage("Quality Gate") {
+      steps {
+        timeout(time: 1, unit: 'HOURS') {
+          // Mi assicuro che il quality gate sia superato prima di effettuare altre azioni
+          waitForQualityGate abortPipeline: true
+        }
+      }
+    }
 
     stage('Building Docker image') {
       steps {
