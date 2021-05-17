@@ -58,6 +58,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
+		#if (${withSecurity} == 'S')
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -68,6 +69,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		#end
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -109,6 +111,7 @@
 			<artifactId>junit-jupiter-params</artifactId>
 			<scope>test</scope>
 		</dependency>
+		#if (${withSecurity} == 'S')
 
 		<!-- Jwt dependencies -->
 		<dependency>
@@ -116,6 +119,7 @@
 			<artifactId>jjwt</artifactId>
 			<version>${jwt.version}</version>
 		</dependency>
+		#end
 
 		<!-- Apache dependencies -->
 		<dependency>

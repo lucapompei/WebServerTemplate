@@ -8,6 +8,9 @@
 		<requiredProperty key="javaVersion">
 			<!-- <defaultValue>11</defaultValue> -->
 		</requiredProperty>
+		<requiredProperty key="withSecurity">
+			<!-- <defaultValue>S</defaultValue> -->
+		</requiredProperty>
 	</requiredProperties>
 	<fileSets>
 		<fileSet filtered="true" packaged="true" encoding="UTF-8">
@@ -45,7 +48,7 @@
 			</includes>
 		</fileSet>
 		<fileSet filtered="true" encoding="UTF-8">
-			<directory></directory>
+			<directory/>
 			<includes>
 				<include>LICENSE</include>
 				<include>*.service</include>
@@ -55,6 +58,7 @@
 				<include>.travis.yml</include>
 				<include>*properties</include>
 				<include>.gitignore</include>
+				<include>pom.xml</include>
 			</includes>
 		</fileSet>
 	</fileSets>

@@ -44,9 +44,11 @@ spring:
 application:
   app_name: @project.artifactId@
   app_version: @project.version@ @timestamp@
+#if (${withSecurity} == 'S')
 
 security:
   security_basicauth_enabled: false
   security_jwtauth_enabled: false
   security_jwtauth_secretkey: WebTemplateSecretKey!
   security_jwtauth_minexpirationtime: 3600
+#end
