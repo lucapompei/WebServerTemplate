@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ${package}.constants.EndpointConstants;
 import ${package}.service.InfoService;
-import ${package}.utils.RestUtils;
 
 import java.util.Objects;
 
@@ -52,7 +51,7 @@ public class BaseController {
 	 */
 	@GetMapping(value = EndpointConstants.ROOT)
 	public ResponseEntity<String> getHome() {
-		return RestUtils.getResponseEntity("Ok");
+		return ResponseEntity.ok("Ok");
 	}
 
 	/**
@@ -63,7 +62,7 @@ public class BaseController {
 	@GetMapping(value = EndpointConstants.ABOUT)
 	public ResponseEntity<String> getAbout() {
 		String response = infoService.getAppInfo();
-		return RestUtils.getResponseEntity(response);
+		return ResponseEntity.ok(response);
 	}
 
 	/**
@@ -75,10 +74,10 @@ public class BaseController {
 	public ResponseEntity<String> getLogs() {
 		try {
 			String response = infoService.getAppLogs();
-			return RestUtils.getResponseEntity(response);
+			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			LOGGER.error("Unable to get application logs: {}", e.getMessage());
-			return RestUtils.getResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
@@ -90,7 +89,7 @@ public class BaseController {
 	@DeleteMapping(value = EndpointConstants.CACHE)
 	public ResponseEntity<String> cleanCache() {
 		cacheManager.getCacheNames().forEach(e -> Objects.requireNonNull(cacheManager.getCache(e)));
-		return RestUtils.getResponseEntity("Ok");
+		return ResponseEntity.ok("Ok");
 	}
 
 }

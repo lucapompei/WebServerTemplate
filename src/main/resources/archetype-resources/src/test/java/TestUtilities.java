@@ -42,7 +42,6 @@ import ${package}.utils.JsonUtils;
 import ${package}.utils.JwtUtils;
 #end
 import ${package}.utils.LambdaUtils;
-import ${package}.utils.RestUtils;
 import ${package}.utils.TextUtils;
 
 /**
@@ -69,11 +68,11 @@ public class TestUtilities {
 	@ParameterizedTest
 	#if (${withSecurity} == 'S')
 	@ValueSource(classes = { AuthConstants.class, CommonConstants.class, DateUtils.class, EndpointConstants.class,
-			JsonUtils.class, JwtUtils.class, LambdaUtils.class, RestUtils.class, TextUtils.class })
+			JsonUtils.class, JwtUtils.class, LambdaUtils.class, TextUtils.class })
 	#end
 	#if (${withSecurity} != 'S')
 	@ValueSource(classes = { CommonConstants.class, DateUtils.class, EndpointConstants.class,
-			JsonUtils.class, LambdaUtils.class, RestUtils.class, TextUtils.class })
+			JsonUtils.class, LambdaUtils.class, TextUtils.class })
 	#end
 	public <T> void testConstants(Class<T> cls) throws NoSuchMethodException, SecurityException {
 		// Getting class name
@@ -159,18 +158,6 @@ public class TestUtilities {
 		Assertions.assertTrue(TextUtils.isNullOrEmpty(nullText), "Null text not identified");
 		Assertions.assertTrue(TextUtils.isNullOrEmpty(emptyText), "Empty text not identified");
 		Assertions.assertFalse(TextUtils.isNullOrEmpty(notEmptyText), "Not empty text not identified");
-	}
-
-	/**
-	 * Test base header generation
-	 */
-	@DisplayName("Test base headers generation")
-	@Test
-	public void testBaseHeadersGeneration() {
-		// Assert generation
-		Assertions.assertNotNull(RestUtils.getHeaders(), "Base headers not properly generated");
-		// Twice for test the cache mechanism
-		Assertions.assertNotNull(RestUtils.getHeaders(), "Base headers not properly generated");
 	}
 
 	/**
