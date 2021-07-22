@@ -67,7 +67,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) {
 		try (InputStream is = req.getInputStream()) {
 			// load the application user from the request body
-			ApplicationUser user = JsonUtils.fromInputStream(req.getInputStream(), ApplicationUser.class);
+			ApplicationUser user = JsonUtils.fromInputStream(is, ApplicationUser.class);
 			if (user == null) {
 				return null;
 			}
