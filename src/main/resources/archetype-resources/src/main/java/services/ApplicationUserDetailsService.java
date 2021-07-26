@@ -1,7 +1,7 @@
 #set($symbol_pound='#')
 #set($symbol_dollar='$')
 #set($symbol_escape='\')
-package ${package}.service;
+package ${package}.services;
 
 import java.util.Collections;
 
@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import ${package}.dao.UserRepository;
-import ${package}.model.ApplicationUser;
+import ${package}.repositories.UserRepository;
+import ${package}.entities.ApplicationUser;
 
 /**
  * This class represents the implementation of the Spring User Details Service

@@ -21,7 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import ${package}.constants.EndpointConstants;
-import ${package}.service.ApplicationUserDetailsService;
+import ${package}.services.ApplicationUserDetailsService;
 
 /**
  * This config class globally configures the spring security module, so it

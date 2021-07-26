@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import ${package}.utils.JwtUtils;
 import ${package}.utils.JsonUtils;
 import ${package}.constants.AuthConstants;
-import ${package}.model.ApplicationUser;
+import ${package}.entities.ApplicationUser;
 
 /**
  * This class represents a custom filter used for the jwt authentication

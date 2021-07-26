@@ -1,10 +1,10 @@
 #set($symbol_pound='#')
 #set($symbol_dollar='$')
 #set($symbol_escape='\')
-package ${package}.model;
+package ${package}.entities;
 
 /**
- * This model represents the user entity
+ * This class represents the user entity
  * 
  * @author lucapompei
  *

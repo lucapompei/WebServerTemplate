@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 
-import ${package}.rest.api.BaseController;
+import ${package}.controllers.BaseController;
 
 /**
  * This class is used to test the base controller

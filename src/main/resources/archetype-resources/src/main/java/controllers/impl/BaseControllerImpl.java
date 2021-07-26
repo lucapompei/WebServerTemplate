@@ -1,7 +1,9 @@
 #set($symbol_pound='#')
 #set($symbol_dollar='$')
 #set($symbol_escape='\')
-package ${package}.rest.api;
+package ${package}.controllers.impl;
+
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ${package}.constants.EndpointConstants;
-import ${package}.service.InfoService;
-
-import java.util.Objects;
+import ${package}.controllers.BaseController;
+import ${package}.services.InfoService;
 
 /**
  * This rest controller exposes endpoints to handle the base requests
@@ -25,12 +26,12 @@ import java.util.Objects;
  *
  */
 @RestController
-public class BaseController {
+public class BaseControllerImpl implements BaseController {
 
 	/**
 	 * The logger
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(BaseController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BaseControllerImpl.class);
 
 	/**
 	 * The info service
@@ -49,6 +50,7 @@ public class BaseController {
 	 *
 	 * @return the root
 	 */
+	@Override
 	@GetMapping(value = EndpointConstants.ROOT)
 	public ResponseEntity<String> getHome() {
 		return ResponseEntity.ok("Ok");
@@ -59,6 +61,7 @@ public class BaseController {
 	 * 
 	 * @return the main application info
 	 */
+	@Override
 	@GetMapping(value = EndpointConstants.ABOUT)
 	public ResponseEntity<String> getAbout() {
 		String response = infoService.getAppInfo();
@@ -70,6 +73,7 @@ public class BaseController {
 	 * 
 	 * @return the application logs
 	 */
+	@Override
 	@GetMapping(value = EndpointConstants.LOGS)
 	public ResponseEntity<String> getLogs() {
 		try {
@@ -86,6 +90,7 @@ public class BaseController {
 	 *
 	 * @return the cache
 	 */
+	@Override
 	@DeleteMapping(value = EndpointConstants.CACHE)
 	public ResponseEntity<String> cleanCache() {
 		cacheManager.getCacheNames().forEach(e -> Objects.requireNonNull(cacheManager.getCache(e)));

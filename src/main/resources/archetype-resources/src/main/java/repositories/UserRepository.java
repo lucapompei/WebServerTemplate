@@ -1,5 +1,5 @@
 #set($symbol_pound='#')#set($symbol_dollar='$')#set($symbol_escape='\')
-package ${package}.dao;
+package ${package}.repositories;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import ${package}.model.ApplicationUser;
+import ${package}.entities.ApplicationUser;
 
 /**
- * This dao handles the user entity repository
+ * This repository handles the user entity repository
  * 
  * @author lucapompei
  *
