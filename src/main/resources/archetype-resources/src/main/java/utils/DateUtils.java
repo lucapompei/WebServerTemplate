@@ -4,11 +4,7 @@
 package ${package}.utils;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.temporal.TemporalField;
-import java.time.temporal.WeekFields;
 import java.util.Date;
-import java.util.Locale;
 
 import ${package}.constants.CommonConstants;
 
@@ -29,17 +25,6 @@ public class DateUtils {
 	 */
 	private DateUtils() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
-	}
-
-	/**
-	 * Calculates and returns the current week
-	 * 
-	 * @return the current week
-	 */
-	public static String getCurrentWeek() {
-		LocalDate date = LocalDate.now();
-		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
-		return "W" + date.get(woy);
 	}
 
 	/**

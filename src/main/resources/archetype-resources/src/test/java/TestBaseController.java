@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
 import ${package}.controllers.BaseController;
 
@@ -22,6 +23,7 @@ import ${package}.controllers.BaseController;
  *
  */
 @SpringBootTest
+@ActiveProfiles("test")
 @DirtiesContext
 public class TestBaseController {
 
@@ -39,11 +41,11 @@ public class TestBaseController {
 	/**
 	 * Test home
 	 */
-	@DisplayName("Test home")
+	@DisplayName("Test root")
 	@Test
-	public void testHome() {
+	public void testRoot() {
 		// Getting home response
-		ResponseEntity<String> home = baseController.getHome();
+		ResponseEntity<String> home = baseController.getRoot();
 		LOGGER.info("Retrieved home response {}", home.getBody());
 		// Test data
 		Assertions.assertNotNull(home, "Home response not retrieved");

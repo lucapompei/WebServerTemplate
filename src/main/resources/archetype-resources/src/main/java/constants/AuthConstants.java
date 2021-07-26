@@ -16,11 +16,6 @@ public class AuthConstants {
 	public static final String AUTH_HEADER = "Authorization";
 
 	/**
-	 * The prefix for basic authorization value
-	 */
-	public static final String AUTH_BASICPREFIX = "Basic ";
-
-	/**
 	 * The prefix for bearer authorization value
 	 */
 	public static final String AUTH_BEARERPREFIX = "Bearer ";

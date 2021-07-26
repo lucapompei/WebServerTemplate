@@ -17,6 +17,7 @@ import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
 import ${package}.config.WebConfig;
 
@@ -27,6 +28,7 @@ import ${package}.config.WebConfig;
  *
  */
 @SpringBootTest
+@ActiveProfiles("test")
 @DirtiesContext
 public class TestContext {
 

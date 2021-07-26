@@ -18,7 +18,7 @@ public interface BaseController {
 	 *
 	 * @return the root
 	 */
-	ResponseEntity<String> getHome();
+	ResponseEntity<String> getRoot();
 
 	/**
 	 * This method exposes API to show the main application info

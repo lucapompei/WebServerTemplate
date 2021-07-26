@@ -17,18 +17,21 @@ String packageName = properties.get("package")
 // convert it into a path, e.g. com/acme
 String packagePath = packageName.replace(".", "/")
 
-if (withSecurity != 'S') {
+if (withSecurity != 'Y') {
     // delete the FTP file
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/JwtAuthenticationFilter.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/JwtAuthorizationFilter.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/SecurityConfig.java")
+    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/package-info.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/constants/AuthConstants.java")
+    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/repositories/package-info.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/repositories/UserRepository.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/repositories/")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/entities/ApplicationUser.java")
+    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/entities/package-info.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/entities/")
-    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/services/ApplicationUserDetailsService.java")
+    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/services/impl/UserDetailsServiceImpl.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/utils/JwtUtils.java")
     Files.deleteIfExists projectPath.resolve("src/test/java/" + packagePath + "/TestDataSource.java")
 }

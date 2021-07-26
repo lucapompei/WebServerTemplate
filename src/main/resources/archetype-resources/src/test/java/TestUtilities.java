@@ -7,13 +7,8 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -30,18 +25,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
-#if (${withSecurity} == 'S')
+#if (${withSecurity} == 'Y')
 import ${package}.constants.AuthConstants;
 #end
 import ${package}.constants.CommonConstants;
 import ${package}.constants.EndpointConstants;
 import ${package}.utils.DateUtils;
 import ${package}.utils.JsonUtils;
-#if (${withSecurity} == 'S')
+#if (${withSecurity} == 'Y')
 import ${package}.utils.JwtUtils;
 #end
-import ${package}.utils.LambdaUtils;
 import ${package}.utils.TextUtils;
 
 /**
@@ -51,6 +46,7 @@ import ${package}.utils.TextUtils;
  *
  */
 @SpringBootTest
+@ActiveProfiles("test")
 @DirtiesContext
 public class TestUtilities {
 
@@ -66,13 +62,13 @@ public class TestUtilities {
 	 */
 	@DisplayName("Test utilities")
 	@ParameterizedTest
-	#if (${withSecurity} == 'S')
+	#if (${withSecurity} == 'Y')
 	@ValueSource(classes = { AuthConstants.class, CommonConstants.class, DateUtils.class, EndpointConstants.class,
-			JsonUtils.class, JwtUtils.class, LambdaUtils.class, TextUtils.class })
+			JsonUtils.class, JwtUtils.class, TextUtils.class })
 	#end
-	#if (${withSecurity} != 'S')
+	#if (${withSecurity} != 'Y')
 	@ValueSource(classes = { CommonConstants.class, DateUtils.class, EndpointConstants.class,
-			JsonUtils.class, LambdaUtils.class, TextUtils.class })
+			JsonUtils.class, TextUtils.class })
 	#end
 	public <T> void testConstants(Class<T> cls) throws NoSuchMethodException, SecurityException {
 		// Getting class name
@@ -84,65 +80,6 @@ public class TestUtilities {
 		// Test class illegal invocation
 		Assertions.assertThrows(InvocationTargetException.class, constructor::newInstance,
 				"The class " + className + " is instantiable");
-	}
-
-	/**
-	 * Test sorting map
-	 */
-	@DisplayName("Test sorting map")
-	@Test
-	public void testSortingMap() {
-		// Prepare case for null map
-		Map<String, Long> emptyMap = new HashMap<>();
-		Map<String, Long> nullMapSorted = LambdaUtils.sortMap(null);
-		Assertions.assertTrue(nullMapSorted != null && emptyMap.size() == nullMapSorted.size(),
-				"Unable to sort null map");
-		// Prepare case for not null map
-		Map<String, Long> notEmptyMap = new LinkedHashMap<>();
-		notEmptyMap.put("a", 1L);
-		notEmptyMap.put("b", 2L);
-		notEmptyMap.put("c", 1L);
-		Map<String, Long> notEmptyMapOrdered = new LinkedHashMap<>();
-		notEmptyMapOrdered.put("b", 2L);
-		notEmptyMapOrdered.put("a", 1L);
-		notEmptyMapOrdered.put("c", 1L);
-		Map<String, Long> notEmptyMapSorted = LambdaUtils.sortMap(notEmptyMap);
-		// Testing data
-		Assertions.assertEquals(JsonUtils.toJson(notEmptyMapOrdered), JsonUtils.toJson(notEmptyMapSorted),
-				"Maps have not the same order");
-	}
-
-	/**
-	 * Test distinct by key
-	 */
-	@DisplayName("Test distinct by key")
-	@Test
-	public void testDistinctByKey() {
-		// Prepare cases
-		Map<Integer, String> first = new HashMap<>();
-		first.put(1, "A");
-		Map<Integer, String> second = new HashMap<>();
-		second.put(1, "A");
-		Map<Integer, String> third = new HashMap<>();
-		third.put(1, "B");
-		List<Map<Integer, String>> startingUsers = Arrays.asList(first, second, third);
-		List<Map<Integer, String>> distinctUsers = Arrays.asList(first, third);
-		// Filtering starting data
-		List<Map<Integer, String>> finalUsers = startingUsers.stream()
-				.filter(LambdaUtils.distinctByKey(e -> e.get(1))).collect(Collectors.toList());
-		// Testing result
-		Assertions.assertEquals(distinctUsers.size(), finalUsers.size(),
-				"Final and filtered list are not the same size");
-		boolean areEquals = true;
-		int distinctUsersSize = distinctUsers.size();
-		for (int i = 0; i < distinctUsersSize; i++) {
-			if (distinctUsers.get(i) != null && finalUsers.get(i) != null && distinctUsers.get(i).get(1) != null
-					&& !distinctUsers.get(i).get(1).equals(finalUsers.get(i).get(1))) {
-				areEquals = false;
-				break;
-			}
-		}
-		Assertions.assertTrue(areEquals, "Final and filtered list have not the same order");
 	}
 
 	/**
@@ -163,23 +100,12 @@ public class TestUtilities {
 	/**
 	 * Test date utilities
 	 */
-	@DisplayName("Test date utilities")
-	@ParameterizedTest
-	@MethodSource("getDataUtils")
-	public void testDateUtils(String data) {
+	@DisplayName("Test date formatting")
+	@Test
+	public void testDateUtils() {
+		String data = DateUtils.getFormattedDate(new Date());
 		// Assert data
 		Assertions.assertNotNull(data, "Date utils not properly handled");
-	}
-
-	/**
-	 * Get a stream of arguments to test date utilities static methods
-	 * 
-	 * @return
-	 */
-	public static Stream<Arguments> getDataUtils() {
-		return Stream.of(Arguments.of(DateUtils.getCurrentWeek()),
-				Arguments.of(DateUtils.getFormattedDate(new Date())));
-
 	}
 
 	/**
@@ -224,7 +150,7 @@ public class TestUtilities {
 				Arguments.of(JsonUtils.fromInputStream(IOUtils.toInputStream(emptyJson), Object.class), emptyObject));
 	}
 
-	#if (${withSecurity} == 'S')
+	#if (${withSecurity} == 'Y')
 	/**
 	 * Test generate JWT
 	 */

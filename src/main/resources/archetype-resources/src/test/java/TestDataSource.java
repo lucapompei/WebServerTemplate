@@ -10,11 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import ${package}.services.ApplicationUserDetailsService;
+import org.springframework.test.context.ActiveProfiles;
 
 /**
  * This class is used to test the data source
@@ -23,6 +23,7 @@ import ${package}.services.ApplicationUserDetailsService;
  *
  */
 @SpringBootTest
+@ActiveProfiles("test")
 @DirtiesContext
 public class TestDataSource {
 
@@ -35,7 +36,7 @@ public class TestDataSource {
 	 * The application user details service
 	 */
 	@Autowired
-	private ApplicationUserDetailsService applicationUserDetailsService;
+	private UserDetailsService userDetailsService;
 
 	/**
 	 * Test a simple query to find an existing user on db
@@ -45,7 +46,7 @@ public class TestDataSource {
 	public void testFindByExistingUsername() {
 		LOGGER.info("Starting test for finding existing user on db");
 		String username = "user";
-		UserDetails user = applicationUserDetailsService.loadUserByUsername(username);
+		UserDetails user = userDetailsService.loadUserByUsername(username);
 		LOGGER.info("Retrieved user data from db");
 		Assertions.assertNotNull(user, "User not found");
 		Assertions.assertNotNull(user.getUsername(), "User name not found");
@@ -62,7 +63,7 @@ public class TestDataSource {
 		LOGGER.info("Starting test for finding not existing user on db");
 		String username = "newUser";
 		Assertions.assertThrows(UsernameNotFoundException.class,
-				() -> applicationUserDetailsService.loadUserByUsername(username));
+				() -> userDetailsService.loadUserByUsername(username));
 		LOGGER.info("Test for finding a not existing user completed");
 	}
 

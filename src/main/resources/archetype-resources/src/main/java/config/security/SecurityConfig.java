@@ -16,12 +16,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import ${package}.constants.EndpointConstants;
-import ${package}.services.ApplicationUserDetailsService;
 
 /**
  * This config class globally configures the spring security module, so it
@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * The application user details service
 	 */
 	@Autowired
-	private ApplicationUserDetailsService userDetailsService;
+	private UserDetailsService userDetailsService;
 
 	/**
 	 * Configure the password encoder

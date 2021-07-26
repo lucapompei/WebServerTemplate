@@ -52,7 +52,7 @@ public class BaseControllerImpl implements BaseController {
 	 */
 	@Override
 	@GetMapping(value = EndpointConstants.ROOT)
-	public ResponseEntity<String> getHome() {
+	public ResponseEntity<String> getRoot() {
 		return ResponseEntity.ok("Ok");
 	}
 

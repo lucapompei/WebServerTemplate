@@ -1,7 +1,7 @@
 #set($symbol_pound='#')
 #set($symbol_dollar='$')
 #set($symbol_escape='\')
-package ${package}.services;
+package ${package}.services.impl;
 
 import java.util.Collections;
 
@@ -22,7 +22,7 @@ import ${package}.entities.ApplicationUser;
  *
  */
 @Service
-public class ApplicationUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	/**
 	 * The user repository

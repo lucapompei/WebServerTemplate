@@ -35,7 +35,12 @@ spring:
   datasource:
     url: jdbc:h2:mem:inmemorydbname
     driver-class: org.h2.Driver
-    initialize: true
+    initialize: false
+  jpa:
+    properties:
+      hibernate.jdbc.time_zone: UTC
+    hibernate:
+      ddl-auto: none
   cache:
     caffeine:
       spec:
@@ -44,7 +49,7 @@ spring:
 application:
   app_name: @project.artifactId@
   app_version: @project.version@ @timestamp@
-#if (${withSecurity} == 'S')
+#if (${withSecurity} == 'Y')
 
 security:
   security_basicauth_enabled: false
