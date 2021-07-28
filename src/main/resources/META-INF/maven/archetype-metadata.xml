@@ -9,7 +9,16 @@
 			<!-- <defaultValue>11</defaultValue> -->
 		</requiredProperty>
 		<requiredProperty key="withSecurity">
-			<!-- <defaultValue>S</defaultValue> -->
+			<!-- <defaultValue>Y</defaultValue> -->
+		</requiredProperty>
+		<requiredProperty key="withKubernetes">
+			<!-- <defaultValue>Y</defaultValue> -->
+		</requiredProperty>
+		<requiredProperty key="withMattermost">
+			<!-- <defaultValue>Y</defaultValue> -->
+		</requiredProperty>
+		<requiredProperty key="withGoogleChat">
+			<!-- <defaultValue>Y</defaultValue> -->
 		</requiredProperty>
 	</requiredProperties>
 	<fileSets>

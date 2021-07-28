@@ -37,6 +37,7 @@ spring:
     driver-class: org.h2.Driver
     initialize: false
   jpa:
+    open-in-view: false
     properties:
       hibernate.jdbc.time_zone: UTC
     hibernate:

@@ -14,7 +14,7 @@ Summary features
 - Maven project based on Spring Boot 2 Framework;
 - Spring MVC configuration;
 - Spring Security configuration (BasicAuth or JwtAuth or none);
-- Spring JDBC + H2 embedded configuration;
+- Spring Data JPA + H2 embedded configuration;
 - Untertow embedded;
 - CORS configuration;
 - Logback configuration for uniquely record each request;
@@ -25,6 +25,7 @@ Summary features
 - Dockerfile pre-configuration;
 - Jenkinsfile pre-configuration;
 - OpenShift pre-configuration;
+- Chat webhook configuration (Mattermost or GoogleChat or none);
 - Systemd service pre-configuration;
 - .gitignore file;
 - Fully customizable through the environment properties.

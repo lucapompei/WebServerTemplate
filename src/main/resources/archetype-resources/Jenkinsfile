@@ -12,14 +12,23 @@ pipeline {
     registryURL = '/** INSERT YOUR REGISTRY URL **/'
     registryCredential = '/** INSERT YOUR REGISTRY CREDENTIAL **/'
 
+    #if (${withKubernetes} == 'Y')
     // OpenShift properties
     openShiftCredentials = 'KUBECONFIG_CONTENT_CREDENTIALS'
     openShiftCluster = '/** INSERT YOUR OPENSHIFT CLUSTER **/'
     openShiftProjectName = '/** INSERT YOUR OPENSHIFT PROJECT NAME **/'
-    
+    #end
+
+    #if (${withMattermost} == 'Y')
     // Mattermost properties
     mattermostChannel = 'MY_MATTERMOST_CHANNEL'
     mattermostUrlWebHook = '/** INSERT YOUR MATTERMOST WEBHOOK **/'
+    #end
+
+    #if (${withGoogleChat} == 'Y')
+    // Mattermost properties
+    googleChatUrlWebHook = '/** INSERT YOUR GOOGLE CHAT WEBHOOK **/'
+    #end
 
   }
   
@@ -124,8 +133,9 @@ pipeline {
         }
       }
     }
-    
-    stage('Publishing on OpenShift') {
+
+    #if (${withKubernetes} == 'Y')
+    stage('Publishing on Kubernetes') {
       steps {
         script {
           if (env.ENVIRONMENT != "master") {
@@ -158,6 +168,7 @@ pipeline {
         }
       }
     }
+    #end
     
 	post {
 	    always {
@@ -166,19 +177,39 @@ pipeline {
 	    }
 	
 	    success {
+	      #if (${withMattermost} == 'Y')
 	      mattermostSend(color: "#a4c639", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Build n.${env.BUILD_NUMBER} of ${env.JOB_NAME} completed", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+	      #end
+	      #if (${withGoogleChat} == 'Y')
+          googlechatnotification url: $googleChatUrlWebHook, message: "Build n.${env.BUILD_NUMBER} of ${env.JOB_NAME} completed"
+	      #end
 	    }
 	
 	    unstable {
+	      #if (${withMattermost} == 'Y')
 	      mattermostSend(color: "#ffbf00", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Build Unstable!", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+	      #end
+	      #if (${withGoogleChat} == 'Y')
+          googlechatnotification url: $googleChatUrlWebHook, message: "Build Unstable!"
+	      #end
 	    }
 	
 	    failure {
+	      #if (${withMattermost} == 'Y')
 	      mattermostSend(color: "#c0392b", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "WARNING -- Build FAILURE!!", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+	      #end
+	      #if (${withGoogleChat} == 'Y')
+          googlechatnotification url: $googleChatUrlWebHook, message: "WARNING -- Build FAILURE!!"
+	      #end
 	    }
 	
 	    changed {
+	      #if (${withMattermost} == 'Y')
 	      mattermostSend(color: "#ffbf00", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Things were different before...", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+	      #end
+	      #if (${withGoogleChat} == 'Y')
+          googlechatnotification url: $googleChatUrlWebHook, message: "Things were different before..."
+	      #end
 	    }
 	}
 

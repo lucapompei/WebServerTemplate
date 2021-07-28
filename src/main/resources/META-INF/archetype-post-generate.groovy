@@ -8,8 +8,11 @@ Path projectPath = Paths.get(request.outputDirectory, request.artifactId)
 // the properties available to the archetype
 Properties properties = request.properties
 
-// connectionType is either ftp or sftp
+// the withSecurity property
 String withSecurity = properties.get("withSecurity")
+
+// the withKubernetes property
+String withKubernetes = properties.get("withKubernetes")
 
 // the Java package of the generated project, e.g. com.acme
 String packageName = properties.get("package")
@@ -18,7 +21,7 @@ String packageName = properties.get("package")
 String packagePath = packageName.replace(".", "/")
 
 if (withSecurity != 'Y') {
-    // delete the FTP file
+    // delete files not used
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/JwtAuthenticationFilter.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/JwtAuthorizationFilter.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/SecurityConfig.java")
@@ -34,4 +37,15 @@ if (withSecurity != 'Y') {
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/services/impl/UserDetailsServiceImpl.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/utils/JwtUtils.java")
     Files.deleteIfExists projectPath.resolve("src/test/java/" + packagePath + "/TestDataSource.java")
+}
+
+if (withKubernetes != 'Y') {
+    // delete files not used
+    Files.deleteIfExists projectPath.resolve("config/interpolate.sh")
+    Files.deleteIfExists projectPath.resolve("config/interpolate.sh")
+    Files.deleteIfExists projectPath.resolve("config/deployment.yml")
+    Files.deleteIfExists projectPath.resolve("config/env/dev.env")
+    Files.deleteIfExists projectPath.resolve("config/env/master.env")
+    Files.deleteIfExists projectPath.resolve("config/env/")
+    Files.deleteIfExists projectPath.resolve("config/")
 }
