@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
  * @author lucapompei
  *
  */
-public interface BaseController {
+public interface IBaseController {
 
 	/**
 	 * Root Endpoint
@@ -33,12 +33,13 @@ public interface BaseController {
 	 * @return the application logs
 	 */
 	ResponseEntity<String> getLogs();
-
+	#if (${withCache} == 'Y')
 	/**
 	 * Cache Endpoint
 	 *
 	 * @return the cache
 	 */
 	ResponseEntity<String> cleanCache();
+	#end
 
 }

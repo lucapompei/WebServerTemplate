@@ -3,7 +3,6 @@
 #set($symbol_escape='\')
 package ${package}.services.impl;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import ch.qos.logback.classic.LoggerContext;
 import ${package}.constants.CommonConstants;
-import ${package}.services.InfoService;
+import ${package}.services.IInfoService;
 
 /**
  * This service handles info requests
@@ -26,12 +25,12 @@ import ${package}.services.InfoService;
  *
  */
 @Service
-public class InfoServiceImpl implements InfoService {
+public class InfoService implements IInfoService {
 
 	/**
 	 * The logger
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(InfoServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(InfoService.class);
 
 	/**
 	 * The application name
@@ -62,7 +61,7 @@ public class InfoServiceImpl implements InfoService {
 	 * @throws IOException
 	 */
 	@Override
-	public String getAppLogs() throws IOException {
+	public String getAppLogs() {
 		// Get logger context
 		LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
 		// Get the logs path

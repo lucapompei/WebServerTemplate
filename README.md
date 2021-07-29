@@ -15,13 +15,13 @@ Summary features
 - Spring MVC configuration;
 - Spring Security configuration (BasicAuth or JwtAuth or none);
 - Spring Data JPA + H2 embedded configuration;
-- Untertow embedded;
+- Undertow embedded;
 - CORS configuration;
 - Logback configuration for uniquely record each request;
 - Junit 5 with coverage >= 75%;
 - API response time auto-calculated and logged;
 - Swagger (OpenApi 3.0) auto-generated;
-- Predisposition to cache;
+- Predisposition to cache (configurable during creation);
 - Dockerfile pre-configuration;
 - Jenkinsfile pre-configuration;
 - OpenShift pre-configuration;

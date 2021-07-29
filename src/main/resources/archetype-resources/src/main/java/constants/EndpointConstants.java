@@ -40,11 +40,12 @@ public class EndpointConstants {
 	 * The logs endpoint
 	 */
 	public static final String LOGS = "/logs";
-
+	#if (${withCache} == 'Y')
 	/**
 	 * The cache endpoint
 	 */
 	public static final String CACHE = "/cache";
+	#end
 
 	/**
 	 * Private constructor for an utility class

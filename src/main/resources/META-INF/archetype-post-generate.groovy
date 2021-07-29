@@ -34,7 +34,7 @@ if (withSecurity != 'Y') {
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/entities/ApplicationUser.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/entities/package-info.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/entities/")
-    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/services/impl/UserDetailsServiceImpl.java")
+    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/services/impl/UserDetailsService.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/utils/JwtUtils.java")
     Files.deleteIfExists projectPath.resolve("src/test/java/" + packagePath + "/TestDataSource.java")
 }

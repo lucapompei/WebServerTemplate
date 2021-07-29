@@ -3,21 +3,18 @@
 #set($symbol_escape='\')
 package ${package}.controllers.impl;
 
-import java.util.Objects;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+#if (${withCache} == 'Y')
 import org.springframework.cache.CacheManager;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+#end
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ${package}.constants.EndpointConstants;
-import ${package}.controllers.BaseController;
-import ${package}.services.InfoService;
+import ${package}.controllers.IBaseController;
+import ${package}.services.IInfoService;
 
 /**
  * This rest controller exposes endpoints to handle the base requests
@@ -26,24 +23,20 @@ import ${package}.services.InfoService;
  *
  */
 @RestController
-public class BaseControllerImpl implements BaseController {
-
-	/**
-	 * The logger
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(BaseControllerImpl.class);
+public class BaseController implements IBaseController {
 
 	/**
 	 * The info service
 	 */
 	@Autowired
-	private InfoService infoService;
-
+	private IInfoService infoService;
+	#if (${withCache} == 'Y')
 	/**
 	 * The cache manager
 	 */
 	@Autowired
 	private CacheManager cacheManager;
+	#end
 
 	/**
 	 * Root Endpoint
@@ -76,15 +69,10 @@ public class BaseControllerImpl implements BaseController {
 	@Override
 	@GetMapping(value = EndpointConstants.LOGS)
 	public ResponseEntity<String> getLogs() {
-		try {
-			String response = infoService.getAppLogs();
-			return ResponseEntity.ok(response);
-		} catch (Exception e) {
-			LOGGER.error("Unable to get application logs: {}", e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		String response = infoService.getAppLogs();
+		return ResponseEntity.ok(response);
 	}
-
+	#if (${withCache} == 'Y')
 	/**
 	 * Cache Endpoint
 	 *
@@ -93,8 +81,9 @@ public class BaseControllerImpl implements BaseController {
 	@Override
 	@DeleteMapping(value = EndpointConstants.CACHE)
 	public ResponseEntity<String> cleanCache() {
-		cacheManager.getCacheNames().forEach(e -> Objects.requireNonNull(cacheManager.getCache(e)));
+		cacheManager.getCacheNames().forEach(cacheManager::getCache);
 		return ResponseEntity.ok("Ok");
 	}
+	#end
 
 }

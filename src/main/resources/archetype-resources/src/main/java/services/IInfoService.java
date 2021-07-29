@@ -3,15 +3,13 @@
 #set($symbol_escape='\')
 package ${package}.services;
 
-import java.io.IOException;
-
 /**
  * This service handles info requests
  * 
  * @author lucapompei
  *
  */
-public interface InfoService {
+public interface IInfoService {
 
 	/**
 	 * Retrieve then main application info
@@ -26,6 +24,6 @@ public interface InfoService {
 	 * @return then application logs
 	 * @throws IOException
 	 */
-	String getAppLogs() throws IOException;
+	String getAppLogs();
 
 }

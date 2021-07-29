@@ -42,10 +42,12 @@ spring:
       hibernate.jdbc.time_zone: UTC
     hibernate:
       ddl-auto: none
+  #if (${withCache} == 'Y')
   cache:
     caffeine:
       spec:
         maximumSize=200,expireAfterWrite=10m
+  #end
 
 application:
   app_name: @project.artifactId@

@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
-import ${package}.controllers.BaseController;
+import ${package}.controllers.IBaseController;
 
 /**
  * This class is used to test the base controller
@@ -36,7 +36,7 @@ public class TestBaseController {
 	 * The base controller
 	 */
 	@Autowired
-	private BaseController baseController;
+	private IBaseController baseController;
 
 	/**
 	 * Test home
@@ -76,7 +76,7 @@ public class TestBaseController {
 		// Test data
 		Assertions.assertNotNull(logs, "logs response not retrieved");
 	}
-
+	#if (${withCache} == 'Y')
 	/**
 	 * Test clean cache
 	 */
@@ -88,5 +88,6 @@ public class TestBaseController {
 		// Test data
 		Assertions.assertNotNull(response, "Clean cache response not retrieved");
 	}
+	#end
 
 }
