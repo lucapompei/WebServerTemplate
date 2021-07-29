@@ -5,8 +5,6 @@ package ${package}.constants;
 
 /**
  * This utility class exposes common constants
- *
- * @author lucapompei
  */
 public class CommonConstants {
 

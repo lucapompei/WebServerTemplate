@@ -16,8 +16,6 @@ import ${package}.constants.CommonConstants;
 
 /**
  * This class exposes utilities to handle JWT
- *
- * @author lucapompei
  */
 public class JwtUtils {
 

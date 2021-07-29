@@ -10,8 +10,6 @@ import ${package}.constants.CommonConstants;
 
 /**
  * This class exposes utilities to handle date operations
- *
- * @author lucapompei
  */
 public class DateUtils {
 

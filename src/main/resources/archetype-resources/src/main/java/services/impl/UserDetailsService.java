@@ -16,9 +16,6 @@ import ${package}.entities.ApplicationUser;
 /**
  * This class represents the implementation of the Spring User Details Service
  * interface
- * 
- * @author lucapompei
- *
  */
 @Service
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {

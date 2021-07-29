@@ -9,8 +9,6 @@ import ${package}.entities.ApplicationUser;
 /**
  * This repository handles the user entity repository
  *
- * @author lucapompei
- *
  */
 @Repository
 public interface UserRepository extends JpaRepository<ApplicationUser, Long> {

@@ -18,8 +18,6 @@ import ${package}.constants.CommonConstants;
 
 /**
  * This class exposes utilities to handle json string
- *
- * @author lucapompei
  */
 public class JsonUtils {
 

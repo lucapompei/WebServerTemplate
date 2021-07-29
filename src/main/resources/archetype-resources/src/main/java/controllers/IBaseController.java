@@ -7,9 +7,6 @@ import org.springframework.http.ResponseEntity;
 
 /**
  * This rest controller exposes endpoints to handle the base requests
- *
- * @author lucapompei
- *
  */
 public interface IBaseController {
 

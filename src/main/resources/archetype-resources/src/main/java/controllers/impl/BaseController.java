@@ -18,9 +18,6 @@ import ${package}.services.IInfoService;
 
 /**
  * This rest controller exposes endpoints to handle the base requests
- * 
- * @author lucapompei
- *
  */
 @RestController
 public class BaseController implements IBaseController {

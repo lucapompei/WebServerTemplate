@@ -5,9 +5,6 @@ package ${package}.services;
 
 /**
  * This service handles info requests
- * 
- * @author lucapompei
- *
  */
 public interface IInfoService {
 

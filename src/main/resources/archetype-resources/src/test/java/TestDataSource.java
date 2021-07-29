@@ -18,9 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 /**
  * This class is used to test the data source
- * 
- * @author lucapompei
- *
  */
 @SpringBootTest
 @ActiveProfiles("test")

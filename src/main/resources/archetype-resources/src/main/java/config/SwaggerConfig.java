@@ -14,9 +14,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 /**
  * This class configures the swagger generation
- * 
- * @author lucapompei
- *
  */
 @Configuration
 @EnableOpenApi

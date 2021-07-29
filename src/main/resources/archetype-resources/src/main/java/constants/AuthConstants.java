@@ -5,8 +5,6 @@ package ${package}.constants;
 
 /**
  * This utility class exposes authorization and authentication constants
- *
- * @author lucapompei
  */
 public class AuthConstants {
 

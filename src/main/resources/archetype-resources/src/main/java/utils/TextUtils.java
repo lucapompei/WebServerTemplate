@@ -7,8 +7,6 @@ import ${package}.constants.CommonConstants;
 
 /**
  * This class exposes utilities to handle generic text operations
- *
- * @author lucapompei
  */
 public class TextUtils {
 

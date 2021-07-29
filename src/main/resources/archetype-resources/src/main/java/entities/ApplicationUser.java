@@ -12,9 +12,6 @@ import javax.persistence.Table;
 
 /**
  * This class represents the user entity
- * 
- * @author lucapompei
- *
  */
 @Entity
 @Table(name = "users")

@@ -20,9 +20,6 @@ import ${package}.services.IInfoService;
 
 /**
  * This service handles info requests
- * 
- * @author lucapompei
- *
  */
 @Service
 public class InfoService implements IInfoService {

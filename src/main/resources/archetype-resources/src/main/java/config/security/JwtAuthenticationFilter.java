@@ -26,9 +26,6 @@ import ${package}.entities.ApplicationUser;
 
 /**
  * This class represents a custom filter used for the jwt authentication
- * 
- * @author lucapompei
- *
  */
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 

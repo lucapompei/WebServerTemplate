@@ -23,9 +23,6 @@ import ${package}.config.WebConfig;
 
 /**
  * This class is used to test the context loading
- * 
- * @author lucapompei
- *
  */
 @SpringBootTest
 @ActiveProfiles("test")

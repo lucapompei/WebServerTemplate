@@ -18,9 +18,6 @@ import ${package}.controllers.IBaseController;
 
 /**
  * This class is used to test the base controller
- * 
- * @author lucapompei
- *
  */
 @SpringBootTest
 @ActiveProfiles("test")

@@ -5,9 +5,6 @@ package ${package}.constants;
 
 /**
  * This utility class expose endpoint constants
- * 
- * @author lucapompei
- *
  */
 public class EndpointConstants {
 

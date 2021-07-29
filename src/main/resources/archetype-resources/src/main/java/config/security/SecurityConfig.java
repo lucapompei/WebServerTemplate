@@ -26,9 +26,6 @@ import ${package}.constants.EndpointConstants;
 /**
  * This config class globally configures the spring security module, so it
  * requires authentication to every URL in the application
- * 
- * @author lucapompei
- *
  */
 @Configuration
 @EnableWebSecurity

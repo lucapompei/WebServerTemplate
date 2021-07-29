@@ -21,9 +21,6 @@ import ${package}.utils.JwtUtils;
 
 /**
  * This class represents a custom filter used for the jwt authorization
- * 
- * @author lucapompei
- *
  */
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 

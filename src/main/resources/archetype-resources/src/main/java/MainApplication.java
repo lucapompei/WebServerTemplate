@@ -10,9 +10,6 @@ import org.springframework.context.annotation.PropertySource;
 
 /**
  * This class represents the main application
- * 
- * @author lucapompei
- *
  */
 @PropertySource({ "classpath:application.yml" })
 @SpringBootApplication

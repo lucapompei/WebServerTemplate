@@ -41,9 +41,6 @@ import ${package}.utils.TextUtils;
 
 /**
  * This class is used to test the utility classes
- * 
- * @author lucapompei
- *
  */
 @SpringBootTest
 @ActiveProfiles("test")

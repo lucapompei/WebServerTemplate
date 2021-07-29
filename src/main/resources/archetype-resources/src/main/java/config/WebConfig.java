@@ -26,9 +26,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
  * This config class globally configure the web requests
- * 
- * @author lucapompei
- *
  */
 @Configuration
 @Order(Ordered.HIGHEST_PRECEDENCE)
