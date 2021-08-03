@@ -1,7 +1,7 @@
 #set($symbol_pound='#')
 #set($symbol_dollar='$')
 #set($symbol_escape='\')
-package ${package}.entities;
+package ${package}.mappers;
 
 /**
  * This package contains the utility classes used for mapping entities to requests and responses in both directions.
