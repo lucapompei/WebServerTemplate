@@ -12,7 +12,7 @@ public class EndpointConstants {
 	 * The root endpoint
 	 */
 	public static final String ROOT = "/";
-
+	#if (${withSecurity} == 'Y')
 	/**
 	 * The swagger endpoint
 	 */
@@ -27,7 +27,7 @@ public class EndpointConstants {
 	 * The login endpoint
 	 */
 	public static final String LOGIN = "/login";
-
+	#end
 	/**
 	 * The about endpoint
 	 */
@@ -45,7 +45,7 @@ public class EndpointConstants {
 	#end
 
 	/**
-	 * Private constructor for an utility class
+	 * Private constructor for the utility class
 	 */
 	private EndpointConstants() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);

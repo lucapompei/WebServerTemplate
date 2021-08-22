@@ -116,7 +116,7 @@ pipeline {
         }
       }
     }
-
+    #if (${withKubernetes} == 'Y')
     stage('Building Docker image') {
       steps {
         script {
@@ -133,7 +133,6 @@ pipeline {
         }
       }
     }
-    #if (${withKubernetes} == 'Y')
 
     stage('Publishing on Kubernetes') {
       steps {

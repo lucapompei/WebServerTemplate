@@ -20,7 +20,7 @@ import ${package}.constants.CommonConstants;
 public class JwtUtils {
 
 	/**
-	 * Private constructor for an utility class
+	 * Private constructor for the utility class
 	 */
 	private JwtUtils() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);

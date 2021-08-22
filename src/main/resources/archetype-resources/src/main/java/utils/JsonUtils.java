@@ -32,7 +32,7 @@ public class JsonUtils {
 	private static ObjectMapper instance;
 
 	/**
-	 * Private constructor for an utility class
+	 * Private constructor for the utility class
 	 */
 	private JsonUtils() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
@@ -99,7 +99,7 @@ public class JsonUtils {
 	 *
 	 * @param <T>,  generic type
 	 * @param json, the json string from which re-create the represented object
-	 * @param cls,  the class of the represented object used to re-create it
+	 * @param c,    the class of the represented object used to re-create it
 	 * @return the array object represented by the json string or {@code null} if
 	 *         some exception occurs during conversion
 	 */

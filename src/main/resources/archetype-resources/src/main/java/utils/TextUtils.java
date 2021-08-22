@@ -11,7 +11,7 @@ import ${package}.constants.CommonConstants;
 public class TextUtils {
 
 	/**
-	 * Private constructor for an utility class
+	 * Private constructor for the utility class
 	 */
 	private TextUtils() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);
