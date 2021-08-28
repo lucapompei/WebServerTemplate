@@ -44,4 +44,5 @@ if (withKubernetes != 'Y') {
     Files.deleteIfExists projectPath.resolve("config/env/master.env")
     Files.deleteIfExists projectPath.resolve("config/env/")
     Files.deleteIfExists projectPath.resolve("config/")
+    Files.deleteIfExists projectPath.resolve("Dockerfile")
 }

@@ -19,7 +19,6 @@ public interface IInfoService {
 	 * Retrieve then application logs
 	 * 
 	 * @return then application logs
-	 * @throws IOException
 	 */
 	String getAppLogs();
 

@@ -5,7 +5,9 @@ package ${package};
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+#if (${withCache} == 'Y')
 import org.springframework.cache.annotation.EnableCaching;
+#end
 import org.springframework.context.annotation.PropertySource;
 
 /**
@@ -13,7 +15,9 @@ import org.springframework.context.annotation.PropertySource;
  */
 @PropertySource({ "classpath:application.yml" })
 @SpringBootApplication
+#if (${withCache} == 'Y')
 @EnableCaching
+#end
 public class MainApplication {
 
 	/**

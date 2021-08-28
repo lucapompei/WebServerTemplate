@@ -19,7 +19,7 @@ public class AuthConstants {
 	public static final String AUTH_BEARERPREFIX = "Bearer ";
 
 	/**
-	 * Private constructor for an utility class
+	 * Private constructor for the utility class
 	 */
 	private AuthConstants() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);

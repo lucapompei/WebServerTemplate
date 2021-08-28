@@ -19,7 +19,7 @@ public class DateUtils {
 	private static final String DATE_FORMATTER_PATTERN = "dd-MM-yyyy";
 
 	/**
-	 * Private constructor for an utility class
+	 * Private constructor for the utility class
 	 */
 	private DateUtils() {
 		throw new IllegalAccessError(CommonConstants.STANDARD_MESSAGE_UTILITY_CLASS);

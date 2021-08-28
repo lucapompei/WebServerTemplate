@@ -9,7 +9,7 @@ package ${package}.constants;
 public class CommonConstants {
 
 	/**
-	 * The standard message for the private constructor of an utility class
+	 * The standard message for the private constructor of utility classes
 	 */
 	public static final String STANDARD_MESSAGE_UTILITY_CLASS = "Utility class";
 
@@ -19,7 +19,7 @@ public class CommonConstants {
 	public static final String LOGS_PATH = "LOG_PATH";
 
 	/**
-	 * Private constructor for an utility class
+	 * Private constructor for the utility class
 	 */
 	private CommonConstants() {
 		throw new IllegalAccessError(STANDARD_MESSAGE_UTILITY_CLASS);

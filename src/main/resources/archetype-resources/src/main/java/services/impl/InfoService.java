@@ -55,7 +55,6 @@ public class InfoService implements IInfoService {
 	 * Retrieve then application logs
 	 * 
 	 * @return then application logs
-	 * @throws IOException
 	 */
 	@Override
 	public String getAppLogs() {
