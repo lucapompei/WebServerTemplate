@@ -33,10 +33,10 @@ pipeline {
   }
   
   agent any
-  #if (${javaVersion} == '16')
+  #if (${javaVersion} == '17')
 
   tools {
-    jdk 'Open JDK 16'
+    jdk 'Open JDK 17'
   }
   #end
   
