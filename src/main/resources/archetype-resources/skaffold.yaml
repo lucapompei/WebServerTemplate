@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: ${artifactId}
+build:
+  artifacts:
+    - image: ${artifactId}
+  local:
+    useDockerCLI: false
+    useBuildkit: false
+deploy:
+  kubectl:
+    manifests:
+      - config/deployment.yml
