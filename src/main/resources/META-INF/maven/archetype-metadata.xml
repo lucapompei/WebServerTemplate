@@ -2,7 +2,7 @@
 <archetype-descriptor name="WebTemplate">
 	<requiredProperties>
 		<requiredProperty key="javaVersion">
-			<!-- <defaultValue>11</defaultValue> -->
+			<!-- <defaultValue>17</defaultValue> -->
 		</requiredProperty>
 		<requiredProperty key="withCache">
 			<!-- <defaultValue>Y</defaultValue> -->
@@ -11,6 +11,9 @@
 			<!-- <defaultValue>Y</defaultValue> -->
 		</requiredProperty>
 		<requiredProperty key="withKubernetes">
+			<!-- <defaultValue>Y</defaultValue> -->
+		</requiredProperty>
+		<requiredProperty key="withSystemDemon">
 			<!-- <defaultValue>Y</defaultValue> -->
 		</requiredProperty>
 		<requiredProperty key="withMattermost">
@@ -78,8 +81,8 @@
 				<include>Dockerfile</include>
 				<include>README.md</include>
 				<include>Jenkinsfile</include>
-				<include>.travis.yml</include>
-				<include>*properties</include>
+				<include>*.yml</include>
+				<include>*.properties</include>
 				<include>.gitignore</include>
 				<include>pom.xml</include>
 			</includes>

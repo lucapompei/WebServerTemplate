@@ -45,4 +45,10 @@ if (withKubernetes != 'Y') {
     Files.deleteIfExists projectPath.resolve("config/env/")
     Files.deleteIfExists projectPath.resolve("config/")
     Files.deleteIfExists projectPath.resolve("Dockerfile")
+    Files.deleteIfExists projectPath.resolve("skaffold.yaml")
+}
+
+if (withSystemDemon != 'Y') {
+    // delete files not used
+    Files.deleteIfExists projectPath.resolve("backend.service")
 }
