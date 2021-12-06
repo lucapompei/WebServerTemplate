@@ -19,7 +19,7 @@
 		<java.version>${javaVersion}</java.version>
 
 		<!-- Dependencies versions -->
-		<junit.version>5.8.1</junit.version>
+		<junit.version>5.8.2</junit.version>
 		<apache_common_upload.version>1.4</apache_common_upload.version>
 		<swagger.version>3.0.0</swagger.version>
 		<javax_validation_api.version>2.0.1.Final</javax_validation_api.version>
@@ -37,7 +37,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.5</version>
+		<version>2.6.1</version>
 	</parent>
 
 	<dependencies>
