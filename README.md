@@ -1,4 +1,4 @@
-# Web Project Archetype v.4.9.2
+# Web Project Archetype v.5.0.0
 
 [![Build Status](https://travis-ci.org/lucapompei/WebServerTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebServerTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CodeFactor](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate/badge)](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate)
 
@@ -24,7 +24,8 @@ Summary features
 - Predisposition to cache (configurable during creation);
 - Dockerfile pre-configuration;
 - Jenkinsfile pre-configuration;
-- OpenShift pre-configuration;
+- Kubernetes pre-configuration;
+- Skaffold pre-configuration;
 - Chat webhook configuration (Mattermost or GoogleChat or none);
 - Systemd service pre-configuration;
 - Jmeter project for stress test configuration;
@@ -54,7 +55,7 @@ Clone or download the maven archetype and then:
 License
 -------
 
-  Copyright (C) 2021 lucapompei
+  Copyright (C) 2022 lucapompei
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.

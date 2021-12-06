@@ -1,12 +1,18 @@
 # Project based on Web Project Archetype
 
-
 Hello world project
 
 
 Summary features
 -------
 
+The application will start using the port 8080.
+
+For tests purpose, it is defined the test profile, that you can find in src/test/resources.
+All tests that used the test profile will use an embedded h2 database, initialized accordingly with the data.sql and schema.sql files.
+Inside the test resource is also present the jmeter configuration valid for performance tests.
+
+Other stuffs are:
 - A
 - B
 - C
@@ -17,11 +23,22 @@ Usage
 
 Istruction 1, istruction 2, etc...
 
+Skaffold istruction
+-------
+
+Aftering installing Minikube and Skaffold, start them using the following commands:
+```
+minikube start --profile custom
+skaffold config set --global local-cluster true
+eval $(minikube -p custom docker-env)
+```
+
+Pay attention: using Minikube and the local Docker registry, the image pull policy must be _IfNotPresent_.
 
 License
 -------
 
-  Copyright (C) 2021
+  Copyright (C) 2022
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
