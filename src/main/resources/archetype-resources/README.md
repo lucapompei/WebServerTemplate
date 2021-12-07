@@ -35,6 +35,8 @@ eval $(minikube -p custom docker-env)
 
 Pay attention: using Minikube and the local Docker registry, the image pull policy must be _IfNotPresent_.
 
+Using the default configuration you can find into the _config/deployment.yml_ file, the service will be exposed with the port 80.
+
 License
 -------
 

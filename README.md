@@ -24,7 +24,7 @@ Summary features
 - Predisposition to cache (configurable during creation);
 - Dockerfile pre-configuration;
 - Jenkinsfile pre-configuration;
-- Kubernetes pre-configuration;
+- Kubernetes pre-configuration (deployment, service, autoscaler, configmaps, secret, ingress);
 - Skaffold pre-configuration;
 - Chat webhook configuration (Mattermost or GoogleChat or none);
 - Systemd service pre-configuration;
