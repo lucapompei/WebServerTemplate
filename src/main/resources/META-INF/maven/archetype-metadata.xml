@@ -35,6 +35,7 @@
 			<includes>
 				<include>**/*.sql</include>
 				<include>**/*.yml</include>
+				<include>**/*.yaml</include>
 				<include>**/*.properties</include>
 				<include>**/*.xml</include>
 			</includes>
@@ -50,6 +51,7 @@
 			<includes>
 				<include>**/*.sql</include>
 				<include>**/*.yml</include>
+				<include>**/*.yaml</include>
 				<include>**/*.properties</include>
 				<include>**/*.xml</include>
 			</includes>
@@ -82,6 +84,7 @@
 				<include>README.md</include>
 				<include>Jenkinsfile</include>
 				<include>*.yml</include>
+				<include>*.yaml</include>
 				<include>*.properties</include>
 				<include>.gitignore</include>
 				<include>pom.xml</include>
