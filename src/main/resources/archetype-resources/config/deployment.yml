@@ -17,6 +17,9 @@ spec:
         - name: ${artifactId}
           imagePullPolicy: Always
           image: /** INSERT YOUR REGISTRY URL **/ /${artifactId}:{{VERSION}}
+          envFrom:
+            - configMapRef:
+                name: ${artifactId}
           resources:
             limits:
               memory: 500Mi
@@ -92,4 +95,11 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ${artifactId}
+data:
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${artifactId}
+type: Opaque
 data:

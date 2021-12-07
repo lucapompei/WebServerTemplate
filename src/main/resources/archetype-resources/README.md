@@ -29,6 +29,7 @@ Skaffold istruction
 Aftering installing Minikube and Skaffold, start them using the following commands:
 ```
 minikube start --profile custom
+minikube --profile custom addons enable ingress
 skaffold config set --global local-cluster true
 eval $(minikube -p custom docker-env)
 ```
