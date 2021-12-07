@@ -21,7 +21,7 @@ RUN ZULU_ARCH=zulu11.31.11-ca-jre11.0.3-linux_musl_x64.tar.gz && \
     cd ${MAN_DIR} && find ${JAVA_HOME}/man/man1 -type f -name "*.1" -exec ln -s {} . \;
 #end
 #if (${javaVersion} == '17')
-FROM 17-jdk-alpine3.14
+FROM openjdk:17-jdk-alpine3.14
 #end
 
 ARG JAR_NAME="${artifactId}"
