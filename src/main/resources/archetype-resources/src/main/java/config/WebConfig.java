@@ -14,6 +14,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ${package}.constants.EndpointConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -91,15 +92,20 @@ public class WebConfig implements Filter {
 		if (request instanceof HttpServletRequest) {
 			name = ((HttpServletRequest) request).getRequestURI();
 		}
-		LOGGER.debug("Requesting for {}", name);
-		// Get start time
-		long startTime = System.currentTimeMillis();
-		// Handle request
-		chain.doFilter(request, response);
-		// Calculate elapsed time
-		long elapsed = System.currentTimeMillis() - startTime;
-		// Log result
-		LOGGER.info("Returned response for {} in {} ms", name, elapsed);
+		if (EndpointConstants.ROOT.equals(name)) {
+			// Handle request
+			chain.doFilter(request, response);
+		} else {
+			LOGGER.debug("Requesting for {}", name);
+			// Get start time
+			long startTime = System.currentTimeMillis();
+			// Handle request
+			chain.doFilter(request, response);
+			// Calculate elapsed time
+			long elapsed = System.currentTimeMillis() - startTime;
+			// Log result
+			LOGGER.info("Returned response for {} in {} ms", name, elapsed);
+		}
 	}
 
 }
