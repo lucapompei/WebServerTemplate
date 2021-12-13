@@ -122,3 +122,7 @@ spec:
                 name: ${artifactId}
                 port:
                   number: 80
+  tls:
+    - hosts:
+        - localhost
+      secretName: ${artifactId}
