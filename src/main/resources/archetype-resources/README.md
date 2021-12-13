@@ -32,7 +32,6 @@ minikube start --profile custom
 minikube --profile custom addons enable ingress
 minikube --profile custom tunnel
 skaffold run
-edit hosts adding 127.0.0.1	${artifactId}
 ```
 
 Pay attention: using Minikube and the local Docker registry, the image pull policy must be _IfNotPresent_.

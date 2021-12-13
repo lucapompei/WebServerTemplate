@@ -103,3 +103,22 @@ metadata:
   name: ${artifactId}
 type: Opaque
 data:
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ${artifactId}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: localhost
+      http:
+        paths:
+          - path: /${artifactId}(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: ${artifactId}
+                port:
+                  number: 80
