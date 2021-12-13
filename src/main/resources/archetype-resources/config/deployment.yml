@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ${artifactId}
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           image: /** INSERT YOUR REGISTRY URL **/ /${artifactId}:{{VERSION}}
           envFrom:
             - configMapRef:
