@@ -14,9 +14,8 @@ pipeline {
     #if (${withKubernetes} == 'Y')
 
     // OpenShift properties
-    openShiftCredentials = 'KUBECONFIG_CONTENT_CREDENTIALS'
-    openShiftCluster = '/** INSERT YOUR OPENSHIFT CLUSTER **/'
-    openShiftProjectName = '/** INSERT YOUR OPENSHIFT PROJECT NAME **/'
+    kubernetesCredentials = 'KUBECONFIG_CONTENT_CREDENTIALS'
+    kubernetesCluster = '/** INSERT YOUR KUBERNETES CLUSTER **/'
     #end
     #if (${withMattermost} == 'Y')
 
@@ -142,13 +141,10 @@ pipeline {
           } else {
             echo "Publishing on OpenShift"
             sh "config/interpolate.sh"
-            withCredentials([kubeconfigContent(credentialsId: openShiftCredentials, variable: 'KUBECONFIG_CONTENT')]){
+            withCredentials([kubeconfigContent(credentialsId: kubernetesCredentials, variable: 'KUBECONFIG_CONTENT')]){
               sh '''echo "$KUBECONFIG_CONTENT" > kubeconfig'''
               // Update OpenShift configuration
               sh("oc apply --kubeconfig=kubeconfig -f config/deployment.yml")
-              // Try to expose route, otherwise ignore the error
-              sh '''! oc expose --kubeconfig=kubeconfig svc/"$projectName"'''
-              sh '''oc rollout latest --kubeconfig=kubeconfig dc/"$projectName"'''
             }
           }
         }

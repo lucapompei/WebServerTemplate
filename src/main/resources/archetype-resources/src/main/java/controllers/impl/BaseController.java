@@ -78,7 +78,11 @@ public class BaseController implements IBaseController {
 	@Override
 	@DeleteMapping(value = EndpointConstants.CACHE)
 	public ResponseEntity<String> cleanCache() {
-		cacheManager.getCacheNames().forEach(cacheManager::getCache);
+		cacheManager.getCacheNames()
+				.stream()
+				.map(cacheManager::getCache)
+				.filter(Objects::nonNull)
+				.forEach(Cache::invalidate);
 		return ResponseEntity.ok("Ok");
 	}
 	#end

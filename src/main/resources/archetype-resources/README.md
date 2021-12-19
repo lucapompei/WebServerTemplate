@@ -23,6 +23,7 @@ Usage
 
 Istruction 1, istruction 2, etc...
 
+#if (${withKubernetes} == 'Y')
 Skaffold istruction
 -------
 
@@ -37,7 +38,7 @@ skaffold run
 Pay attention: using Minikube and the local Docker registry, the image pull policy must be _IfNotPresent_.
 
 Using the default configuration you can find into the _config/deployment.yml_ file, the service will be exposed with the port 80.
-
+#end
 License
 -------
 
