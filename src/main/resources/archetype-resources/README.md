@@ -27,11 +27,13 @@ Istruction 1, istruction 2, etc...
 Skaffold istruction
 -------
 
-Aftering installing Minikube and Skaffold, start them using the following commands:
+Aftering installing (and configuring) Minikube and Skaffold, start them using the following commands:
 ```
-minikube start --profile custom
-minikube --profile custom addons enable ingress
-minikube --profile custom tunnel
+minikube start
+minikube addons enable ingress
+minikube addons enable metrics-server
+minikube tunnel
+(optional) [K8S cluster configuration](https://github.com/lucapompei/k8s-cluster)
 skaffold run
 ```
 
