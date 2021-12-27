@@ -36,6 +36,7 @@ pipeline {
 
   tools {
     jdk 'Open JDK 17'
+    maven 'maven-3.8'
   }
   #end
   
@@ -84,7 +85,7 @@ pipeline {
     stage('SonarQube analysis') {
 	  steps {
 	    script {
-	      if (env.BRANCH_NAME == "dev") {
+	      if (env.ENVIRONMENT == "dev") {
 	        try {
               // requires SonarQube Scanner 2.8+
               def scannerHome = tool 'SonarQube Scanner';
@@ -104,7 +105,7 @@ pipeline {
 	stage("Quality Gate") {
       steps {
         script {
-          if (env.BRANCH_NAME == "dev") {
+          if (env.ENVIRONMENT == "dev") {
             timeout(time: 1, unit: 'HOURS') {
               // Mi assicuro che il quality gate sia superato prima di effettuare altre azioni
               waitForQualityGate abortPipeline: true
@@ -137,28 +138,15 @@ pipeline {
       steps {
         script {
           if (env.ENVIRONMENT != "master") {
-            echo "Master branch, skipping deploy on Openshift"
+            echo "Not master branch, skipping deploy on Kubernetes"
           } else {
-            echo "Publishing on OpenShift"
+            echo "Publishing on Kubernetes"
             sh "config/interpolate.sh"
             withCredentials([kubeconfigContent(credentialsId: kubernetesCredentials, variable: 'KUBECONFIG_CONTENT')]){
               sh '''echo "$KUBECONFIG_CONTENT" > kubeconfig'''
               // Update OpenShift configuration
               sh("oc apply --kubeconfig=kubeconfig -f config/deployment.yml")
             }
-          }
-        }
-      }
-    }
-	
-    stage('Verifying') {
-      steps {
-        script {
-          if (env.ENVIRONMENT != "master") {
-            echo "Master branch, skipping verifying on Openshift"
-          } else {
-            echo "Verifying"
-            sh '''oc rollout status dc/"$projectName"'''
           }
         }
       }
