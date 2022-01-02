@@ -13,7 +13,7 @@ pipeline {
     registryCredential = '/** INSERT YOUR REGISTRY CREDENTIAL **/'
     #if (${withKubernetes} == 'Y')
 
-    // OpenShift properties
+    // Kubernetes properties
     kubernetesCredentials = 'KUBECONFIG_CONTENT_CREDENTIALS'
     kubernetesCluster = '/** INSERT YOUR KUBERNETES CLUSTER **/'
     #end
@@ -144,61 +144,61 @@ pipeline {
             sh "config/interpolate.sh"
             withCredentials([kubeconfigContent(credentialsId: kubernetesCredentials, variable: 'KUBECONFIG_CONTENT')]){
               sh '''echo "$KUBECONFIG_CONTENT" > kubeconfig'''
-              // Update OpenShift configuration
-              sh("oc apply --kubeconfig=kubeconfig -f config/deployment.yml")
+              // Update Kubernetes configuration
+              sh("kubectl --kubeconfig=kubeconfig -f config/deployment.yml")
             }
           }
         }
       }
     }
     #end
+
+}
     
 	post {
-	    always {
-	      echo 'One way or another, I have finished'
-	      deleteDir() /* clean up our workspace */
-	    }
-	    #if (${withMattermost} == 'Y' || ${withGoogleChat} == 'Y')
-	
-	    success {
-	      #if (${withMattermost} == 'Y')
-	      mattermostSend(color: "#a4c639", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Build n.${env.BUILD_NUMBER} of ${env.JOB_NAME} completed", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
-	      #end
-	      #if (${withGoogleChat} == 'Y')
-          googlechatnotification url: $googleChatUrlWebHook, message: "Build n.${env.BUILD_NUMBER} of ${env.JOB_NAME} completed"
-	      #end
-	    }
-	
-	    unstable {
-	      #if (${withMattermost} == 'Y')
-	      mattermostSend(color: "#ffbf00", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Build Unstable!", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
-	      #end
-	      #if (${withGoogleChat} == 'Y')
-          googlechatnotification url: $googleChatUrlWebHook, message: "Build Unstable!"
-	      #end
-	    }
-	
-	    failure {
-	      #if (${withMattermost} == 'Y')
-	      mattermostSend(color: "#c0392b", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "WARNING -- Build FAILURE!!", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
-	      #end
-	      #if (${withGoogleChat} == 'Y')
-          googlechatnotification url: $googleChatUrlWebHook, message: "WARNING -- Build FAILURE!!"
-	      #end
-	    }
-	
-	    changed {
-	      #if (${withMattermost} == 'Y')
-	      mattermostSend(color: "#ffbf00", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Things were different before...", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
-	      #end
-	      #if (${withGoogleChat} == 'Y')
-          googlechatnotification url: $googleChatUrlWebHook, message: "Things were different before..."
-	      #end
-	    }
-	    #end
-	}
+    always {
+      echo 'One way or another, I have finished'
+      deleteDir() /* clean up our workspace */
+    }
+    #if (${withMattermost} == 'Y' || ${withGoogleChat} == 'Y')
 
-  }
+    success {
+      #if (${withMattermost} == 'Y')
+      mattermostSend(color: "#a4c639", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Build n.${env.BUILD_NUMBER} of ${env.JOB_NAME} completed", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+      #end
+      #if (${withGoogleChat} == 'Y')
+        googlechatnotification url: $googleChatUrlWebHook, message: "Build n.${env.BUILD_NUMBER} of ${env.JOB_NAME} completed"
+      #end
+    }
+
+    unstable {
+      #if (${withMattermost} == 'Y')
+      mattermostSend(color: "#ffbf00", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Build Unstable!", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+      #end
+      #if (${withGoogleChat} == 'Y')
+        googlechatnotification url: $googleChatUrlWebHook, message: "Build Unstable!"
+      #end
+    }
+
+    failure {
+      #if (${withMattermost} == 'Y')
+      mattermostSend(color: "#c0392b", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "WARNING -- Build FAILURE!!", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+      #end
+      #if (${withGoogleChat} == 'Y')
+        googlechatnotification url: $googleChatUrlWebHook, message: "WARNING -- Build FAILURE!!"
+      #end
+    }
+
+    changed {
+      #if (${withMattermost} == 'Y')
+      mattermostSend(color: "#ffbf00", icon: "https://jenkins.io/images/logos/jenkins/jenkins.png", message: "Things were different before...", channel: $mattermostChannel, endpoint: $mattermostUrlWebHook)
+      #end
+      #if (${withGoogleChat} == 'Y')
+        googlechatnotification url: $googleChatUrlWebHook, message: "Things were different before..."
+      #end
+    }
+    #end
+	}
 
 }
 
