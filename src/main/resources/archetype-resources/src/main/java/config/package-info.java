@@ -3,7 +3,7 @@
 #set($symbol_escape='\')
 package ${package}.config;
 
-/**
+/*
  * This package contains all the configurations classes like WebConfig and SwaggerConfig configurations.
  * Normally all the classes annotated with @Configuration are placed here.
  *

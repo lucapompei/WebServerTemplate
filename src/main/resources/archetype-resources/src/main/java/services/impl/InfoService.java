@@ -64,7 +64,7 @@ public class InfoService implements IInfoService {
 		String logsPath = context.getProperty(CommonConstants.LOGS_PATH);
 		LOGGER.debug("Getting logs from {}", logsPath);
 		// Read logs
-		try (Stream<String> logs = Files.lines(Paths.get(logsPath), StandardCharsets.US_ASCII)) {
+		try (Stream<String> logs = Files.lines(Paths.get(logsPath), StandardCharsets.UTF_8)) {
 			return logs.collect(Collectors.joining("\n\r"));
 		} catch (Exception e) {
 			LOGGER.error("Unable to read log from {}: {}", logsPath, e.getMessage());
