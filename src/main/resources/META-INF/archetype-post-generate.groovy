@@ -52,3 +52,6 @@ if (withSystemDemon != 'Y') {
     // delete files not used
     Files.deleteIfExists projectPath.resolve("backend.service")
 }
+
+// Rename .gitignore (workaround due to maven plugin > 2.4 limitation)
+new File(projectPath.resolve("temp.gitignore").toAbsolutePath().toString()).renameTo (Paths.get(request.outputDirectory, request.artifactId).toAbsolutePath().toString() + '/.gitignore')

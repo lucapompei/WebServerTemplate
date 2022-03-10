@@ -86,7 +86,7 @@
 				<include>*.yml</include>
 				<include>*.yaml</include>
 				<include>*.properties</include>
-				<include>.gitignore</include>
+				<include>*.gitignore</include>
 				<include>pom.xml</include>
 			</includes>
 		</fileSet>
