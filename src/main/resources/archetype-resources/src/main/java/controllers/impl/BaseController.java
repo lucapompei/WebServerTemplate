@@ -5,6 +5,7 @@ package ${package}.controllers.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 #if (${withCache} == 'Y')
+import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.DeleteMapping;
 #end
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ${package}.constants.EndpointConstants;
 import ${package}.controllers.IBaseController;
 import ${package}.services.IInfoService;
+
+import java.util.Objects;
 
 /**
  * This rest controller exposes endpoints to handle the base requests

@@ -3,6 +3,7 @@
 #set($symbol_escape='\')
 package ${package};
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 #if (${withCache} == 'Y')
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @PropertySource({ "classpath:application.yml" })
 @SpringBootApplication
+@OpenAPIDefinition
 #if (${withCache} == 'Y')
 @EnableCaching
 #end

@@ -21,14 +21,14 @@
 		<!-- Dependencies versions -->
 		<junit.version>5.8.2</junit.version>
 		<apache_common_upload.version>1.4</apache_common_upload.version>
-		<swagger.version>3.0.0</swagger.version>
+		<swagger.version>1.6.7</swagger.version>
 		<javax_validation_api.version>2.0.1.Final</javax_validation_api.version>
 		#if (${withSecurity} == 'Y')
 		<jwt.version>0.9.1</jwt.version>
 		#end
 
 		<!-- Build -->
-		<jacoco.version>0.8.7</jacoco.version>
+		<jacoco.version>0.8.8</jacoco.version>
 		<maven.build.timestamp.format>dd/MM/yyyy HH:mm</maven.build.timestamp.format>
 		<timestamp>${maven.build.timestamp}</timestamp>
 
@@ -37,7 +37,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.7</version>
+		<version>2.6.6</version>
 	</parent>
 
 	<dependencies>
@@ -135,10 +135,10 @@
 
 		<!-- Swagger dependencies -->
 		<dependency>
-			<groupId>io.springfox</groupId>
-    		<artifactId>springfox-boot-starter</artifactId>
-			<version>${swagger.version}</version>
-		</dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
 
 		<!-- H2 dependencies -->
 		<dependency>
