@@ -24,7 +24,7 @@ import java.util.Date;
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationExceptionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationExceptionHandler.class);
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleGenericException(Exception ex, WebRequest request) {
@@ -49,7 +49,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
      */
     private ResponseEntity<Object> prepareHandle(Exception e, WebRequest request, HttpStatus status, String error, Object message) {
         String path = ((ServletWebRequest) request).getRequest().getRequestURI();
-        LOGGER.error("Error handled from request {}: {}", path, message, e);
+        LOG.error("Error handled from request {}: {}", path, message, e);
         return handleExceptionInternal(e, getErrorAttributes((ServletWebRequest) request, status, error, message),
                 new HttpHeaders(), status, request);
     }
