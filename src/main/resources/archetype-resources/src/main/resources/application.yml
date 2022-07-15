@@ -50,9 +50,10 @@ spring:
   #end
 
 application:
-  app_name: @project.artifactId@
-  app_description: @timestamp@
+  app_name: @project.name@
+  app_description: @project.description@
   app_version: @project.version@
+  app_timestamp: @timestamp@
 #if (${withSecurity} == 'Y')
 
 security:

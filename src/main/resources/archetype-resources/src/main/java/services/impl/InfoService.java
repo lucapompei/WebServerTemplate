@@ -25,11 +25,6 @@ import ${package}.services.IInfoService;
 public class InfoService implements IInfoService {
 
 	/**
-	 * The logger
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(InfoService.class);
-
-	/**
 	 * The application name
 	 */
 	@Value("${symbol_dollar}{application.app_name}")
@@ -42,13 +37,28 @@ public class InfoService implements IInfoService {
 	private String appVersion;
 
 	/**
+	 * The application description
+	 */
+	@Value("${symbol_dollar}{application.app_description}")
+	private String appDescription;
+
+	/**
+	 * The application timestamp
+	 */
+	@Value("${symbol_dollar}{application.app_timestamp}")
+	private String appTimestamp;
+
+	/**
 	 * Retrieve then main application info
 	 * 
 	 * @return then main application info
 	 */
 	@Override
 	public String getAppInfo() {
-		return this.appName + " - v." + this.appVersion;
+		return this.appName + " - v."
+				+ this.appVersion + " "
+				+ this.appTimestamp + " - "
+				+ this.appDescription;
 	}
 
 	/**
