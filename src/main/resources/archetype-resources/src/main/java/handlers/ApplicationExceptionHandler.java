@@ -1,0 +1,76 @@
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
+package ${package}.handlers;
+
+import ${package}.responses.ErrorResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.Date;
+
+/**
+ * This class handles application exceptions
+ */
+@ControllerAdvice
+public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationExceptionHandler.class);
+
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<Object> handleGenericException(Exception ex, WebRequest request) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        return prepareHandle(ex, request, status, status.getReasonPhrase(), ex.getMessage());
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<Object> handleResponseStatusException(ResponseStatusException ex, WebRequest request) {
+        return prepareHandle(ex, request, ex.getStatus(), ex.getStatus().getReasonPhrase(), ex.getReason());
+    }
+
+    /**
+     * Handles the given exception from the given web request
+     *
+     * @param e,       the exception to handle
+     * @param request, the web request
+     * @param status,  the http status code to handle for the exception
+     * @param error,   the http error message
+     * @param message, the exception message
+     * @return the response entity to push back
+     */
+    private ResponseEntity<Object> prepareHandle(Exception e, WebRequest request, HttpStatus status, String error, Object message) {
+        String path = ((ServletWebRequest) request).getRequest().getRequestURI();
+        LOGGER.error("Error handled from request {}: {}", path, message, e);
+        return handleExceptionInternal(e, getErrorAttributes((ServletWebRequest) request, status, error, message),
+                new HttpHeaders(), status, request);
+    }
+
+    /**
+     * Convert the given error data into a formatted error response
+     *
+     * @param requestAttributes, the request data Risorsa che ha generato l'errore
+     * @param status,            the http status code to handle
+     * @param error,             the http status error message
+     * @param message,           the error message
+     * @return the error response
+     */
+    private ErrorResponse getErrorAttributes(ServletWebRequest requestAttributes, HttpStatus status, String error, Object message) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setTimestamp(new Date());
+        errorResponse.setStatus(status.value());
+        errorResponse.setError(error);
+        errorResponse.setMessage(message);
+        errorResponse.setPath(requestAttributes.getRequest().getRequestURI());
+        return errorResponse;
+    }
+
+}

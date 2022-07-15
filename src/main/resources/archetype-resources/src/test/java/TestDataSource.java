@@ -22,7 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 @ActiveProfiles("test")
 @DirtiesContext
-public class TestDataSource {
+class TestDataSource {
 
 	/**
 	 * The logger
@@ -40,7 +40,7 @@ public class TestDataSource {
 	 */
 	@DisplayName("Find user by existing username")
 	@Test
-	public void testFindByExistingUsername() {
+	void testFindByExistingUsername() {
 		LOGGER.info("Starting test for finding existing user on db");
 		String username = "user";
 		UserDetails user = userDetailsService.loadUserByUsername(username);
@@ -56,7 +56,7 @@ public class TestDataSource {
 	 */
 	@DisplayName("Find user by not existing username")
 	@Test
-	public void testFindByNotExistingUsername() {
+	void testFindByNotExistingUsername() {
 		LOGGER.info("Starting test for finding not existing user on db");
 		String username = "newUser";
 		Assertions.assertThrows(UsernameNotFoundException.class,

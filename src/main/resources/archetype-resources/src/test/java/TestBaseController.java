@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
-import ${package}.controllers.IBaseController;
+import ${package}.controllers.BaseController;
 
 /**
  * This class is used to test the base controller
@@ -22,7 +22,7 @@ import ${package}.controllers.IBaseController;
 @SpringBootTest
 @ActiveProfiles("test")
 @DirtiesContext
-public class TestBaseController {
+class TestBaseController {
 
 	/**
 	 * The logger
@@ -33,14 +33,14 @@ public class TestBaseController {
 	 * The base controller
 	 */
 	@Autowired
-	private IBaseController baseController;
+	private BaseController baseController;
 
 	/**
 	 * Test home
 	 */
 	@DisplayName("Test root")
 	@Test
-	public void testRoot() {
+	void testRoot() {
 		// Getting home response
 		ResponseEntity<String> home = baseController.getRoot();
 		LOGGER.info("Retrieved home response {}", home.getBody());
@@ -53,25 +53,12 @@ public class TestBaseController {
 	 */
 	@DisplayName("Test about")
 	@Test
-	public void testAbout() {
+	void testAbout() {
 		// Getting about response
 		ResponseEntity<String> about = baseController.getAbout();
 		LOGGER.info("Retrieved about response {}", about.getBody());
 		// Test data
 		Assertions.assertNotNull(about, "About response not retrieved");
-	}
-
-	/**
-	 * Test about
-	 */
-	@DisplayName("Test logs")
-	@Test
-	public void testLogs() {
-		// Getting logs response
-		ResponseEntity<String> logs = baseController.getLogs();
-		LOGGER.info("Retrieved logs response {}", logs.getBody());
-		// Test data
-		Assertions.assertNotNull(logs, "logs response not retrieved");
 	}
 	#if (${withCache} == 'Y')
 	/**
@@ -79,7 +66,7 @@ public class TestBaseController {
 	 */
 	@DisplayName("Test clean cache")
 	@Test
-	public void testCleanCache() {
+	void testCleanCache() {
 		// Getting clean cache response
 		ResponseEntity<String> response = baseController.cleanCache();
 		// Test data

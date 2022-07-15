@@ -6,7 +6,7 @@ package ${package}.services;
 /**
  * This service handles info requests
  */
-public interface IInfoService {
+public interface InfoService {
 
 	/**
 	 * Retrieve then main application info
@@ -14,12 +14,5 @@ public interface IInfoService {
 	 * @return then main application info
 	 */
 	String getAppInfo();
-
-	/**
-	 * Retrieve then application logs
-	 * 
-	 * @return then application logs
-	 */
-	String getAppLogs();
 
 }

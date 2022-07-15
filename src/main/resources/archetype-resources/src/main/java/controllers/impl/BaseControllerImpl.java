@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ${package}.constants.EndpointConstants;
-import ${package}.controllers.IBaseController;
-import ${package}.services.IInfoService;
+import ${package}.controllers.BaseController;
+import ${package}.services.InfoService;
 
 import java.util.Objects;
 
@@ -23,13 +23,13 @@ import java.util.Objects;
  * This rest controller exposes endpoints to handle the base requests
  */
 @RestController
-public class BaseController implements IBaseController {
+public class BaseControllerImpl implements BaseController {
 
 	/**
 	 * The info service
 	 */
 	@Autowired
-	private IInfoService infoService;
+	private InfoService infoService;
 	#if (${withCache} == 'Y')
 	/**
 	 * The cache manager
@@ -58,18 +58,6 @@ public class BaseController implements IBaseController {
 	@GetMapping(value = EndpointConstants.ABOUT)
 	public ResponseEntity<String> getAbout() {
 		String response = infoService.getAppInfo();
-		return ResponseEntity.ok(response);
-	}
-
-	/**
-	 * This method exposes API to show the application logs
-	 * 
-	 * @return the application logs
-	 */
-	@Override
-	@GetMapping(value = EndpointConstants.LOGS)
-	public ResponseEntity<String> getLogs() {
-		String response = infoService.getAppLogs();
 		return ResponseEntity.ok(response);
 	}
 	#if (${withCache} == 'Y')

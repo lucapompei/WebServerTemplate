@@ -7,9 +7,12 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import ${package}.constants.EndpointConstants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +30,7 @@ import ${package}.config.WebConfig;
 @SpringBootTest
 @ActiveProfiles("test")
 @DirtiesContext
-public class TestContext {
+class TestContext {
 
 	/**
 	 * The logger
@@ -39,7 +42,7 @@ public class TestContext {
 	 */
 	@DisplayName("Load context")
 	@Test
-	public void testContext() {
+	void testContext() {
 		LOGGER.info("Context loaded successfully");
 		Assertions.assertTrue(true);
 	}
@@ -51,11 +54,13 @@ public class TestContext {
 	 * @throws ServletException
 	 */
 	@DisplayName("Test request filtering")
-	@Test
-	public void testRequestFiltering() throws ServletException, IOException {
+	@ParameterizedTest
+	@ValueSource(strings = {EndpointConstants.ROOT, EndpointConstants.ABOUT})
+	void testRequestFiltering(String uri) throws ServletException, IOException {
 		LOGGER.info("Testing request filtering");
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addHeader("Origin", "junit-test");
+		request.setRequestURI(uri);
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockFilterChain chain = new MockFilterChain();
 		new WebConfig().doFilter(request, response, chain);

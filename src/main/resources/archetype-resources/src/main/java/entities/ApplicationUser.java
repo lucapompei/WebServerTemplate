@@ -48,7 +48,7 @@ public class ApplicationUser {
 	/**
 	 * Setter method for the identifier
 	 *
-	 * @param username, the identifier
+	 * @param id, the identifier
 	 */
 	public void setId(Long id) {
 		this.id = id;

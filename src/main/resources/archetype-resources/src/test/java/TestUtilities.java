@@ -45,7 +45,7 @@ import ${package}.utils.TextUtils;
 @SpringBootTest
 @ActiveProfiles("test")
 @DirtiesContext
-public class TestUtilities {
+class TestUtilities {
 
 	/**
 	 * The logger
@@ -67,7 +67,7 @@ public class TestUtilities {
 	@ValueSource(classes = { CommonConstants.class, DateUtils.class, EndpointConstants.class,
 			JsonUtils.class, TextUtils.class })
 	#end
-	public <T> void testConstants(Class<T> cls) throws NoSuchMethodException, SecurityException {
+	<T> void testConstants(Class<T> cls) throws NoSuchMethodException, SecurityException {
 		// Getting class name
 		String className = cls.getSimpleName();
 		LOGGER.info("Testing {} constant class", className);
@@ -84,7 +84,7 @@ public class TestUtilities {
 	 */
 	@DisplayName("Test null text verification")
 	@Test
-	public void testNullTextVerification() {
+	void testNullTextVerification() {
 		// Prepare cases
 		String nullText = null;
 		String emptyText = "";
@@ -99,7 +99,7 @@ public class TestUtilities {
 	 */
 	@DisplayName("Test date formatting")
 	@Test
-	public void testDateUtils() {
+	void testDateUtils() {
 		String data = DateUtils.getFormattedDate(new Date());
 		// Assert data
 		Assertions.assertNotNull(data, "Date utils not properly handled");
@@ -115,7 +115,7 @@ public class TestUtilities {
 	@DisplayName("Test JSON utils")
 	@ParameterizedTest
 	@MethodSource("getJsonUtils")
-	public <T> void testJsonUtils(T data, T expectedData) {
+	<T> void testJsonUtils(T data, T expectedData) {
 		// Assert data
 		Assertions.assertEquals(JsonUtils.toJson(data), JsonUtils.toJson(expectedData),
 				"JSON utils not properly handled");
@@ -126,7 +126,7 @@ public class TestUtilities {
 	 * 
 	 * @return
 	 */
-	public static Stream<Arguments> getJsonUtils() {
+	static Stream<Arguments> getJsonUtils() {
 		Object emptyObject = new Object();
 		String emptyJson = "{}";
 		String emptyListJson = "[]";
@@ -153,7 +153,7 @@ public class TestUtilities {
 	 */
 	@DisplayName("Test JWT generate and parse")
 	@Test
-	public void testJWTGenerateAndParse() {
+	void testJWTGenerateAndParse() {
 		String subject = "username";
 		String jwtSecretKey = "mySecret";
 		long jwtExpirationTime = 1000 * 60 * 24;
@@ -168,7 +168,7 @@ public class TestUtilities {
 	 */
 	@DisplayName("Test expired JWT")
 	@Test
-	public void testExpiredJwt() {
+	void testExpiredJwt() {
 		String subject = "username";
 		String jwtSecretKey = "mySecret";
 		long jwtExpirationTime = 0;

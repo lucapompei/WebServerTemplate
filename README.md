@@ -1,4 +1,4 @@
-# Web Project Archetype v.5.1.1
+# Web Project Archetype v.5.2.0
 
 [![Build Status](https://travis-ci.org/lucapompei/WebServerTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebServerTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CodeFactor](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate/badge)](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate)
 
@@ -20,6 +20,7 @@ Summary features
 - Logback configuration for uniquely record each request;
 - Junit 5 with coverage >= 75%;
 - API response time auto-calculated and logged;
+- Error handler pre-configuration;
 - Swagger (OpenApi 3.0) auto-generated;
 - Predisposition to cache (configurable during creation);
 - Dockerfile pre-configuration;

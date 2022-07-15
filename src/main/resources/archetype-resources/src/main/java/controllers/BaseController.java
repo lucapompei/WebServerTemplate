@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 /**
  * This rest controller exposes endpoints to handle the base requests
  */
-public interface IBaseController {
+public interface BaseController {
 
 	/**
 	 * Root Endpoint
@@ -23,13 +23,6 @@ public interface IBaseController {
 	 * @return the main application info
 	 */
 	ResponseEntity<String> getAbout();
-
-	/**
-	 * This method exposes API to show the application logs
-	 *
-	 * @return the application logs
-	 */
-	ResponseEntity<String> getLogs();
 	#if (${withCache} == 'Y')
 	/**
 	 * Cache Endpoint
