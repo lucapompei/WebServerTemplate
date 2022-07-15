@@ -51,7 +51,8 @@ spring:
 
 application:
   app_name: @project.artifactId@
-  app_version: @project.version@ @timestamp@
+  app_description: @timestamp@
+  app_version: @project.version@
 #if (${withSecurity} == 'Y')
 
 security:

@@ -10,6 +10,7 @@
 	<version>${version}</version>
 
 	<name>${project.artifactId}</name>
+	<description>${groupId}-${project.artifactId}</description>
 
 	<properties>
 		<!-- Encoding -->
