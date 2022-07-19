@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -17,6 +20,8 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class handles application exceptions
@@ -35,6 +40,18 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Object> handleResponseStatusException(ResponseStatusException ex, WebRequest request) {
         return prepareHandle(ex, request, ex.getStatus(), ex.getStatus().getReasonPhrase(), ex.getReason());
+    }
+
+    @Override
+    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        Map<String, String> messages = new HashMap<>();
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            messages.put(error.getField(), error.getDefaultMessage());
+        }
+        for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
+            messages.put(error.getObjectName(), error.getDefaultMessage());
+        }
+        return prepareHandle(ex, request, status, status.getReasonPhrase(), messages);
     }
 
     /**
