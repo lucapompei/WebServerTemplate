@@ -60,13 +60,18 @@ public class WebConfig implements Filter {
 	/**
 	 * Handle CORS configuring response
 	 * 
-	 * @param req
-	 * @param res
+	 * @param req, the incoming request
+	 * @param res, the outgoing response
 	 */
 	private void handleCORS(ServletRequest req, ServletResponse res) {
+		#if (${javaVersion} != '17')
 		if (req instanceof HttpServletRequest && res instanceof HttpServletResponse) {
 			HttpServletRequest request = (HttpServletRequest) req;
 			HttpServletResponse response = (HttpServletResponse) res;
+		#end
+		#if (${javaVersion} == '17')
+		if (req instanceof HttpServletRequest request && res instanceof HttpServletResponse response) {	
+		#end
 			response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 			response.setHeader("Access-Control-Allow-Credentials", "true");
 			response.setHeader("Access-Control-Allow-Methods", "POST, PUT, PATCH, GET, OPTIONS, DELETE");
@@ -89,8 +94,14 @@ public class WebConfig implements Filter {
 		MDC.put("uuid", UUID.randomUUID().toString());
 		// Find servlet name
 		String name = "servlet";
+		#if (${javaVersion} != '17')
 		if (request instanceof HttpServletRequest) {
 			name = ((HttpServletRequest) request).getRequestURI();
+		#end
+		#if (${javaVersion} == '17')
+		if (request instanceof HttpServletRequest req) {
+			name = req.getRequestURI();
+		#end
 		}
 		if (EndpointConstants.ROOT.equals(name)) {
 			// Handle request

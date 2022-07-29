@@ -32,11 +32,6 @@ public class EndpointConstants {
 	 * The about endpoint
 	 */
 	public static final String ABOUT = "/about";
-
-	/**
-	 * The logs endpoint
-	 */
-	public static final String LOGS = "/logs";
 	#if (${withCache} == 'Y')
 	/**
 	 * The cache endpoint

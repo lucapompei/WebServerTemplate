@@ -10,7 +10,7 @@
 	<version>${version}</version>
 
 	<name>${project.artifactId}</name>
-	<description>${groupId}-${project.artifactId}</description>
+	<description>${project.groupId}-${project.artifactId}}</description>
 
 	<properties>
 		<!-- Encoding -->
@@ -20,9 +20,8 @@
 		<java.version>${javaVersion}</java.version>
 
 		<!-- Dependencies versions -->
-		<junit.version>5.8.2</junit.version>
 		<apache_common_upload.version>1.4</apache_common_upload.version>
-		<swagger.version>1.6.7</swagger.version>
+		<swagger.version>1.6.9</swagger.version>
 		<javax_validation_api.version>2.0.1.Final</javax_validation_api.version>
 		#if (${withSecurity} == 'Y')
 		<jwt.version>0.9.1</jwt.version>
@@ -38,7 +37,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.6</version>
+		<version>2.7.2</version>
 	</parent>
 
 	<dependencies>
@@ -78,16 +77,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -105,18 +94,6 @@
 			<artifactId>caffeine</artifactId>
 		</dependency>
 		#end
-		
-		<!-- Junit dependencies -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-params</artifactId>
-			<scope>test</scope>
-		</dependency>
 		#if (${withSecurity} == 'Y')
 
 		<!-- Jwt dependencies -->

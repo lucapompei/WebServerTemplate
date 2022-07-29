@@ -60,12 +60,24 @@ class TestUtilities {
 	@DisplayName("Test utilities")
 	@ParameterizedTest
 	#if (${withSecurity} == 'Y')
-	@ValueSource(classes = { AuthConstants.class, CommonConstants.class, DateUtils.class, EndpointConstants.class,
-			JsonUtils.class, JwtUtils.class, TextUtils.class })
+	@ValueSource(classes = { 
+		AuthConstants.class, 
+		CommonConstants.class, 
+		DateUtils.class, 
+		EndpointConstants.class,
+		JsonUtils.class, 
+		JwtUtils.class, 
+		TextUtils.class 
+	})
 	#end
 	#if (${withSecurity} != 'Y')
-	@ValueSource(classes = { CommonConstants.class, DateUtils.class, EndpointConstants.class,
-			JsonUtils.class, TextUtils.class })
+	@ValueSource(classes = { 
+		CommonConstants.class, 
+		DateUtils.class, 
+		EndpointConstants.class,
+		JsonUtils.class, 
+		TextUtils.class 
+	})
 	#end
 	<T> void testConstants(Class<T> cls) throws NoSuchMethodException, SecurityException {
 		// Getting class name
