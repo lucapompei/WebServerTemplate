@@ -22,6 +22,7 @@
 		<!-- Dependencies versions -->
 		<apache_common_upload.version>1.4</apache_common_upload.version>
 		<swagger.version>1.6.9</swagger.version>
+		<okhttp.version>4.10.0</okhttp.version>
 		<javax_validation_api.version>2.0.1.Final</javax_validation_api.version>
 		#if (${withSecurity} == 'Y')
 		<jwt.version>0.9.1</jwt.version>
@@ -122,6 +123,18 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+		</dependency>
+		
+		<!-- Ok Http dependencies -->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>${okhttp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>mockwebserver</artifactId>
+			<version>${okhttp.version}</version>
 		</dependency>
 
 		<!-- Javax dependencies -->

@@ -1,7 +1,7 @@
 #set($symbol_pound='#')
 #set($symbol_dollar='$')
 #set($symbol_escape='\')
-package ${package}.config.security;
+package ${package}.configs.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 			throws IOException, ServletException {
 		// giving the header from the request, check it to validate the request
 		String header = req.getHeader(AuthConstants.AUTH_HEADER);
-		if (header == null || !header.startsWith(AuthConstants.AUTH_BEARERPREFIX)) {
+		if (header == null || !header.startsWith(AuthConstants.AUTH_BEARER_PREFIX)) {
 			// the request does not contain the authorization
 			chain.doFilter(req, res);
 			return;

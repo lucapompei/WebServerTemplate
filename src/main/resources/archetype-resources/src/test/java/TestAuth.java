@@ -3,8 +3,8 @@
 #set($symbol_escape='\')
 package ${package};
 
-import ${package}.config.security.JwtAuthenticationFilter;
-import ${package}.config.security.JwtAuthorizationFilter;
+import ${package}.configs.security.JwtAuthenticationFilter;
+import ${package}.configs.security.JwtAuthorizationFilter;
 import ${package}.constants.AuthConstants;
 import ${package}.entities.ApplicationUser;
 import ${package}.utils.JsonUtils;
@@ -87,14 +87,14 @@ class TestAuth {
     @Test
     void testSuccessfulAuthentication() {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader(AuthConstants.AUTH_HEADER, AuthConstants.AUTH_BEARERPREFIX + JWT);
+        request.addHeader(AuthConstants.AUTH_HEADER, AuthConstants.AUTH_BEARER_PREFIX + JWT);
         MockHttpServletResponse response = new MockHttpServletResponse();
         MockFilterChain chain = new MockFilterChain();
         Assertions.assertDoesNotThrow(() -> AUTHORIZATION_FILTER.doFilter(request, response, chain));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"", AuthConstants.AUTH_HEADER, AuthConstants.AUTH_BEARERPREFIX})
+    @ValueSource(strings = {"", AuthConstants.AUTH_HEADER, AuthConstants.AUTH_BEARER_PREFIX})
     void testSuccessfulAuthenticationWithoutHeader(String prefix) {
         MockHttpServletRequest request = new MockHttpServletRequest();
         if (!TextUtils.isNullOrEmpty(prefix)) {

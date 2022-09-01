@@ -1,10 +1,10 @@
 #set($symbol_pound='#')
 #set($symbol_dollar='$')
 #set($symbol_escape='\')
-package ${package}.controllers;
+package ${package}.clients;
 
 /*
- * This package contains the classes used to define and implement the controller layer.
+ * This package contains the classes used to define and implement the application clients.
  * It is recommended to use the Java Interface for all the classes included in this package.
  * The implementation of the interface should be located in the sub-package impl.
  *

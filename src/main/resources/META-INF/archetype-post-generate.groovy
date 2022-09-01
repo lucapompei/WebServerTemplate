@@ -22,11 +22,11 @@ String packagePath = packageName.replace(".", "/")
 
 if (withSecurity != 'Y') {
     // delete files not used
-    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/JwtAuthenticationFilter.java")
-    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/JwtAuthorizationFilter.java")
-    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/SecurityConfig.java")
-    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/package-info.java")
-    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/config/security/")
+    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/configs/security/JwtAuthenticationFilter.java")
+    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/configs/security/JwtAuthorizationFilter.java")
+    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/configs/security/SecurityConfig.java")
+    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/configs/security/package-info.java")
+    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/configs/security/")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/constants/AuthConstants.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/repositories/UserRepository.java")
     Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/entities/ApplicationUser.java")
@@ -38,13 +38,12 @@ if (withSecurity != 'Y') {
 
 if (withKubernetes != 'Y') {
     // delete files not used
-    Files.deleteIfExists projectPath.resolve("config/interpolate.sh")
-    Files.deleteIfExists projectPath.resolve("config/interpolate.sh")
-    Files.deleteIfExists projectPath.resolve("config/deployment.yml")
-    Files.deleteIfExists projectPath.resolve("config/env/dev.env")
-    Files.deleteIfExists projectPath.resolve("config/env/master.env")
-    Files.deleteIfExists projectPath.resolve("config/env/")
-    Files.deleteIfExists projectPath.resolve("config/")
+    Files.deleteIfExists projectPath.resolve("configs/interpolate.sh")
+    Files.deleteIfExists projectPath.resolve("configs/deployment.yml")
+    Files.deleteIfExists projectPath.resolve("configs/env/dev.env")
+    Files.deleteIfExists projectPath.resolve("configs/env/master.env")
+    Files.deleteIfExists projectPath.resolve("configs/env/")
+    Files.deleteIfExists projectPath.resolve("configs/")
     Files.deleteIfExists projectPath.resolve("Dockerfile")
     Files.deleteIfExists projectPath.resolve("skaffold.yaml")
 }

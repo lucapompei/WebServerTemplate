@@ -1,14 +1,12 @@
 #set($symbol_pound='#')
 #set($symbol_dollar='$')
 #set($symbol_escape='\')
-package ${package}.config.security;
+package ${package}.configs.security;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -80,10 +78,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	 */
 	@Override
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
-			Authentication auth) throws IOException, ServletException {
+			Authentication auth) {
 		// build the jwt token
 		String token = JwtUtils.getToken(((User) auth.getPrincipal()).getUsername(), this.jwtSecretKey,
 				this.jwtExpirationTime);
-		res.addHeader(AuthConstants.AUTH_HEADER, AuthConstants.AUTH_BEARERPREFIX + token);
+		res.addHeader(AuthConstants.AUTH_HEADER, AuthConstants.AUTH_BEARER_PREFIX + token);
 	}
 }

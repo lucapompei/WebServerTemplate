@@ -55,7 +55,7 @@ class TestUtilities {
 	/**
 	 * Test utility classes
 	 * 
-	 * @param <T>
+	 * @param <T>, the type of the class to be analyzed
 	 */
 	@DisplayName("Test utilities")
 	@ParameterizedTest
@@ -120,9 +120,9 @@ class TestUtilities {
 	/**
 	 * Test JSON utilities
 	 *
-	 * @param <T>
-	 * @param data
-	 * @param expectedData
+	 * @param <T>, the type of the data to be analyzed
+     * @param data, the data to be analyzed
+     * @param expectedData, the expected data to get
 	 */
 	@DisplayName("Test JSON utils")
 	@ParameterizedTest
@@ -136,7 +136,7 @@ class TestUtilities {
 	/**
 	 * Get a stream of arguments to test JSON utilities static methods
 	 * 
-	 * @return
+	 * @return the arguments for testing json utility
 	 */
 	static Stream<Arguments> getJsonUtils() {
 		Object emptyObject = new Object();

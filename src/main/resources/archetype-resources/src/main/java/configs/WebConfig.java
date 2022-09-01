@@ -1,7 +1,7 @@
 #set($symbol_pound='#')
 #set($symbol_dollar='$')
 #set($symbol_escape='\')
-package ${package}.config;
+package ${package}.configs;
 
 import java.io.IOException;
 import java.util.UUID;

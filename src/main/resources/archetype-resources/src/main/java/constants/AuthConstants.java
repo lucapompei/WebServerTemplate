@@ -16,7 +16,7 @@ public class AuthConstants {
 	/**
 	 * The prefix for bearer authorization value
 	 */
-	public static final String AUTH_BEARERPREFIX = "Bearer ";
+	public static final String AUTH_BEARER_PREFIX = "Bearer ";
 
 	/**
 	 * Private constructor for the utility class

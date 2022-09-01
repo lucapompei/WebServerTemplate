@@ -74,7 +74,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     /**
      * Convert the given error data into a formatted error response
      *
-     * @param requestAttributes, the request data Risorsa che ha generato l'errore
+     * @param requestAttributes, the request data that has generated the error
      * @param status,            the http status code to handle
      * @param error,             the http status error message
      * @param message,           the error message

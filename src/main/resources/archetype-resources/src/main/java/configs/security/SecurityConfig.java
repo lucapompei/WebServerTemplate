@@ -1,7 +1,7 @@
 #set($symbol_pound='#')
 #set($symbol_dollar='$')
 #set($symbol_escape='\')
-package ${package}.config.security;
+package ${package}.configs.security;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -111,7 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	/**
 	 * Build the http registry configuring its http matchers
 	 * 
-	 * @param httpRegistry
+	 * @param httpRegistry, the register for which configure the matchers
 	 * @return the configured http registry
 	 */
 	private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry buildMatchers(

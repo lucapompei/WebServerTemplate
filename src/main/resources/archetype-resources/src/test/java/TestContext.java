@@ -22,7 +22,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
-import ${package}.config.WebConfig;
+import ${package}.configs.WebConfig;
 
 /**
  * This class is used to test the context loading
@@ -50,8 +50,8 @@ class TestContext {
 	/**
 	 * Test the request filtering
 	 * 
-	 * @throws IOException
-	 * @throws ServletException
+	 * @throws IOException, if IO exception occurs
+	 * @throws ServletException, if servet exception occurs
 	 */
 	@DisplayName("Test request filtering")
 	@ParameterizedTest

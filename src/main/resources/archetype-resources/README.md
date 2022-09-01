@@ -21,13 +21,13 @@ Other stuffs are:
 Usage
 -------
 
-Istruction 1, istruction 2, etc...
+Instruction 1, instruction 2, etc...
 
 #if (${withKubernetes} == 'Y')
-Skaffold istruction
+Skaffold instruction
 -------
 
-Aftering installing (and configuring) Minikube and Skaffold, start them using the following commands:
+After installing (and configuring) Minikube and Skaffold, start them using the following commands:
 ```
 minikube start
 minikube addons enable ingress

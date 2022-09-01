@@ -50,7 +50,7 @@ public class JwtUtils {
 	public static String parseToken(String token, String jwtSecretKey) {
 		try {
 			return Jwts.parser().setSigningKey(jwtSecretKey)
-					.parseClaimsJws(token.replace(AuthConstants.AUTH_BEARERPREFIX, "")).getBody().getSubject();
+					.parseClaimsJws(token.replace(AuthConstants.AUTH_BEARER_PREFIX, "")).getBody().getSubject();
 		} catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException
 				| IllegalArgumentException e) {
 			return null;
