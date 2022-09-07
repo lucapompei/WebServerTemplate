@@ -1,5 +1,5 @@
 #if (${javaVersion} == '1.8')
-FROM openjdk:8-jre-alpine 
+FROM eclipse-temurin:8-jre-alpine 
 #end
 #if (${javaVersion} == '11')
 FROM alpine:3.10.3
@@ -21,7 +21,7 @@ RUN ZULU_ARCH=zulu11.31.11-ca-jre11.0.3-linux_musl_x64.tar.gz && \
     cd ${MAN_DIR} && find ${JAVA_HOME}/man/man1 -type f -name "*.1" -exec ln -s {} . \;
 #end
 #if (${javaVersion} == '17')
-FROM openjdk:17-jdk-alpine3.14
+FROM eclipse-temurin:17-jre-alpine
 #end
 
 ARG JAR_NAME="${artifactId}"
