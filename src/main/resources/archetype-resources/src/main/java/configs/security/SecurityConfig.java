@@ -3,8 +3,10 @@
 #set($symbol_escape='\')
 package ${package}.configs.security;
 
+import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletResponse;
 
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -32,13 +34,6 @@ import ${package}.constants.EndpointConstants;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	/**
-	 * This variable allows the security configuration based on the basic
-	 * authentication
-	 */
-	@Value("${symbol_dollar}{security.security_basicauth_enabled:true}")
-	private boolean securityBasicAuthEnabled;
-
-	/**
 	 * This variable allows the security configuration based on the jwt
 	 * authentication
 	 */
@@ -48,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	/**
 	 * The secret key used for the jwt auth
 	 */
-	@Value("${symbol_dollar}{security.security_jwtauth_secretkey:${artifactId}SecretKey!}")
+	@Value("${symbol_dollar}{security.security_jwtauth_secretkey}")
 	private String jwtSecretKey;
 
 	/**
@@ -91,16 +86,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		if (this.securityBasicAuthEnabled) {
-			// permit form login and require the basic authentication for each other request
-			buildMatchers(http.authorizeRequests()).anyRequest().authenticated().and().formLogin().and().httpBasic();
-		} else if (this.securityJwtAuthEnabled) {
+		if (this.securityJwtAuthEnabled) {
 			// permit form login and require the jwt authentication for each other request
+			SecretKey key = Keys.hmacShaKeyFor(this.jwtSecretKey.getBytes());
 			buildMatchers(http.csrf().disable().authorizeRequests()).anyRequest().authenticated().and()
 					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-					.addFilter(new JwtAuthenticationFilter(authenticationManager(), this.jwtSecretKey,
+					.addFilter(new JwtAuthenticationFilter(authenticationManager(), key,
 							this.jwtMinExpirationTime * 1000))
-					.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.jwtSecretKey))
+					.addFilter(new JwtAuthorizationFilter(authenticationManager(), key))
 					.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
 		} else {
 			// permit each request (no auth)
@@ -120,8 +113,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, EndpointConstants.ROOT).permitAll()
 				.antMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
 				.antMatchers(HttpMethod.POST, EndpointConstants.LOGIN).permitAll()
-				.antMatchers(EndpointConstants.SWAGGER).permitAll().antMatchers(EndpointConstants.SWAGGER_JSON)
-				.permitAll();
+				.antMatchers(EndpointConstants.SWAGGER).permitAll()
+				.antMatchers(EndpointConstants.SWAGGER_JSON).permitAll();
 	}
 
 	/**

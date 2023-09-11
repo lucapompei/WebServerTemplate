@@ -3,26 +3,29 @@
 #set($symbol_escape='\')
 package ${package};
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-
-import ${package}.constants.EndpointConstants;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import ${package}.configs.WebConfig;
+import lp.web.constants.EndpointConstants;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.client.RestTemplate;
 
-import ${package}.configs.WebConfig;
+import javax.servlet.ServletException;
+import java.io.IOException;
 
 /**
  * This class is used to test the context loading
@@ -36,6 +39,25 @@ class TestContext {
 	 * The logger
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(TestContext.class);
+
+	/**
+     * The rest template
+     */
+    @Autowired
+    private RestTemplate restTemplate;
+
+    public static MockWebServer wsClient;
+
+    @BeforeAll
+    static void setUp() throws IOException {
+        wsClient = new MockWebServer();
+        wsClient.start(8091);
+    }
+
+    @AfterAll
+    static void tearDown() throws IOException {
+        wsClient.shutdown();
+    }
 
 	/**
 	 * Test the context loading
@@ -60,11 +82,29 @@ class TestContext {
 		LOGGER.info("Testing request filtering");
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addHeader("Origin", "junit-test");
+		request.setMethod("POST");
 		request.setRequestURI(uri);
+		request.setQueryString("a=b");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockFilterChain chain = new MockFilterChain();
 		new WebConfig().doFilter(request, response, chain);
 		Assertions.assertTrue(true);
 	}
+
+	/**
+     * Test client interceptor
+     */
+    @DisplayName("Test client interceptor")
+    @Test
+    void testClientInterceptor() {
+        wsClient.enqueue(new MockResponse()
+                .setHeader("Content-Type", "application/json")
+                .setBody(""));
+        wsClient.enqueue(new MockResponse()
+                .setHeader("Content-Type", "application/json")
+                .setBody(""));
+        restTemplate.exchange("http://localhost:8091", HttpMethod.PUT, new HttpEntity<>("TEST", new HttpHeaders()), Void.class);
+        restTemplate.exchange("http://localhost:8091", HttpMethod.GET, new HttpEntity<>(new HttpHeaders()), Void.class);
+    }
 
 }

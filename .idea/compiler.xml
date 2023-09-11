@@ -12,8 +12,5 @@
         <module name="web-server-template-archetype" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="web-server-template-archetype" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

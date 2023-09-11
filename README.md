@@ -1,4 +1,4 @@
-# Web Project Archetype v.5.3.0
+# Web Project Archetype v.5.4.0
 
 [![Build Status](https://travis-ci.org/lucapompei/WebServerTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebServerTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CodeFactor](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate/badge)](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate)
 
@@ -13,7 +13,7 @@ Summary features
 - Java 8, 11 or 17 (configurable during creation);
 - Maven project based on Spring Boot 2 Framework;
 - Spring MVC configuration;
-- Spring Security configuration (BasicAuth or JwtAuth or none);
+- Spring Security configuration (JwtAuth or none);
 - Spring Data JPA + H2 embedded configuration;
 - Undertow embedded;
 - CORS configuration;
@@ -27,7 +27,6 @@ Summary features
 - Jenkinsfile pre-configuration;
 - Kubernetes pre-configuration (deployment, service, autoscaler, configmaps, secret, ingress);
 - Skaffold pre-configuration;
-- Chat webhook configuration (Mattermost or GoogleChat or none);
 - Systemd service pre-configuration;
 - JMeter project for stress test configuration;
 - .gitignore file;
@@ -56,7 +55,7 @@ Clone or download the maven archetype and then:
 License
 -------
 
-  Copyright (C) 2022 lucapompei
+  Copyright (C) 2024 lucapompei
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.

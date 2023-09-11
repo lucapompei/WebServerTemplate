@@ -42,10 +42,10 @@ check_file() {
 }
 
 # Copy all the source files to DEST_DIR
-cp -r "${SOURCE_DIR}"/*.yml "${DEST_DIR}"
+cp -r "${SOURCE_DIR}"/*.properties "${DEST_DIR}"
 
 echo "Start files interpolations..."
-for filePath in "${DEST_DIR}"/*.yml; do
+for filePath in "${DEST_DIR}"/*.properties; do
     echo "Interpolating ${filePath}"
     for variable_to_interpolate in `cat $ENV_FILE | awk -F= '{ print $1 }'`
     do

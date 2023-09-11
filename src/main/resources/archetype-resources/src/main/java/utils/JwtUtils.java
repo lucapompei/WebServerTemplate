@@ -3,14 +3,10 @@
 #set($symbol_escape='\')
 package ${package}.utils;
 
+import java.security.Key;
 import java.util.Date;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.*;
 import ${package}.constants.AuthConstants;
 import ${package}.constants.CommonConstants;
 
@@ -34,10 +30,10 @@ public class JwtUtils {
 	 * @param jwtExpirationTime, the JWT expiration time
 	 * @return a JWT based on the given parameters
 	 */
-	public static String getToken(String subject, String jwtSecretKey, long jwtExpirationTime) {
+	public static String getToken(String subject, Key jwtSecretKey, long jwtExpirationTime) {
 		return Jwts.builder().setSubject(subject)
 				.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime))
-				.signWith(SignatureAlgorithm.HS512, jwtSecretKey).compact();
+				.signWith(jwtSecretKey, SignatureAlgorithm.HS512).compact();
 	}
 
 	/**
@@ -47,11 +43,11 @@ public class JwtUtils {
 	 * @param jwtSecretKey, the secret key used to decode the JWT
 	 * @return the parsed JWT
 	 */
-	public static String parseToken(String token, String jwtSecretKey) {
+	public static String parseToken(String token, Key jwtSecretKey) {
 		try {
-			return Jwts.parser().setSigningKey(jwtSecretKey)
+			return Jwts.parserBuilder().setSigningKey(jwtSecretKey).build()
 					.parseClaimsJws(token.replace(AuthConstants.AUTH_BEARER_PREFIX, "")).getBody().getSubject();
-		} catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException
+		} catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SecurityException
 				| IllegalArgumentException e) {
 			return null;
 		}

@@ -13,6 +13,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.client.HttpClientErrorException;
 
 /**
  * This class is used to test the exception handler
@@ -26,6 +27,7 @@ class TestExceptionHandler {
     @Test
     void testExceptionHandlers() {
         ResponseStatusException ex = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+		HttpClientErrorException hex = new HttpClientErrorException(ex.getStatus());
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setRequestURI("URI");
         WebRequest webRequest = new ServletWebRequest(request);
@@ -33,6 +35,7 @@ class TestExceptionHandler {
         ErrorResponse response = (ErrorResponse) handler.handleGenericException(ex, webRequest).getBody();
         Assertions.assertDoesNotThrow(() -> handler.handleGenericException(ex, webRequest));
         Assertions.assertDoesNotThrow(() -> handler.handleResponseStatusException(ex, webRequest));
+        Assertions.assertDoesNotThrow(() -> handler.handleHttpClientErrorException(hex, webRequest));
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.getError());
         Assertions.assertNotNull(response.getPath());

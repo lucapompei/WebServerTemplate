@@ -16,12 +16,6 @@
 		<requiredProperty key="withSystemDemon">
 			<!-- <defaultValue>Y</defaultValue> -->
 		</requiredProperty>
-		<requiredProperty key="withMattermost">
-			<!-- <defaultValue>Y</defaultValue> -->
-		</requiredProperty>
-		<requiredProperty key="withGoogleChat">
-			<!-- <defaultValue>Y</defaultValue> -->
-		</requiredProperty>
 	</requiredProperties>
 	<fileSets>
 		<fileSet filtered="true" packaged="true" encoding="UTF-8">

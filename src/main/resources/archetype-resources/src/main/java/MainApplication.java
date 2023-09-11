@@ -9,12 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 #if (${withCache} == 'Y')
 import org.springframework.cache.annotation.EnableCaching;
 #end
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * This class represents the main application
  */
-@PropertySource({ "classpath:application.yml" })
 @SpringBootApplication
 @OpenAPIDefinition
 #if (${withCache} == 'Y')

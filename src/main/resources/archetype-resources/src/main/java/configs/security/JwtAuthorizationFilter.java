@@ -4,6 +4,7 @@
 package ${package}.configs.security;
 
 import java.io.IOException;
+import java.security.Key;
 import java.util.ArrayList;
 
 import javax.servlet.FilterChain;
@@ -27,12 +28,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	/**
 	 * The secret key used for the jwt auth
 	 */
-	private final String jwtSecretKey;
+	private final Key jwtSecretKey;
 
 	/**
 	 * Construct a new {@link JwtAuthorizationFilter} configuring it
 	 */
-	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, String jwtSecretKey) {
+	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, Key jwtSecretKey) {
 		super(authenticationManager);
 		this.jwtSecretKey = jwtSecretKey;
 	}

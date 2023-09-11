@@ -4,6 +4,7 @@
 package ${package}.configs.security;
 
 import java.io.InputStream;
+import java.security.Key;
 import java.util.ArrayList;
 
 import javax.servlet.FilterChain;
@@ -35,7 +36,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	/**
 	 * The secret key used for the jwt auth
 	 */
-	private final String jwtSecretKey;
+	private final Key jwtSecretKey;
 
 	/**
 	 * The expiration time used for the jwt auth
@@ -45,8 +46,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	/**
 	 * Construct a new {@link JwtAuthenticationFilter} configuring it
 	 */
-	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, String jwtSecretKey,
-			long jwtExpirationTime) {
+	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, Key jwtSecretKey, long jwtExpirationTime) {
 		super.setAuthenticationManager(authenticationManager);
 		this.authenticationManager = authenticationManager;
 		this.jwtSecretKey = jwtSecretKey;

@@ -3,6 +3,7 @@
 #set($symbol_escape='\')
 package ${package};
 
+import io.jsonwebtoken.security.Keys;
 import ${package}.configs.security.JwtAuthenticationFilter;
 import ${package}.configs.security.JwtAuthorizationFilter;
 import ${package}.constants.AuthConstants;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
@@ -28,12 +30,21 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 
 @SpringBootTest
 @ActiveProfiles("test")
 @DirtiesContext
 class TestAuth {
+
+    #if (${withSecurity} == 'Y')
+	/**
+	 * The secret key used for the jwt auth
+	 */
+	@Value("${security.security_jwtauth_secretkey}")
+    private String jwtSecretKey;
+	#end
 
     @MockBean
     private AuthenticationManager authenticationManager;
@@ -45,16 +56,16 @@ class TestAuth {
 
     @BeforeEach
     void beforeEach() {
-        String jwtSecret = "JWT_SECRET";
+        SecretKey key = Keys.hmacShaKeyFor(jwtSecretKey.getBytes());
         long expTime = 1L;
-        AUTHENTICATION_FILTER = new JwtAuthenticationFilter(authenticationManager, jwtSecret, expTime);
-        AUTHORIZATION_FILTER = new JwtAuthorizationFilter(authenticationManager, jwtSecret);
+        AUTHENTICATION_FILTER = new JwtAuthenticationFilter(authenticationManager, key, expTime);
+        AUTHORIZATION_FILTER = new JwtAuthorizationFilter(authenticationManager, key);
         ApplicationUser appUser = new ApplicationUser();
         appUser.setId(1L);
         appUser.setUsername("USR");
         appUser.setPassword("PWD");
         USER = JsonUtils.toJson(appUser);
-        JWT = JwtUtils.getToken(appUser.getUsername(), jwtSecret, expTime);
+        JWT = JwtUtils.getToken(appUser.getUsername(), key, expTime);
     }
 
     @Test
