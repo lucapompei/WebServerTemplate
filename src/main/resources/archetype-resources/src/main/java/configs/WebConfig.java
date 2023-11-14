@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -88,7 +90,9 @@ public class WebConfig implements Filter {
      */
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder
+		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+		return builder
+				.requestFactory(() -> new BufferingClientHttpRequestFactory(requestFactory))
                 .interceptors((request, body, execution) -> {
                     String payload = new String(body);
                     if (TextUtils.isNullOrEmpty(payload)) {
@@ -96,7 +100,7 @@ public class WebConfig implements Filter {
                                 request.getMethod(), request.getURI()));
                     } else {
                         LOGGER.info(String.format("Sending %s request to %s with payload %s",
-                                request.getMethod(), request.getURI(), new String(body)));
+                                request.getMethod(), request.getURI(), payload));
                     }
                     return execution.execute(request, body);
                 })

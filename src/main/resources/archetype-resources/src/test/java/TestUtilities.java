@@ -14,7 +14,6 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import io.jsonwebtoken.security.Keys;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -31,6 +30,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 #if (${withSecurity} == 'Y')
+import io.jsonwebtoken.security.Keys;
 import ${package}.constants.AuthConstants;
 #end
 import ${package}.constants.CommonConstants;

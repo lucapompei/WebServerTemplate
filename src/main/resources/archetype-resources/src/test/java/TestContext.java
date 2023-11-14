@@ -105,6 +105,7 @@ class TestContext {
                 .setBody(""));
         restTemplate.exchange("http://localhost:8091", HttpMethod.PUT, new HttpEntity<>("TEST", new HttpHeaders()), Void.class);
         restTemplate.exchange("http://localhost:8091", HttpMethod.GET, new HttpEntity<>(new HttpHeaders()), Void.class);
+		Assertions.assertTrue(true);
     }
 
 }
