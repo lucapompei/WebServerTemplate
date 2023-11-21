@@ -9,16 +9,27 @@ Path projectPath = Paths.get(request.outputDirectory, request.artifactId)
 Properties properties = request.properties
 
 // the withSecurity property
+String withCache = properties.get("withCache")
+
+// the withSecurity property
 String withSecurity = properties.get("withSecurity")
 
 // the withKubernetes property
 String withKubernetes = properties.get("withKubernetes")
+
+// the withKubernetes property
+String withSystemDemon = properties.get("withSystemDemon")
 
 // the Java package of the generated project, e.g. com.acme
 String packageName = properties.get("package")
 
 // convert it into a path, e.g. com/acme
 String packagePath = packageName.replace(".", "/")
+
+if (withCache != 'Y') {
+    // delete files not used
+    Files.deleteIfExists projectPath.resolve("src/main/java/" + packagePath + "/configs/CacheConfig.java")
+}
 
 if (withSecurity != 'Y') {
     // delete files not used
