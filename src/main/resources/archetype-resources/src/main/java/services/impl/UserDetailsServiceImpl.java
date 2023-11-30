@@ -3,16 +3,15 @@
 #set($symbol_escape='\')
 package ${package}.services.impl;
 
-import java.util.Collections;
-
+import ${package}.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import ${package}.repositories.UserRepository;
-import ${package}.entities.ApplicationUser;
+import java.util.Collections;
 
 /**
  * This class represents the implementation of the Spring User Details Service
@@ -35,11 +34,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) {
-		ApplicationUser user = this.userRepository.findByUsername(username);
-		if (user == null) {
-			throw new UsernameNotFoundException(username);
-		}
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				Collections.emptyList());
+		return userRepository.findByUsername(username)
+				.map(user -> new User(user.getUsername(), user.getPassword(), Collections.emptyList()))
+				.orElseThrow(() -> new UsernameNotFoundException(username));
 	}
 }

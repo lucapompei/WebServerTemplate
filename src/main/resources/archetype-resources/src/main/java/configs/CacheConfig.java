@@ -1,4 +1,7 @@
-package it.unisalute.be.frontieraagenti.config;
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
+package ${package}.configs;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.cache.CacheManager;
@@ -12,17 +15,15 @@ import java.time.Duration;
 @Configuration
 @EnableCaching
 public class CacheConfig {
+
     @Bean
     public CacheManager cacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager(); // Define your cache names here
-        cacheManager.setCaffeine(caffeineCacheBuilder());
-        return cacheManager;
-    }
-
-    private Caffeine<Object, Object> caffeineCacheBuilder() {
-        return Caffeine.newBuilder()
+        cacheManager.setCaffeine(Caffeine.newBuilder()
                 .initialCapacity(1000)
-                .expireAfterWrite(Duration.ofMinutes(10));
+                .expireAfterWrite(Duration.ofMinutes(10))
+        );
+        return cacheManager;
     }
 
 }

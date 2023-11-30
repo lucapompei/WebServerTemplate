@@ -45,10 +45,10 @@ public class InfoServiceImpl implements InfoService {
 	 */
 	@Override
 	public String getAppInfo() {
-		return this.appName + " - v."
-				+ this.appVersion + " "
-				+ this.appTimestamp + " - "
-				+ this.appDescription;
+		return appName + " - v."
+				+ appVersion + " "
+				+ appTimestamp + " - "
+				+ appDescription;
 	}
 
 }

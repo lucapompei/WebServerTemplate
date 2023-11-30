@@ -4,7 +4,7 @@
 package ${package};
 
 import ${package}.configs.WebConfig;
-import lp.web.constants.EndpointConstants;
+import ${package}.constants.EndpointConstants;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.*;

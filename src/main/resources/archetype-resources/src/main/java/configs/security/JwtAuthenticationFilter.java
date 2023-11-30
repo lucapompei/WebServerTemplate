@@ -4,9 +4,9 @@
 package ${package}.configs.security;
 
 import java.io.InputStream;
-import java.security.Key;
 import java.util.ArrayList;
 
+import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	/**
 	 * The secret key used for the jwt auth
 	 */
-	private final Key jwtSecretKey;
+	private final SecretKey jwtSecretKey;
 
 	/**
 	 * The expiration time used for the jwt auth
@@ -46,7 +46,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	/**
 	 * Construct a new {@link JwtAuthenticationFilter} configuring it
 	 */
-	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, Key jwtSecretKey, long jwtExpirationTime) {
+	public JwtAuthenticationFilter(
+			AuthenticationManager authenticationManager, SecretKey jwtSecretKey, long jwtExpirationTime
+	) {
 		super.setAuthenticationManager(authenticationManager);
 		this.authenticationManager = authenticationManager;
 		this.jwtSecretKey = jwtSecretKey;
@@ -66,8 +68,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			if (user == null) {
 				return null;
 			}
-			return this.authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>()));
+			return authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>())
+			);
 		} catch (Exception e) {
 			throw new UsernameNotFoundException(e.getMessage());
 		}
@@ -77,11 +80,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	 * Whether the request is valid, authenticate it
 	 */
 	@Override
-	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
-			Authentication auth) {
+	protected void successfulAuthentication(
+			HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth
+	) {
 		// build the jwt token
-		String token = JwtUtils.getToken(((User) auth.getPrincipal()).getUsername(), this.jwtSecretKey,
-				this.jwtExpirationTime);
+		String token = JwtUtils.getToken(
+				((User) auth.getPrincipal()).getUsername(), jwtSecretKey, jwtExpirationTime
+		);
 		res.addHeader(AuthConstants.AUTH_HEADER, AuthConstants.AUTH_BEARER_PREFIX + token);
 	}
 }

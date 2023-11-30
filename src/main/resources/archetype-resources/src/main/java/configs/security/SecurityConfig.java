@@ -3,25 +3,27 @@
 #set($symbol_escape='\')
 package ${package}.configs.security;
 
-import javax.crypto.SecretKey;
-import javax.servlet.http.HttpServletResponse;
-
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.SecurityFilterChain;
+
+import javax.crypto.SecretKey;
+import javax.servlet.http.HttpServletResponse;
 
 import ${package}.constants.EndpointConstants;
 
@@ -31,7 +33,7 @@ import ${package}.constants.EndpointConstants;
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
 	/**
 	 * This variable allows the security configuration based on the jwt
@@ -73,32 +75,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * requests
 	 * 
 	 * @param auth, the authentication manager builder
+	 * @param userDetailsService, the user details service
 	 * @throws Exception, if something goes wrong
 	 */
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(this.userDetailsService).passwordEncoder(configurePasswordEncoder());
+	public void configureGlobal(
+			AuthenticationManagerBuilder auth, UserDetailsService userDetailsService
+	) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(configurePasswordEncoder());
 	}
 
 	/**
 	 * This method configures the security, enabling or disabling it and permitting
 	 * or denying the http requests
 	 */
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		if (this.securityJwtAuthEnabled) {
-			// permit form login and require the jwt authentication for each other request
-			SecretKey key = Keys.hmacShaKeyFor(this.jwtSecretKey.getBytes());
-			buildMatchers(http.csrf().disable().authorizeRequests()).anyRequest().authenticated().and()
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationConfiguration config) throws Exception {
+		if (securityJwtAuthEnabled) {
+			SecretKey key = Keys.hmacShaKeyFor(jwtSecretKey.getBytes());
+			AuthenticationManager authenticationManager = config.getAuthenticationManager();
+			buildMatchers(http.csrf().disable().authorizeRequests())
+					.anyRequest().authenticated().and()
 					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-					.addFilter(new JwtAuthenticationFilter(authenticationManager(), key,
-							this.jwtMinExpirationTime * 1000))
-					.addFilter(new JwtAuthorizationFilter(authenticationManager(), key))
+					.addFilter(new JwtAuthenticationFilter(authenticationManager, key, jwtMinExpirationTime * 1000))
+					.addFilter(new JwtAuthorizationFilter(authenticationManager, key))
 					.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
 		} else {
 			// permit each request (no auth)
 			http.csrf().disable().authorizeRequests().anyRequest().permitAll();
 		}
+		return http.build();
 	}
 	
 	/**
@@ -108,7 +114,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @return the configured http registry
 	 */
 	private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry buildMatchers(
-			ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry httpRegistry) {
+			ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry httpRegistry
+	) {
 		return httpRegistry.antMatchers(HttpMethod.OPTIONS).permitAll()
 				.antMatchers(HttpMethod.GET, EndpointConstants.ROOT).permitAll()
 				.antMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
@@ -124,8 +131,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @return the authentication entry point
 	 */
 	private AuthenticationEntryPoint unauthorizedEntryPoint() {
-		return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-				authException.getMessage());
+		return (request, response, authException) -> response.sendError(
+				HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage()
+		);
 	}
 
 }

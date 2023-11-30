@@ -35,8 +35,8 @@ COPY ./target/${JAR_NAME}.jar ./app.jar
 RUN chmod 777 /usr/src/app
 
 #if (${javaVersion} == '1.8')
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-XX:+UseG1GC", "-Xmx256m", "-Xms128m", "-XX:MaxHeapFreeRatio=70", "-XX:+ExitOnOutOfMemoryError", "./app.jar"]
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-XX:+UseG1GC", "-Xmx512m", "-Xms128m", "-XX:MaxHeapFreeRatio=70", "-XX:+ExitOnOutOfMemoryError", "./app.jar"]
 #end
 #if (${javaVersion} != '1.8')
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-Xmx256m", "-Xms128m", "-XX:MaxHeapFreeRatio=70", "-XX:+ExitOnOutOfMemoryError", "./app.jar"]
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-Xmx512m", "-Xms128m", "-XX:MaxHeapFreeRatio=70", "-XX:+ExitOnOutOfMemoryError", "./app.jar"]
 #end

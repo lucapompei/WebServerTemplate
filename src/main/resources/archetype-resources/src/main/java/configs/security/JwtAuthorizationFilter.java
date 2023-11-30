@@ -4,9 +4,9 @@
 package ${package}.configs.security;
 
 import java.io.IOException;
-import java.security.Key;
 import java.util.ArrayList;
 
+import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,12 +28,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	/**
 	 * The secret key used for the jwt auth
 	 */
-	private final Key jwtSecretKey;
+	private final SecretKey jwtSecretKey;
 
 	/**
 	 * Construct a new {@link JwtAuthorizationFilter} configuring it
 	 */
-	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, Key jwtSecretKey) {
+	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, SecretKey jwtSecretKey) {
 		super(authenticationManager);
 		this.jwtSecretKey = jwtSecretKey;
 	}
@@ -65,7 +65,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(AuthConstants.AUTH_HEADER);
 		// parse the token
-		String user = JwtUtils.parseToken(token, this.jwtSecretKey);
+		String user = JwtUtils.parseToken(token, jwtSecretKey);
 		return user == null ? null : new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
 	}
 }

@@ -10,6 +10,8 @@ import io.jsonwebtoken.*;
 import ${package}.constants.AuthConstants;
 import ${package}.constants.CommonConstants;
 
+import javax.crypto.SecretKey;
+
 /**
  * This class exposes utilities to handle JWT
  */
@@ -31,9 +33,11 @@ public class JwtUtils {
 	 * @return a JWT based on the given parameters
 	 */
 	public static String getToken(String subject, Key jwtSecretKey, long jwtExpirationTime) {
-		return Jwts.builder().setSubject(subject)
-				.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime))
-				.signWith(jwtSecretKey, SignatureAlgorithm.HS512).compact();
+		return Jwts.builder()
+				.subject(subject)
+				.expiration(new Date(System.currentTimeMillis() + jwtExpirationTime))
+				.signWith(jwtSecretKey)
+				.compact();
 	}
 
 	/**
@@ -43,10 +47,14 @@ public class JwtUtils {
 	 * @param jwtSecretKey, the secret key used to decode the JWT
 	 * @return the parsed JWT
 	 */
-	public static String parseToken(String token, Key jwtSecretKey) {
+	public static String parseToken(String token, SecretKey jwtSecretKey) {
 		try {
-			return Jwts.parserBuilder().setSigningKey(jwtSecretKey).build()
-					.parseClaimsJws(token.replace(AuthConstants.AUTH_BEARER_PREFIX, "")).getBody().getSubject();
+			return Jwts.parser()
+					.verifyWith(jwtSecretKey)
+					.build()
+					.parseSignedClaims(token.replace(AuthConstants.AUTH_BEARER_PREFIX, ""))
+					.getPayload()
+					.getSubject();
 		} catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SecurityException
 				| IllegalArgumentException e) {
 			return null;

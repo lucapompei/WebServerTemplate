@@ -4,10 +4,10 @@ Description=${artifactId}
 [Service]
 WorkingDirectory=/home/ubuntu/${artifactId}
 #if (${javaVersion} == '1.8')
-ExecStart=java -Djava.security.egd=file:/dev/./urandom -jar -XX:+UseG1GC -Xmx256m -Xms32m -XX:MaxHeapFreeRatio=70 -XX:+ExitOnOutOfMemoryError ${artifactId}.jar
+ExecStart=java -Djava.security.egd=file:/dev/./urandom -jar -XX:+UseG1GC -Xmx512m -Xms32m -XX:MaxHeapFreeRatio=70 -XX:+ExitOnOutOfMemoryError ${artifactId}.jar
 #end
 #if (${javaVersion} != '1.8')
-ExecStart=java -Djava.security.egd=file:/dev/./urandom -jar -Xmx256m -Xms32m -XX:MaxHeapFreeRatio=70 -XX:+ExitOnOutOfMemoryError ${artifactId}.jar
+ExecStart=java -Djava.security.egd=file:/dev/./urandom -jar -Xmx512m -Xms32m -XX:MaxHeapFreeRatio=70 -XX:+ExitOnOutOfMemoryError ${artifactId}.jar
 #end
 User=ubuntu
 Type=simple

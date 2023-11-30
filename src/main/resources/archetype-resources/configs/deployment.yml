@@ -37,7 +37,7 @@ spec:
                 name: ${artifactId}
           resources:
             limits:
-              memory: 600Mi
+              memory: 700Mi
               cpu: 1
             requests:
               memory: 200Mi

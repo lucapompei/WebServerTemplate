@@ -2,7 +2,7 @@
 <configuration>
 
 	<!-- Define properties -->
-	<property scope="context" name="LOG_PATH" value="logs/${artifactId}/${artifactId}.log" />
+	<property scope="context" name="LOG_PATH" value="logs/${artifactId}.log" />
 
 	<!-- Console -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
