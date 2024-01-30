@@ -6,7 +6,7 @@
 
 	<groupId>lp.web</groupId>
 	<artifactId>web-server-template-archetype</artifactId>
-	<version>5.4.3</version>
+	<version>5.4.4</version>
 	<packaging>maven-archetype</packaging>
 
 	<name>web-server-template-archetype</name>

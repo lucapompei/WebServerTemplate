@@ -27,7 +27,7 @@ class TestExceptionHandler {
     @Test
     void testExceptionHandlers() {
         ResponseStatusException ex = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-		HttpClientErrorException hex = new HttpClientErrorException(ex.getStatus());
+		HttpClientErrorException hex = new HttpClientErrorException(ex.getStatusCode());
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setRequestURI("URI");
         WebRequest webRequest = new ServletWebRequest(request);

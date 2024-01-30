@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,7 +23,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.crypto.SecretKey;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import ${package}.constants.EndpointConstants;
 
@@ -94,34 +94,33 @@ public class SecurityConfig {
 		if (securityJwtAuthEnabled) {
 			SecretKey key = Keys.hmacShaKeyFor(jwtSecretKey.getBytes());
 			AuthenticationManager authenticationManager = config.getAuthenticationManager();
-			buildMatchers(http.csrf().disable().authorizeRequests())
-					.anyRequest().authenticated().and()
-					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+			http.csrf(AbstractHttpConfigurer::disable)
+					.authorizeHttpRequests(authorizeRequests ->
+							authorizeRequests
+									.requestMatchers(HttpMethod.OPTIONS).permitAll()
+									.requestMatchers(HttpMethod.GET, EndpointConstants.ROOT).permitAll()
+									.requestMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
+									.requestMatchers(HttpMethod.POST, EndpointConstants.LOGIN).permitAll()
+									.requestMatchers(EndpointConstants.SWAGGER).permitAll()
+									.requestMatchers(EndpointConstants.SWAGGER_JSON).permitAll()
+									.anyRequest().authenticated()
+					)
+					.sessionManagement(sessionManagement ->
+							sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+					)
 					.addFilter(new JwtAuthenticationFilter(authenticationManager, key, jwtMinExpirationTime * 1000))
 					.addFilter(new JwtAuthorizationFilter(authenticationManager, key))
-					.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
+					.exceptionHandling(exceptionHandling ->
+							exceptionHandling.authenticationEntryPoint(unauthorizedEntryPoint())
+					);
 		} else {
 			// permit each request (no auth)
-			http.csrf().disable().authorizeRequests().anyRequest().permitAll();
+			http.csrf(AbstractHttpConfigurer::disable)
+					.authorizeHttpRequests(authorizeRequests ->
+							authorizeRequests.anyRequest().permitAll()
+					);
 		}
 		return http.build();
-	}
-	
-	/**
-	 * Build the http registry configuring its http matchers
-	 * 
-	 * @param httpRegistry, the register for which configure the matchers
-	 * @return the configured http registry
-	 */
-	private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry buildMatchers(
-			ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry httpRegistry
-	) {
-		return httpRegistry.antMatchers(HttpMethod.OPTIONS).permitAll()
-				.antMatchers(HttpMethod.GET, EndpointConstants.ROOT).permitAll()
-				.antMatchers(HttpMethod.GET, EndpointConstants.ABOUT).permitAll()
-				.antMatchers(HttpMethod.POST, EndpointConstants.LOGIN).permitAll()
-				.antMatchers(EndpointConstants.SWAGGER).permitAll()
-				.antMatchers(EndpointConstants.SWAGGER_JSON).permitAll();
 	}
 
 	/**

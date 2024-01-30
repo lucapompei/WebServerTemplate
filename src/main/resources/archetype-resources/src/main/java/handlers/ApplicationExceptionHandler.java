@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -40,7 +41,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Object> handleResponseStatusException(ResponseStatusException ex, WebRequest request) {
-        return prepareHandle(ex, request, ex.getStatus(), ex.getStatus().getReasonPhrase(), ex.getReason());
+        return prepareHandle(ex, request, ex.getStatusCode(), ex.getReason(), ex.getReason());
     }
 	
 	@ExceptionHandler({HttpClientErrorException.class})
@@ -49,7 +50,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     @Override
-    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         Map<String, String> messages = new HashMap<>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             messages.put(error.getField(), error.getDefaultMessage());
@@ -57,7 +58,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
             messages.put(error.getObjectName(), error.getDefaultMessage());
         }
-        return prepareHandle(ex, request, status, status.getReasonPhrase(), messages);
+        return prepareHandle(ex, request, status, status.toString(), messages);
     }
 
     /**
@@ -70,7 +71,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
      * @param message, the exception message
      * @return the response entity to push back
      */
-    private ResponseEntity<Object> prepareHandle(Exception e, WebRequest request, HttpStatus status, String error, Object message) {
+    private ResponseEntity<Object> prepareHandle(Exception e, WebRequest request, HttpStatusCode status, String error, Object message) {
         String path = ((ServletWebRequest) request).getRequest().getRequestURI();
         LOG.error("Error handled from request {}: {}", path, message, e);
         return handleExceptionInternal(e, getErrorAttributes((ServletWebRequest) request, status, error, message),
@@ -86,7 +87,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
      * @param message,           the error message
      * @return the error response
      */
-    private ErrorResponse getErrorAttributes(ServletWebRequest requestAttributes, HttpStatus status, String error, Object message) {
+    private ErrorResponse getErrorAttributes(ServletWebRequest requestAttributes, HttpStatusCode status, String error, Object message) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setTimestamp(new Date());
         errorResponse.setStatus(status.value());

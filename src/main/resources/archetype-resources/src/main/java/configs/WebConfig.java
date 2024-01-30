@@ -17,11 +17,10 @@ import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -38,14 +37,9 @@ public class WebConfig implements Filter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(WebConfig.class);
 
 	/**
-	 * Defines a common multipart resolver
-	 * 
-	 * @return a common multipart resolver
+	 * The api timeout
 	 */
-	@Bean
-	public CommonsMultipartResolver multipartResolver() {
-		return new CommonsMultipartResolver();
-	}
+	private static final int API_TIMEOUT = 10000;
 
 	/**
 	 * Defines the eTag header filter bean
@@ -91,16 +85,18 @@ public class WebConfig implements Filter {
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+		requestFactory.setConnectionRequestTimeout(API_TIMEOUT);
+		requestFactory.setConnectTimeout(API_TIMEOUT);
 		return builder
 				.requestFactory(() -> new BufferingClientHttpRequestFactory(requestFactory))
                 .interceptors((request, body, execution) -> {
                     String payload = new String(body);
                     if (TextUtils.isNullOrEmpty(payload)) {
-                        LOGGER.info(String.format("Sending %s request to %s",
-                                request.getMethod(), request.getURI()));
+                        LOGGER.info(String.format("Sending %s request to %s with header %s",
+                                request.getMethod(), request.getURI(), request.getHeaders()));
                     } else {
-                        LOGGER.info(String.format("Sending %s request to %s with payload %s",
-                                request.getMethod(), request.getURI(), payload));
+                        LOGGER.info(String.format("Sending %s request to %s with payload %s with header %s",
+                                request.getMethod(), request.getURI(), payload, request.getHeaders()));
                     }
                     return execution.execute(request, body);
                 })

@@ -11,7 +11,7 @@ Summary features
 -------
 
 - Java 8, 11 or 17 (configurable during creation);
-- Maven project based on Spring Boot 2 Framework;
+- Maven project based on Spring Boot 3 Framework;
 - Spring MVC configuration;
 - Spring Security configuration (JwtAuth or none);
 - Spring Data JPA + H2 embedded configuration;
