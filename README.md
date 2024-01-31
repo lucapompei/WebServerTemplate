@@ -4,7 +4,7 @@
 
 =============================
 
-This maven project represents a generic web template based on Spring Boot 2 Framework.
+This maven project represents a generic web template based on Spring Boot 3 Framework.
 
 
 Summary features
