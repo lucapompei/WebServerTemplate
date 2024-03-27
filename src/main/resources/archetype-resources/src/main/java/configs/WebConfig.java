@@ -13,6 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -108,37 +111,60 @@ public class WebConfig implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
+		CustomHttpServletRequestWrapper requestWrapper = null;
+
 		// Handle CORS
 		handleCORS(request, response);
+
 		// Configure the logger to uniquely record the request
 		MDC.clear();
 		MDC.put("uuid", UUID.randomUUID().toString());
+
 		// Find servlet name
 		String endpoint = EndpointConstants.ROOT;
 		String name = "servlet";
+		String payload = "";
 		#if (${javaVersion} != '17')
 		if (request instanceof HttpServletRequest) {
 			HttpServletRequest req = ((HttpServletRequest) request);
+			String method = req.getMethod();
 			endpoint = req.getRequestURI();
             name = String.format("[%s] %s", req.getMethod(), endpoint);
             if (!TextUtils.isNullOrEmpty(req.getQueryString())) {
                 name += "?" + req.getQueryString();
             }
+			if (
+					(HttpMethod.POST.name().equals(method) || HttpMethod.PUT.name().equals(method))
+					&& !endpoint.contains(EndpointConstants.LOGIN)
+					&& (req.getHeader(HttpHeaders.CONTENT_TYPE) == null || !req.getHeader(HttpHeaders.CONTENT_TYPE).contains(MediaType.MULTIPART_FORM_DATA_VALUE))
+			) {
+				requestWrapper = new CustomHttpServletRequestWrapper(req);
+				payload += " with payload: " + requestWrapper.getBody();
+			}
 		#end
 		#if (${javaVersion} == '17')
 		if (request instanceof HttpServletRequest req) {
+			String method = req.getMethod();
 			endpoint = req.getRequestURI();
 			name = String.format("[%s] %s", req.getMethod(), endpoint);
             if (!TextUtils.isNullOrEmpty(req.getQueryString())) {
                 name += "?" + req.getQueryString();
             }
+			if (
+					(HttpMethod.POST.name().equals(method) || HttpMethod.PUT.name().equals(method))
+					&& !endpoint.contains(EndpointConstants.LOGIN)
+					&& (req.getHeader(HttpHeaders.CONTENT_TYPE) == null || !req.getHeader(HttpHeaders.CONTENT_TYPE).contains(MediaType.MULTIPART_FORM_DATA_VALUE))
+			) {
+				requestWrapper = new CustomHttpServletRequestWrapper(req);
+				payload += " with payload: " + requestWrapper.getBody();
+			}
 		#end
 		}
 		if (EndpointConstants.ROOT.equals(endpoint)) {
 			// Handle request
 			chain.doFilter(request, response);
 		} else {
-			LOGGER.info("Requesting for {}", name);
+			LOGGER.info("Requesting for {}{}", name, payload);
 			// Get start time
 			long startTime = System.currentTimeMillis();
 			// Handle request
