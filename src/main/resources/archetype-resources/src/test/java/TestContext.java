@@ -82,7 +82,7 @@ class TestContext {
 		LOGGER.info("Testing request filtering");
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addHeader("Origin", "junit-test");
-		request.setMethod("POST");
+		request.setMethod(EndpointConstants.ROOT.equals(uri) ? "GET" : "POST");
 		request.setRequestURI(uri);
 		request.setQueryString("a=b");
 		MockHttpServletResponse response = new MockHttpServletResponse();

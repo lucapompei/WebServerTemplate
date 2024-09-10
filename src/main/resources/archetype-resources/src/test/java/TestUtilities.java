@@ -24,7 +24,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -41,8 +40,6 @@ import ${package}.utils.JsonUtils;
 import ${package}.utils.JwtUtils;
 #end
 import ${package}.utils.TextUtils;
-
-import javax.crypto.SecretKey;
 
 /**
  * This class is used to test the utility classes

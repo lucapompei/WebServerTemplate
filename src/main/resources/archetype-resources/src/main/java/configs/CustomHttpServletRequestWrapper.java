@@ -16,7 +16,7 @@ public class CustomHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     public CustomHttpServletRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
-        // Leggi il corpo della richiesta e conservalo
+        // Read and preserve the incoming body
         StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader bufferedReader = request.getReader()) {
             char[] charBuffer = new char[128];
@@ -35,8 +35,7 @@ public class CustomHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public ServletInputStream getInputStream() {
-        // Crea un nuovo InputStream usando il corpo della richiesta memorizzato
-        // in modo che il corpo possa essere letto più volte
+        // Creates a new InputStream pre-saving the incoming request and allowing its next requests
         final byte[] bytes = body.getBytes();
         return new ServletInputStream() {
             int lastIndexRetrieved = -1;
@@ -63,7 +62,7 @@ public class CustomHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
             @Override
             public void setReadListener(ReadListener listener) {
-                // Non implementato in questo esempio
+                // Not implemented
             }
         };
     }

@@ -23,6 +23,9 @@ RUN ZULU_ARCH=zulu11.31.11-ca-jre11.0.3-linux_musl_x64.tar.gz && \
 #if (${javaVersion} == '17')
 FROM eclipse-temurin:17-jre-alpine
 #end
+#if (${javaVersion} == '21')
+FROM alpine/java:21-jdk
+#end
 
 ARG JAR_NAME="${artifactId}"
 ENV HTTP_PORT=8080

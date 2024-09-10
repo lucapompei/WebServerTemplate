@@ -1,4 +1,4 @@
-# Web Project Archetype v.5.4.5
+# Web Project Archetype v.5.5.0
 
 [![Build Status](https://travis-ci.org/lucapompei/WebServerTemplate.svg?branch=master)](https://travis-ci.org/lucapompei/WebServerTemplate) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CodeFactor](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate/badge)](https://www.codefactor.io/repository/github/lucapompei/WebServerTemplate)
 
@@ -10,7 +10,7 @@ This maven project represents a generic web template based on Spring Boot 3 Fram
 Summary features
 -------
 
-- Java 8, 11 or 17 (configurable during creation);
+- Java 8, 11, 17 or 21 (configurable during creation);
 - Maven project based on Spring Boot 3 Framework;
 - Spring MVC configuration;
 - Spring Security configuration (JwtAuth or none);

@@ -7,6 +7,9 @@ pipeline {
 	#if (${javaVersion} == '17')
 	jdkVersion = 'Open JDK 17'
 	#end
+	#if (${javaVersion} == '21')
+    jdkVersion = 'OpenJDK-21'
+    #end
 	#if (${javaVersion} == '11')
 	jdkVersion = 'OpenJDK-11'
 	#end

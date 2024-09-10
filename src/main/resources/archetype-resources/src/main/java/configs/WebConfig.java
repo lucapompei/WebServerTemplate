@@ -61,12 +61,12 @@ public class WebConfig implements Filter {
 	 * @param res, the outgoing response
 	 */
 	private void handleCORS(ServletRequest req, ServletResponse res) {
-		#if (${javaVersion} != '17')
+		#if (${javaVersion} != '17' && ${javaVersion} != '21')
 		if (req instanceof HttpServletRequest && res instanceof HttpServletResponse) {
 			HttpServletRequest request = (HttpServletRequest) req;
 			HttpServletResponse response = (HttpServletResponse) res;
 		#end
-		#if (${javaVersion} == '17')
+		#if (${javaVersion} == '17' || ${javaVersion} == '21')
 		if (req instanceof HttpServletRequest request && res instanceof HttpServletResponse response) {	
 		#end
 			response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
@@ -95,12 +95,10 @@ public class WebConfig implements Filter {
                 .interceptors((request, body, execution) -> {
                     String payload = new String(body);
                     if (TextUtils.isNullOrEmpty(payload)) {
-                        LOGGER.info(String.format("Sending %s request to %s with header %s",
-                                request.getMethod(), request.getURI(), request.getHeaders()));
-                    } else {
-                        LOGGER.info(String.format("Sending %s request to %s with payload %s with header %s",
-                                request.getMethod(), request.getURI(), payload, request.getHeaders()));
-                    }
+						LOGGER.info("Sending {} request to {} with header {}", request.getMethod(), request.getURI(), request.getHeaders());
+					} else {
+						LOGGER.info("Sending {} request to {} with payload {} with header {}", request.getMethod(), request.getURI(), payload, request.getHeaders());
+					}
                     return execution.execute(request, body);
                 })
                 .build();
@@ -111,7 +109,7 @@ public class WebConfig implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
-		CustomHttpServletRequestWrapper requestWrapper = null;
+		CustomHttpServletRequestWrapper requestWrapper;
 
 		// Handle CORS
 		handleCORS(request, response);
@@ -124,7 +122,7 @@ public class WebConfig implements Filter {
 		String endpoint = EndpointConstants.ROOT;
 		String name = "servlet";
 		String payload = "";
-		#if (${javaVersion} != '17')
+		#if (${javaVersion} != '17' && ${javaVersion} != '21')
 		if (request instanceof HttpServletRequest) {
 			HttpServletRequest req = ((HttpServletRequest) request);
 			String method = req.getMethod();
@@ -135,14 +133,16 @@ public class WebConfig implements Filter {
             }
 			if (
 					(HttpMethod.POST.name().equals(method) || HttpMethod.PUT.name().equals(method))
+					#if (${withSecurity} == 'Y')
 					&& !endpoint.contains(EndpointConstants.LOGIN)
+			        #end
 					&& (req.getHeader(HttpHeaders.CONTENT_TYPE) == null || !req.getHeader(HttpHeaders.CONTENT_TYPE).contains(MediaType.MULTIPART_FORM_DATA_VALUE))
 			) {
 				requestWrapper = new CustomHttpServletRequestWrapper(req);
 				payload += " with payload: " + requestWrapper.getBody();
 			}
 		#end
-		#if (${javaVersion} == '17')
+		#if (${javaVersion} == '17' || ${javaVersion} == '21')
 		if (request instanceof HttpServletRequest req) {
 			String method = req.getMethod();
 			endpoint = req.getRequestURI();
@@ -152,7 +152,9 @@ public class WebConfig implements Filter {
             }
 			if (
 					(HttpMethod.POST.name().equals(method) || HttpMethod.PUT.name().equals(method))
+					#if (${withSecurity} == 'Y')
 					&& !endpoint.contains(EndpointConstants.LOGIN)
+					#end
 					&& (req.getHeader(HttpHeaders.CONTENT_TYPE) == null || !req.getHeader(HttpHeaders.CONTENT_TYPE).contains(MediaType.MULTIPART_FORM_DATA_VALUE))
 			) {
 				requestWrapper = new CustomHttpServletRequestWrapper(req);

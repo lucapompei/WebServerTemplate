@@ -2,7 +2,7 @@
 <archetype-descriptor name="WebTemplate">
 	<requiredProperties>
 		<requiredProperty key="javaVersion">
-			<!-- <defaultValue>17</defaultValue> -->
+			<!-- <defaultValue>21</defaultValue> -->
 		</requiredProperty>
 		<requiredProperty key="withCache">
 			<!-- <defaultValue>Y</defaultValue> -->
