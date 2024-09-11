@@ -109,7 +109,7 @@ public class WebConfig implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
-		CustomHttpServletRequestWrapper requestWrapper;
+		CustomHttpServletRequestWrapper requestWrapper = null;
 
 		// Handle CORS
 		handleCORS(request, response);
@@ -170,7 +170,7 @@ public class WebConfig implements Filter {
 			// Get start time
 			long startTime = System.currentTimeMillis();
 			// Handle request
-			chain.doFilter(request, response);
+			chain.doFilter(requestWrapper != null ? requestWrapper : request, response);
 			// Calculate elapsed time
 			long elapsed = System.currentTimeMillis() - startTime;
 			// Log result
