@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +44,7 @@ public class JsonUtils {
 	 */
 	private static synchronized void initializeMapper() {
 		instance = new ObjectMapper();
+		instance.registerModule(new JavaTimeModule());
 		instance.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 	}
 
