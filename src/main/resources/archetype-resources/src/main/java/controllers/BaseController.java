@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import ${package}.constants.EndpointConstants;
 import ${package}.services.InfoService;
 
+import java.util.Objects;
+
+
 /**
  * This rest controller exposes endpoints to handle the base requests
  */
