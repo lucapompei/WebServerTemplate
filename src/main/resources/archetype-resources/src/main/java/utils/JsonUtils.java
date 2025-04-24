@@ -1,4 +1,7 @@
-{package}.constants.CommonConstants;
+#set($symbol_pound='#')
+#set($symbol_dollar='$')
+#set($symbol_escape='\')
+package ${package}.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +14,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import ${package}.constants.CommonConstants;
 
 /**
  * This class exposes utilities to handle json string
